@@ -6,7 +6,7 @@
 ## Defining a Dictionary  
 Directly:
 ```
-MLB_team = {
+d = {
     'Colorado' : 'Rockies',
     'Boston'   : 'Red Sox',
     'Minnesota': 'Twins',
@@ -15,7 +15,7 @@ MLB_team = {
 ```
 From mapping (key, value) pairs:
 ```
-MLB_team = dict([
+d = dict([
     ('Colorado', 'Rockies'),
     ('Boston', 'Red Sox'),
     ('Minnesota', 'Twins'),
@@ -24,7 +24,7 @@ MLB_team = dict([
 ```
 From **kwargs
 ```
-MLB_team = dict(
+d = dict(
     Colorado='Rockies',
     Boston='Red Sox',
     Minnesota='Twins',
@@ -37,13 +37,13 @@ d = dict(iterable)
 ```
 Incrementally from empty dict:  
 ```
-person = {}
-person['fname'] = 'Joe'
-person['lname'] = 'Fonebone'
-person['age'] = 51
-person['spouse'] = 'Edna'
-person['children'] = ['Ralph', 'Betty', 'Joey']
-person['pets'] = {'dog': 'Fido', 'cat': 'Sox'}
+d = {}
+d['fname'] = 'Joe'
+d['lname'] = 'Fonebone'
+d['age'] = 51
+d['spouse'] = 'Edna'
+d['children'] = ['Ralph', 'Betty', 'Joey']
+d['pets'] = {'dog': 'Fido', 'cat': 'Sox'}
 ```
 Keys types could be any immutable type  
 ```
@@ -51,25 +51,25 @@ foo = {42: 'aaa', 2.78: 'bbb', True: 'ccc'}
 ```
 ## Referring  
 ```
-v = MLB_team_1['Minnesota']  # v='Twins'
-v = MLB_team_2['Colorado']   # v='Rockies'
+v = d['Minnesota']  # v='Twins'
+v = d['Colorado']   # v='Rockies'
 ```
 ## Referring non-existing key  
 ```
-v = MLB_team['Toronto']  # KeyError: 'Toronto'
+v = d['Toronto']  # KeyError: 'Toronto'
 ``` 
 Referring by index is irrelevant, 'index' is treated as key !!!!  
 ```
-v = MLB_team[1]  # KeyError: 1
+v = d[1]  # KeyError: 1
 d = {0: 'a', 1: 'b', 2: 'c', 3: 'd'}  # this is valid dictionary definition !!!
 ```
 ## Update entry  
 ```
-MLB_team['Kansas City'] = 'Royals'
+d['Kansas City'] = 'Royals'
 ```
 ## Delete entry
 ```
-del MLB_team['Seattle']
+del d['Seattle']
 ```
 ## Restrictions on dictionaries
 1. A given key can appear in a dictionary only once  
@@ -85,12 +85,12 @@ NONE
 ## Operators and built-in functions and methods  
 ### in, not in  
 ```
-b = 'Milwaukee' in MLB_team    # key is in dict: True
-b = 'Toronto' not in MLB_team  # key is not in dict: True
+b = 'Milwaukee' in d    # key is in dict: True
+b = 'Toronto' not in d  # key is not in dict: True
 ```
 ### len()
 ```
-l = len(MLB_team)  # l = 5
+l = len(d)  # l = 5
 ```
 ### clear()  
 Clears a dictionary.  

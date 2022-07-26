@@ -46,7 +46,7 @@ del t[0]    # Gives error: TypeError: 'tuple' object doesn't support item deleti
 ```
 ## Methods on tuples
 
-# in, not in.
+### in, not in
 ```
 t = (1, 2)
 v = 1 in t  # v = True
