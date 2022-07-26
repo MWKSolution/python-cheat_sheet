@@ -33,9 +33,9 @@ t = ('Hey', (1, 2), 1, ['you', 'me'])
 ## Accessing elements
 ```
 t = ("hey", "there!", "how", "are", "you?")
-v = t[0])          # v = "hey"
+v = t[0]           # v = "hey"
 v = t[len(t) - 1]  # v = "you?"
-v = t[-1])         # v = "you?"
+v = t[-1]          # v = "you?"
 ```
 # Tuples are immutable  
 We cannot change tuple contents!!!
@@ -87,7 +87,7 @@ x, y = t  # x = 1, y = 2
 ## Slicing a tuple.
 Slicing
 ```
-t = "hey", "there!", "how", "are", "you?"
+t = ("hey", "there!", "how", "are", "you?")
 v= t[2:]        # v =  ("how", "are", "you?")
 v = t[:2]       # v =  ("hey", "there!")
 v = t[-3:]      # v =  ("how", "are", "you?")
