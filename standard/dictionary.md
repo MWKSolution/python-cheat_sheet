@@ -49,12 +49,13 @@ Keys types could be any immutable type
 ```python
 foo = {42: 'aaa', 2.78: 'bbb', True: 'ccc'}
 ```
-## Referring  
+## Referring/Accessing  
+Referring
 ```python
 v = d['Minnesota']  # v='Twins'
 v = d['Colorado']   # v='Rockies'
 ```
-## Referring non-existing key  
+Referring non-existing key    
 ```python
 v = d['Toronto']  # KeyError: 'Toronto'
 ``` 
@@ -63,11 +64,11 @@ Referring by index is irrelevant, 'index' is treated as key !!!!
 v = d[1]  # KeyError: 1
 d = {0: 'a', 1: 'b', 2: 'c', 3: 'd'}  # this is valid dictionary definition !!!
 ```
-## Update entry  
+Update entry    
 ```python
 d['Kansas City'] = 'Royals'
 ```
-## Delete entry
+Delete entry  
 ```python
 del d['Seattle']
 ```

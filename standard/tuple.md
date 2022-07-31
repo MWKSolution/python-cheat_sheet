@@ -37,8 +37,8 @@ v = t[0]           # v = "hey"
 v = t[len(t) - 1]  # v = "you?"
 v = t[-1]          # v = "you?"
 ```
-# Tuples are immutable  
-We cannot change tuple contents!!!
+**Tuples are immutable**    
+**We cannot change tuple contents!!!**
 ```python
 t = (1, 2, 3)
 t[0] = 100  # Gives error: TypeError: 'tuple' object does not support item assignment
