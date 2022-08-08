@@ -11,3 +11,15 @@ Links:
 [medium.com](https://medium.com/)  
 [towardsdatascience.com](https://towardsdatascience.com/)
 
+---
+
+## Standard Library
+   1. Types
+      1. [dictionary](Standard_Library/Types/dictionary.md)
+      2. [list](Standard_Library/Types/list.md)
+      3. [tuple](Standard_Library/Types/tuple.md)
+   2. [Collections](Standard_Library/collections.md)
+      1. [Counter](Standard_Library/collections/Counter.md)
+      2. [namedtuple](Standard_Library/collections/namedtuple.md)
+   3. [Iterator](Standard_Library/iterator.md)
+

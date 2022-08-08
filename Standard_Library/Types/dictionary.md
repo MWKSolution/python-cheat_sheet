@@ -6,30 +6,27 @@
 ## Defining a Dictionary  
 Directly:
 ```python
-d = {
-    'Colorado' : 'Rockies',
-    'Boston'   : 'Red Sox',
-    'Minnesota': 'Twins',
-    'Milwaukee': 'Brewers',
-    'Seattle'  : 'Mariners'}
+d = {'Colorado' : 'Rockies',
+     'Boston'   : 'Red Sox',
+     'Minnesota': 'Twins',
+     'Milwaukee': 'Brewers',
+     'Seattle'  : 'Mariners'}
 ```
 From mapping (key, value) pairs:
 ```python
-d = dict([
-    ('Colorado', 'Rockies'),
-    ('Boston', 'Red Sox'),
-    ('Minnesota', 'Twins'),
-    ('Milwaukee', 'Brewers'),
-    ('Seattle', 'Mariners')])
+d = dict([('Colorado', 'Rockies'),
+          ('Boston', 'Red Sox'),
+          ('Minnesota', 'Twins'),
+          ('Milwaukee', 'Brewers'),
+          ('Seattle', 'Mariners')])
 ```
 From **kwargs
 ```python
-d = dict(
-    Colorado='Rockies',
-    Boston='Red Sox',
-    Minnesota='Twins',
-    Milwaukee='Brewers',
-    Seattle='Mariners')
+d = dict(Colorado='Rockies',
+         Boston='Red Sox',
+         Minnesota='Twins',
+         Milwaukee='Brewers',
+         Seattle='Mariners')
 ```
 From iterable
 ```python
