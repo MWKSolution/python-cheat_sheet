@@ -2,6 +2,7 @@
 1. Dictionary is mutable
 2. Python dictionaries were unordered before version 3.6.
 3. In Python versions less than 3.6, (for example) popitem() would return an arbitrary (random) key-value pair !!!
+4. Python is built on dictionaries  
 
 ## Defining a Dictionary  
 Directly:

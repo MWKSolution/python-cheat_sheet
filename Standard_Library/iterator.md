@@ -4,11 +4,13 @@ A process that is repeated more than one time by applying the same logic is call
 1. [Iterable](#iterable)
 2. [Iterator](#iterator)  
    1. [iter(), next()]()
-   2. [Custom iterator (\_\_iter\_\_, \_\_next\_\_)](#Custom iterator)
+   2. [Custom iterator (\_\_iter\_\_, \_\_next\_\_)]()
 3. [Generator](#generator)  
    1. [yield](#yield)
-   2. [Generator expression](#Generator expression)  
-4. [Iterators are lazy](#iterators are lazy)  
+   2. [Generator expression]()  
+4. [Iterators are lazy]()  
+
+---
 
 ## iterable  
 An object capable of returning its members one at a time:
@@ -18,6 +20,8 @@ An object capable of returning its members one at a time:
    + dict, file objects, ...
    + object (class) with **\_\_iter\_\_()** and **\_\_next\_\_()**  method 
    + generators
+
+---
 
 ## iterator 
 ### iter(), next()
@@ -35,7 +39,15 @@ i = iter([1, 2, 3])
 for x in i:
     print(x, end=' ')  # output: 1 2 3 
 ```
-*One don't have to use **iter()** when using **for in** to loop over. It does it automatically*
+### iter() with sentinel
+Something like ***while True*** with ***break***
+```python
+from functools import partial
+with open('mydata.db', 'rb') as f:
+    for block in iter(partial(f.read, 64), b''):
+        process_block(block)
+```
+*One don't have to use **iter()** on iterable when using **for in** to loop over. It does it automatically*
 ### Custom iterator: \_\_iter\_\_(), \_\_next\_\_()
 Can have **\_\_init\_\_** like other casses but must have methods:
 1. **\_\_iter\_\_** - has to return self + some initialisation if **\_\_init\_\_** is omitted
@@ -64,6 +76,9 @@ c = Count()
 for i in c:
     print(i, end=' ')  # output: 0 1 2 3 4 5 6 7 8 9 10
 ```
+
+---
+
 ## Generator
 ### yield 
 Generator - easy way of making iterator. Instead of class iterator use function with **yield**   
@@ -88,6 +103,9 @@ import sys
 l = [i ** 2 for i in range(10000)]  # type(l) = <class 'list'>
 s = sys.getsizeof(l)                # s = 87616
 ```
+
+---
+
 ## iterators are lazy  
 Iterators providing one value at a time - it saves memory. But not time.
 Good for large amount of data, reading large files or infinitely long iterables.  
