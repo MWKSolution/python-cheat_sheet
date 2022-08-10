@@ -25,7 +25,6 @@
    1. @dataclass
    2. typing.NamedTuple
 
-
 ---
 
 ## Brief

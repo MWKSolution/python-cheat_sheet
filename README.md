@@ -10,6 +10,7 @@
    2. [Collections](Standard_Library/collections.md)
       1. [Counter](Standard_Library/collections/Counter.md)
       2. [namedtuple](Standard_Library/collections/namedtuple.md)
+      3. [defaultdict](Standard_Library/collections/defaultdict.md)
    3. [Iterator](Standard_Library/iterator.md)
    4. [Built-in functions](Standard_Library/built-ins.md)
 

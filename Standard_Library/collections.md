@@ -2,7 +2,7 @@
 More important:  
 1. [Counter](collections/Counter.md)  
 2. [namedtuple](collections/namedtuple.md)  
-3. [defaultdict](collections/)  
+3. [defaultdict](collections/defaultdict.md)  
 4. [ChainMap](collections/)  
   
 Less important:  

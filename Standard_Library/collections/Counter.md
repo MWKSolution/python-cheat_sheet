@@ -1,6 +1,23 @@
-## Counter  
+# Counter 
+1. [Brief](#Brief)
+2. [Initializing Counter]()
+3. [Updating Counter]()
+4. [Missing key]()
+5. [Methods and operators]()
+   1. most_common()
+   2. +, -, &, | operators on Counter
+   3. +, - unary operators
+   4. elements()
+   5. Methods inherited from dict
+
+---
+
+## Brief  
 Subclass of dictionary.  
-### Initializing Counter
+
+---
+
+## Initializing Counter
 ```python
 from collections import Counter
 # With sequence of items 
@@ -12,7 +29,10 @@ c = Counter(A=3, B=5, C=2)
 # Empty Counter
 c = Counter()
 ```
-### Updating Counter
+
+---
+
+## Updating Counter
 ```python
 from collections import Counter
 c = Counter()
@@ -33,13 +53,19 @@ from collections import Counter
 c = Counter(A=3, B=5, C=2)
 c.subtract(A=3, B=10)  # c = Counter({'C': 2, 'A': 0, 'B': -5})
 ```
-### Missing key
+
+---
+
+## Missing key
 Returning 0 (zero)
 ```python
 from collections import Counter
 c = Counter("mississippi")
 v = c["a"]  # v = 0
 ```
+
+---
+## Methods and operators
 ### most_common()
 Frequency(counts) of elements.  
 Returns list of tuples: (object, count)

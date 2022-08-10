@@ -1,14 +1,20 @@
 # Iterator
-A process that is repeated more than one time by applying the same logic is called an Iteration.  
 
-1. [Iterable](#iterable)
-2. [Iterator](#iterator)  
-   1. [iter(), next()]()
-   2. [Custom iterator (\_\_iter\_\_, \_\_next\_\_)]()
-3. [Generator](#generator)  
-   1. [yield](#yield)
-   2. [Generator expression]()  
-4. [Iterators are lazy]()  
+1. [Brief]()
+2. [Iterable](#iterable)
+3. [Iterator](#iterator)  
+   1. iter(), next()
+   2. iter() with sentinel
+   3. Custom iterator (\_\_iter\_\_, \_\_next\_\_)
+4. [Generator](#generator)  
+   1. yield
+   2. Generator expression  
+5. [Iterators are lazy]()  
+
+---
+
+## Brief
+A process that is repeated more than one time by applying the same logic is called an Iteration.  
 
 ---
 
