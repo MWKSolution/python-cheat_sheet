@@ -17,9 +17,8 @@
 
 ## Brief
 1. Subclass of dict.
-2. Handles missing keys - never raises a KeyError.
-3. Overries **\_\_missing\_\_()** method
-4. Adds default_factory 
+2. Handles missing keys - never raises a KeyError (unless default_dict is None)
+3. Overrides **\_\_missing\_\_()** method, adds default_factory 
 
 ---
 
@@ -49,14 +48,14 @@ v = d['a']  # v = 'missing
 ```python
 from collections import defaultdict
 
-def default_facory():
+def default_factory():
     return 'missing'
 
-d = defaultdict(default_facory)
+d = defaultdict(default_factory)
 v = d['a']  # v = 'missing'
 ```
 ### **kwargs
-Different defaullts for different keys, if not present run default_factory
+Different defaults for different keys, if key not present default_factory will be run.
 ```python
 from collections import defaultdict
 defaults = dict(a='A', b='B')
@@ -67,13 +66,19 @@ v = d['b']  # v = 'B'
 v = d['c']  # v = ''
 ```
 ### Changing callable  
-d.default_factory = str  
+```python
+from collections import defaultdict
+d = defaultdict(int)
+v = d['a']  # v = 0, d = defaultdict(<class 'int'>, {'a': 0})
+d.default_factory = list
+v = d['b']  # v = [], d = defaultdict(<class 'list'>, {'a': 0, 'b': []})
+``` 
 
 ---
 
 ## \_\_missing\_\_
 default factory is called from **\_\_missing\_\_** which is not called by **get()**  
-default_factory is only called from .__getitem__()  
+default_factory is only called from **\_\_getitem\_\_()** (called by d[key])  
 ```python
 from collections import defaultdict
 d = defaultdict(list)
@@ -86,8 +91,32 @@ v = d.get('another_missing')  # v = None
 
 ---
 
-## Passing Arguments to default_factory
+## Passing Arguments to default_factory  
+### lambda
+```python
+from collections import defaultdict
 
+def factory(arg):
+    return arg.upper()
+
+d = defaultdict(lambda: factory('one'))
+v = d['a']  # v = 'ONE', d = defaultdict(<function <lambda> at 0x00000000028341F0>, {'a': 'ONE'})
+d.default_factory = lambda: factory('two')
+v = d['b']  # v = 'TWO'  d = defaultdict(<function <lambda> at 0x0000000002834310>, {'a': 'ONE', 'b': 'TWO'})
+```
+### functools.partial()
+```python
+from collections import defaultdict
+from functools import partial
+
+def factory(arg):
+    return arg.upper()
+
+d = defaultdict(partial(factory, 'one'))
+v = d['a']  # v = 'ONE', d = defaultdict(..., {'a': 'ONE'})
+d.default_factory = partial(factory, 'two')
+v = d['b']  # v = 'TWO', d = defaultdict(..., {'a': 'ONE', 'b': 'TWO'})
+```
 ---
 
 ## Usage

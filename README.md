@@ -11,6 +11,8 @@
       1. [Counter](Standard_Library/collections/Counter.md)
       2. [namedtuple](Standard_Library/collections/namedtuple.md)
       3. [defaultdict](Standard_Library/collections/defaultdict.md)
+      4. [ChainMap](Standard_Librarycollections/ChainMap.md) 
+      5. [Other containers](Standard_Library/collections.md)
    3. [Iterator](Standard_Library/iterator.md)
    4. [Built-in functions](Standard_Library/built-ins.md)
 

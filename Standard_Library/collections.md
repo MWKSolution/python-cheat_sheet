@@ -1,11 +1,11 @@
 # Collections  
-More important:  
+I. In detail
 1. [Counter](collections/Counter.md)  
 2. [namedtuple](collections/namedtuple.md)  
 3. [defaultdict](collections/defaultdict.md)  
-4. [ChainMap](collections/)  
+4. [ChainMap](collections/ChainMap.md)  
   
-Less important:  
+II. In general
 
 1. [OrderedDict](#OrderedDict)
 2. [UserDict, UserList, UserString](#UserDict)
@@ -18,7 +18,7 @@ Ordered dictionaries are just like regular dictionaries but have some extra capa
 Some differences from dict still remain...  
 ## UserDict, UserList, UserString  
 Classes for user subclassing:  Dict, List or String.  
-Subclassing on built-ins Dict, List or String may ***doesn't work*** due to way of implementation of them (C)!!!  
+Subclassing built-ins Dict, List or String types can be error-prone because the C code of the built-ins doesn’t seem to consistently call special methods overridden by the user!  
 ## deque  
 Double ended queue.  
 It is the optimized list for quicker append and pop operations from both sides of the list.
