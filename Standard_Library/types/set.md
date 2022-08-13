@@ -59,6 +59,9 @@ s = {42, 'foo', (1, 2, 3), 3.14159}  # s = {42, 'foo', 3.14159, (1, 2, 3)}
 s = {[1,2], {1:'a', 2:'b'}}
 # TypeError: unhashable type: 'list' ... 'dict' 
 ```
+
+---
+
 ## Updating, Modifying
 ### add()
 ### remove()
@@ -70,6 +73,8 @@ s = {[1,2], {1:'a', 2:'b'}}
 ### difference_update() -=
 ### symmetric_difference_update() ^=
 
+---
+
 ## Operators and Methods
 ### | union()
 ### & intersection()
@@ -80,6 +85,8 @@ s = {[1,2], {1:'a', 2:'b'}}
 ### <
 ### issuperset() >=
 ### \>
+
+---
 
 ## frozenset
 frozenset is immutable !!!
@@ -100,3 +107,4 @@ s = {fs1, fs2, fs3}  # s = {frozenset({'bar'}), frozenset({'baz'}), frozenset({'
 ```
 2. keys for dicts  
 
+---

@@ -1,8 +1,38 @@
 # Dictionary  
+1. [Brief]()
+2. [Defining a Dictionary]()
+   1. Restrictions on dictionaries
+   2. Restrictions on values
+3. [Referring/Accessing]()
+4. [Operators and built-in functions and methods]()
+   1. in, not in
+   2. len()
+   3. clear()
+   4. get()
+   5. items()
+   6. keys()
+   7. values()
+   8. pop()
+   9. popitem()
+   10. update()
+   11. copy()
+   12. setdefault()
+   13. fromkeys()
+5. [Dictionary operations]()
+   1. Sorting Dictionary
+   2. Merging Dictionaries
+   3. Dictionary Comprehension
+   4. Deep copy
+
+---
+
+## Brief  
 1. Dictionary is mutable
 2. Python dictionaries were unordered before version 3.6.
 3. In Python versions less than 3.6, (for example) popitem() would return an arbitrary (random) key-value pair !!!
 4. Python is built on dictionaries  
+
+---
 
 ## Defining a Dictionary  
 Directly:
@@ -47,6 +77,20 @@ Keys types could be any immutable type
 ```python
 foo = {42: 'aaa', 2.78: 'bbb', True: 'ccc'}
 ```
+### Restrictions on dictionaries
+1. A given key can appear in a dictionary only once  
+2. A dictionary key must be of a type that is immutable:  
+
+```python
+d = {(1, 1): 'a', (1, 2): 'b', (2, 1): 'c', (2, 2): 'd'}  # a tuple is ok
+d = {[1, 1]: 'a', [1, 2]: 'b', [2, 1]: 'c', [2, 2]: 'd'}  # a list is not:
+# TypeError: unhashable type: 'list'
+```
+### Restrictions on values
+NONE 
+
+---
+
 ## Referring/Accessing  
 Referring
 ```python
@@ -69,18 +113,9 @@ d['Kansas City'] = 'Royals'
 Delete entry  
 ```python
 del d['Seattle']
-```
-## Restrictions on dictionaries
-1. A given key can appear in a dictionary only once  
-2. A dictionary key must be of a type that is immutable:  
+``` 
+---
 
-```python
-d = {(1, 1): 'a', (1, 2): 'b', (2, 1): 'c', (2, 2): 'd'}  # a tuple is ok
-d = {[1, 1]: 'a', [1, 2]: 'b', [2, 1]: 'c', [2, 2]: 'd'}  # a list is not:
-# TypeError: unhashable type: 'list'
-```
-## Restrictions on values
-NONE  
 ## Operators and built-in functions and methods  
 ### in, not in  
 ```python
@@ -178,9 +213,12 @@ lis = [2, 3]
 v = dict.fromkeys(seq, lis)  # v = {'d': [2, 3], 'e': [2, 3], 'c': [2, 3], 'a': [2, 3], 'b': [2, 3]} 
 lis.append(4)                # v = {'d': [2, 3, 4], 'e': [2, 3, 4], 'c': [2, 3, 4], 'a': [2, 3, 4], 'b': [2, 3, 4]}
 ```
-# Dictionary operations
 
-## Sorting Dictionary  
+---
+
+## Dictionary operations
+
+### Sorting Dictionary  
 General sorting using built-in sorted()
 ```python
 d = {6:'George', 2:'John', 1:'Potter', 9:'Micheal', 7:'Robert', 8:'Gayle'}  
@@ -196,7 +234,7 @@ lst = sorted(d.items(), key=lambda x: x[1], reverse=True)
 dct = dict(lst)
 # dct = {7: 'Robert', 1: 'Potter', 9: 'Micheal', 2: 'John', 6: 'George', 8: 'Gayle'}
 ```
-## Merging Dictionaries  
+### Merging Dictionaries  
 ```python
 # 1. Update
 d = update(d1)
@@ -205,7 +243,7 @@ d = d1 | d2
 # 3. ** operator
 d = {**d1, **d2}
 ```
-## Dictionary Comprehension  
+### Dictionary Comprehension  
 Simple:
 ```python
 d = {i: i*i for i in range(1, 11)}  
@@ -218,7 +256,7 @@ rd = {k.capitalize(): v / 2 for (k, v) in d.items() if v % 2 == 0}
 # rd = {'Jack': 19, 'Michael': 24}
 ```
 
-## Deep copy
+### Deep copy
 ```python
 import copy
 d = {6:'George', 2:'John', 1:'Potter', 9:'Micheal', 7:'Robert', 8:'Gayle'}
