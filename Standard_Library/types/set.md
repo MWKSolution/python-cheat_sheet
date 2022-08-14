@@ -22,6 +22,9 @@
    8. issuperset() >=
    9. \>
 5. [frozenset]()
+   1. Description
+   2. Usage
+   
 --- 
 
 ## Brief
@@ -89,6 +92,7 @@ s = {[1,2], {1:'a', 2:'b'}}
 ---
 
 ## frozenset
+### Description
 frozenset is immutable !!!
 Non-modifying operations only, methods that attempt to modify a frozenset fail.  
 ```python
@@ -97,7 +101,7 @@ fs.add('qux')
 # AttributeError: 'frozenset' object has no attribute 'add'
 ```
 Augmented operators could be used since they don't work IN PLACE !!!  
-Usage:
+### Usage
 1. Sets of frozensets - elements of ordinary must be immutable
 ```python
 fs1 = frozenset(['foo'])
@@ -106,5 +110,13 @@ fs3 = frozenset(['baz'])
 s = {fs1, fs2, fs3}  # s = {frozenset({'bar'}), frozenset({'baz'}), frozenset({'foo'})}
 ```
 2. keys for dicts  
+keys in dictionary must be immutable !
+
+---
+
+## Set operations
+...
+### Set comprehension
+no duplicates
 
 ---

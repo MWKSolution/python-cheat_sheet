@@ -1,4 +1,4 @@
-# Types
+# Data types
 1. [dictionary](types/dictionary.md)
 2. [list](types/list.md)
 3. [tuple](types/tuple.md)

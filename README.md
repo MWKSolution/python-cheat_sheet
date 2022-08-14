@@ -3,7 +3,7 @@
 ---
 
 ## Standard Library
-   1. [Types](Standard_Library/types.md)
+   1. [Data types](Standard_Library/types.md)
       1. [dictionary](Standard_Library/types/dictionary.md)
       2. [list](Standard_Library/types/list.md)
       3. [tuple](Standard_Library/types/tuple.md)
@@ -12,7 +12,7 @@
       1. [Counter](Standard_Library/collections/Counter.md)
       2. [namedtuple](Standard_Library/collections/namedtuple.md)
       3. [defaultdict](Standard_Library/collections/defaultdict.md)
-      4. [ChainMap](Standard_Librarycollections/ChainMap.md) 
+      4. [ChainMap](Standard_Library/collections/ChainMap.md) 
       5. [Other containers](Standard_Library/collections.md)
    3. [Iterator](Standard_Library/iterator.md)
    4. [Built-in functions](Standard_Library/built-ins.md)

@@ -1,4 +1,4 @@
-# namedtuple()  
+# namedtuple  
 1. [Brief]()
 2. [Creating]()
    1. Required arguments

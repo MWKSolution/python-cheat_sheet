@@ -23,6 +23,8 @@
    2. Merging Dictionaries
    3. Dictionary Comprehension
    4. Deep copy
+   5. Counting
+   6. Reversing
 
 ---
 
@@ -61,7 +63,8 @@ d = dict(Colorado='Rockies',
 ```
 From iterable
 ```python
-d = dict(iterable) 
+t = ((2, 'B'), (1, 'A'), (2, 'X'), (3, 'C'))
+d = dict(t)  # d = {2: 'X', 1: 'A', 3: 'C'}
 ```
 Incrementally from empty dict:  
 ```python
@@ -255,12 +258,27 @@ d = {'jack': 38, 'michael': 48, 'guido': 57, 'john': 33}
 rd = {k.capitalize(): v / 2 for (k, v) in d.items() if v % 2 == 0}  
 # rd = {'Jack': 19, 'Michael': 24}
 ```
-
 ### Deep copy
 ```python
 import copy
 d = {6:'George', 2:'John', 1:'Potter', 9:'Micheal', 7:'Robert', 8:'Gayle'}
 new = copy.deepcopy(d)
 ```
-
-
+### Counting
+All items
+```python
+d = {'a': 10, 'b': 20, 'c': 30}
+c = len(d)  # c = 3
+```
+Unique values
+```python
+d = {'a': 10, 'b': 20, 'c': 10}
+s = set([i for i in d.values()])  # s = {10, 20}
+c = len(s)                        # c = 2
+```
+### Reversing
+Reversing keys order
+```python
+d = {'a': 10, 'b': 20, 'c': 30}
+r = dict(reversed(d.items()))  # r = {'c': 30, 'b': 20, 'a': 10}, reversed returns iterator !!!!
+```

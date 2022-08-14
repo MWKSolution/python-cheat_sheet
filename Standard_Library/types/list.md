@@ -1,14 +1,51 @@
 # List
+1. [Brief]()
+2. [Defining list]()
+3. [Referring/Accessing]()
+4. [Modifying]()
+5. [Operators and built-in functions and methods]()
+   1. in, not in
+   2. \+ \* operators
+   3. len()
+   4. max()
+   5. append()
+   6. clear()
+   7. copy()
+   8. count()
+   9. extend()
+   10. index()
+   11. insert()
+   12. pop()
+   13. remove()
+   14. reverse()
+   15. sort()
+6. [List operations]()
+   1. Sorting
+   2. Merging
+   3. Comprehension
+   4. Deep copy
+   5. Counting
+   6. Reversing
+
+---
+
+## Brief
 1. Lists are mutable  
 2. Lists are ordered  
 3. Lists can contain arbitrary objects  
 4. Lists can be nested  
 5. max lenght of list = sys.maxsize = 2^64 = 9223372036854775807 (for 64-bit platform architecture)  
 
+---
+
 ## Defining list
 ```python
- a = ['foo', 'bar', 'baz', 'qux']
+l = ['foo', 'bar', 'baz', 'qux']
+l = list('foo', 'bar', 'baz', 'qux')
 ```
+
+---
+
 ## Referring/Accessing
 By index
 ```python
@@ -40,6 +77,9 @@ v = a[::-1]              # v = ['corge', 'quux', 'qux', 'baz', 'bar', 'foo']
 v = a[:]                 # v = ['foo', 'bar', 'baz', 'qux', 'quux', 'corge']
 v = a[:] is a            # v = False, it's a copy!
 ```
+
+---
+
 ## Modifying
 Single value
 ```python
@@ -64,6 +104,9 @@ l[1:4] = []    # l = ['a', 'e']
 l = ['a', 'b', 'c', 'd', 'e']
 del l[1:4]     # l = ['a', 'e']
 ```
+
+---
+
 ## Operators and built-in functions and methods  
 ### in, not in
 ```python
@@ -182,8 +225,90 @@ l.sort()  # l = [2, 11, 12, 42, 88]
 l = ['banana', 'pie', 'Washington', 'book']
 l.sort(key=lambda x: x[::-1], reverse=True)  # l = ['Washington', 'book', 'pie', 'banana']
 ```
+
+---
+
 ## List operations  
 ### Sorting
+In-place
+```python
+l = [5, 2, 3, 1, 4]
+l.sort()  # l = [1, 2, 3, 4, 5]
+```
+Out-of-place
+```python
+l = [5, 2, 3, 1, 4]
+ls = sorted(l)  # ls = [1, 2, 3, 4, 5]
+```
+With parameters (sort and sorted)
+```python
+l = ['aaaa', 'bb', 'ccccccc', 'd', 'eee']
+l.sort(key=len, reverse=True)  # l = ['ccccccc', 'aaaa', 'eee', 'bb', 'd']
+```
 ### Merging
+\+ operator, extend() method
+```python
+# extend
+l = [1, 2, 3]
+l.extend([4, 5, 6])  # l = [1, 2, 3, 4, 5, 6]
+# + operator
+l = [1, 2, 3]
+l += [4, 5, 6]       # l = [1, 2, 3, 4, 5, 6] - same result
+```
 ### Comprehension
+Creating lists in short form with mapping and filtering.  
+More pythonic than **map()**, and **filter()**.  
+```python
+s = [i * i for i in range(10) if 1 % 2 == 0]  # s = [0, 4, 16, 36, 64]
+```
+Condition at the beginning
+```python
+t = (1.25, -9.45, 10.22, 3.78, -5.92, 1.16)
+l = [i if i > 0 else 0 for i in t]  # l = [1.25, 0, 10.22, 3.78, 0, 1.16]
+```
+With walrus operator  
+```python
+f = lambda s: s**2
+l = [1, 2, 3, 4, 5, 6]
+lc = [g for s in l if (g := f(s)) > 8]  # lc = [9, 16, 25, 36]
+```
+Nested  
+flattening  
+expanding  
 ### Deep copy
+```python
+import copy
+l = [1, 2, 3, 4, 5]
+ldc = copy.deepcopy(l)  # ldc = [1, 2, 3, 4, 5]
+```
+Use generator comprehension for large datasets !!!
+### Counting
+All elements together
+```python
+l = [1, 2, 3]
+c = len(l)  # c = 3
+```
+Number of occurrences of value.  
+```python
+l = [5, 8, 8]
+c = l.count(8)  # c = 2
+```
+Counting occurrences of all elements -> use collections.Counter and its methods...
+```python
+from collections import Counter
+t = ['B', 'B', 'A', 'B', 'C', 'A', 'B', 'B', 'A', 'C']
+c = Counter(t)  # c = Counter({'B': 5, 'A': 3, 'C': 2})
+```
+### Reversing
+in-place
+```python
+l = [1, 2, 3, 4]
+l.reverse()  # l = [4, 3, 2, 1]
+```
+out-of-place
+```python
+l = [1, 2, 3, 4]
+lr = list(reversed(l))  # lr = [4, 3, 2, 1], reversed() returns iterator !!!!
+```
+
+---
