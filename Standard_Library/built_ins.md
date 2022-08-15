@@ -1,5 +1,19 @@
 # Built-in Functions
-1. [Math](#Math)
+1. [Boolean](built_ins/boolean.md)
+   1. **all()**
+   2. **any()**
+   3. **bool()**
+2. [Iterators](built_ins/iterators.md)
+   1. **enumerate()**
+   2. filter()
+   3. map()
+   4. iter()
+   5. next()
+   6. **range()**
+   7. **reversed()**
+   8. **sorted()**
+   9. **zip()**
+2. [Math](#Math)
    1. abs()
    2. bin()
    3. complex()
@@ -11,10 +25,6 @@
    9. pow(), **
    10. round()
    11. sum()
-2. [Boolean](#Boolean)
-   1. all()
-   2. any()
-   3. bool()
 3. [Strings](#Strings)
    1. ascii()
    2. chr()
@@ -28,16 +38,6 @@
    2. max()
    3. min()
    4. slice()
-5. [Iterators](#Iterators)
-   1. enumerate()
-   2. filter()
-   3. map()
-   4. iter()
-   5. next()
-   6. range()
-   7. reversed()
-   8. sorted()
-   9. zip()
 6. [Objects](#Objects)
    1. callable()
    2. delattr()
@@ -67,14 +67,15 @@
    4. exec()
    5. help()
    6. \_\_import\_\_
-10. [Creating](#Creating)
-    1. bytearray()
-    2. bytes()
-    3. dict()
-    4. frozenset()
-    5. list()
-    6. set()
-    7. tuple()
+10. [Creating variables]()
+    1. **bytearray()**
+    2. **bytes()**
+    3. **dict()**
+    4. **frozenset()**
+    5. **list()**
+    6. **set()**
+    7. **tuple()**
+    8. **memoryview()**
 
 ---
 
@@ -91,14 +92,6 @@
 ### pow(), **
 ### round()
 ### sum()
-
----
-
-## Boolean  
-
-### all()
-### any()
-### bool()
 
 ---
 
@@ -122,18 +115,6 @@
 
 ---
 
-## Iterators
-### enumerate()
-### filter()
-### map()
-### iter()
-### next()
-### range()
-### reversed()
-### sorted()
-### zip()
-
----
 
 ## Objects
 ### callable()
@@ -178,14 +159,4 @@
 
 ---
 
-## Creating 
-### bytearray()
-### bytes()
-### dict()
-### frozenset()
-### list()
-### set()
-### tuple()
-
----
 

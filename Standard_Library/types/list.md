@@ -308,7 +308,7 @@ Number of occurrences of value.
 l = [5, 8, 8]
 c = l.count(8)  # c = 2
 ```
-Counting occurrences of all elements -> use collections.Counter and its methods...
+Counting occurrences of all elements -> use [collections.Counter](../collections/Counter.md) and its methods...
 ```python
 from collections import Counter
 t = ['B', 'B', 'A', 'B', 'C', 'A', 'B', 'B', 'A', 'C']

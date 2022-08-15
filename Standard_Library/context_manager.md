@@ -47,7 +47,6 @@ class ContextManager:
         print(exc_type, exc_value, exc_tb, sep=" , ")  # if no errors all 3 set to None
         # return True  # - if True is returned any errors are suppressed
 
-
 with ContextManager() as hello:  # remember to put: () !!!
     print(hello)
 # Output:
@@ -84,7 +83,6 @@ class ContextManager:
             print(f"Exception message: {exc_value}")
             return True # must return True to suppress exceptions !!!!
 
-
 with ContextManager() as hello:  # remember to put: () !!!
     print(hello)
     hello[100]
@@ -105,11 +103,9 @@ import sys
 class RedirectedStdout:
     def __init__(self, new_output):
         self.new_output = new_output
-
     def __enter__(self):
         self.saved_output = sys.stdout
         sys.stdout = self.new_output
-
     def __exit__(self, exc_type, exc_val, exc_tb):
         sys.stdout = self.saved_output
 ```

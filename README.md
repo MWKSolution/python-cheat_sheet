@@ -16,7 +16,10 @@
       5. [Other containers](Standard_Library/collections.md)
    3. [Iterator](Standard_Library/iterator.md)
    4. [Context manager](Standard_Library/context_manager.md)
-   5. [Built-in functions](Standard_Library/built-ins.md)
+   5. [Built-in functions](Standard_Library/built_ins.md)
+      1. [Boolean](Standard_Library/built_ins/boolean.md)
+      2. [Iterators](Standard_Library/built_ins/iterators.md)
+      3. [Creating variables](Standard_Library/built_ins.md)
 
 ---
 
