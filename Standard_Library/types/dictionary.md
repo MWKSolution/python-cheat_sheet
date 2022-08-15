@@ -61,7 +61,7 @@ d = dict(Colorado='Rockies',
          Milwaukee='Brewers',
          Seattle='Mariners')
 ```
-From iterable
+From iterable (iterable of two elements iterable !!!)
 ```python
 t = ((2, 'B'), (1, 'A'), (2, 'X'), (3, 'C'))
 d = dict(t)  # d = {2: 'X', 1: 'A', 3: 'C'}
@@ -117,6 +117,12 @@ Delete entry
 ```python
 del d['Seattle']
 ``` 
+Referring to dict itself is referring to its keys !!!  
+```python
+d = {'a': 10, 'b': 20, 'c': 30}
+k = list(d)  # k = ['a', 'b', 'c']
+```
+
 ---
 
 ## Operators and built-in functions and methods  
@@ -154,6 +160,11 @@ Returns a list of keys in a dictionary.
 ```python
 d = {'a': 10, 'b': 20, 'c': 30}
 k = d.keys()  # k = ['a', 'b', 'c']
+```
+Referring to dict itself is referring to its keys !!!  
+```python
+d = {'a': 10, 'b': 20, 'c': 30}
+k = list(d)  # k = ['a', 'b', 'c']
 ```
 ### values()  
 Returns a list of values in a dictionary.  
@@ -224,7 +235,8 @@ lis.append(4)                # v = {'d': [2, 3, 4], 'e': [2, 3, 4], 'c': [2, 3, 
 ### Sorting Dictionary  
 General sorting using built-in sorted()
 ```python
-d = {6:'George', 2:'John', 1:'Potter', 9:'Micheal', 7:'Robert', 8:'Gayle'}  
+d = {6:'George', 2:'John', 1:'Potter', 9:'Micheal', 7:'Robert', 8:'Gayle'} 
+v = sorted(d)           # v = [1, 2, 6, 7, 8, 9]
 v = sorted(d.keys())    # v = [1, 2, 6, 7, 8, 9]
 v = sorted(d.items())   # v = [(1, 'Potter'), (2, 'John'), (6, 'George'), (7, 'Robert'), (8, 'Gayle'), (9, 'Micheal')]
 v = sorted(d.values())  # v = ['Gayle', 'George', 'John', 'Micheal', 'Potter', 'Robert']
@@ -280,5 +292,6 @@ c = len(s)                        # c = 2
 Reversing keys order
 ```python
 d = {'a': 10, 'b': 20, 'c': 30}
-r = dict(reversed(d.items()))  # r = {'c': 30, 'b': 20, 'a': 10}, reversed returns iterator !!!!
+r = reversed(d.items())  # r = <dict_reverseitemiterator object at ...>, reversed returns iterator !!!!
+v = dict(r)                    # v = {'c': 30, 'b': 20, 'a': 10}
 ```

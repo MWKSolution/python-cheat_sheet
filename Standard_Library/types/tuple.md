@@ -142,6 +142,11 @@ Reversed shallow copy
 t = (2, 5, 8, 1, 9, 3, 7)
 rt = t[::-1]  # rt = (7, 3, 9, 1, 8, 5, 2)
 ```
+```python
+t = (2, 5, 8, 1, 9, 3, 7) 
+r = reversed(t)  # r = <reversed object at 0x...>
+rt = tuple(r)    # rt = (7, 3, 9, 1, 8, 5, 2)
+```
 ### Sorting
 Sorting in reverse order  
 ```python

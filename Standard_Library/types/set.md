@@ -67,28 +67,114 @@ s = {[1,2], {1:'a', 2:'b'}}
 
 ## Updating, Modifying
 ### add()
+Add an element to a set.
+This has no effect if the element is already present.
+```python
+s.add(x)
+```
 ### remove()
+Remove an element from a set; it must be a member.  
+If the element is not a member, raise a KeyError.  
+```python
+s.remove(x)
+```
 ### discard()
+Remove an element from a set if it is a member.  
+If the element is not a member, do nothing.  
+```python
+s.discard(x)
+```
 ### pop()
+Removes a random element from a set.  
+Raises KeyError if set is empty.  
+```python
+s.pop()
+```
 ### clear()
+Remove all elements from this set.    
+```python
+s.clear()
+```
 ### update() |=
+In-place union.  
 ### intersection_update() &=
+In-place intersection.  
 ### difference_update() -=
+In-place difference.  
 ### symmetric_difference_update() ^=
+In-place symmetric_difference.
 
 ---
 
 ## Operators and Methods
 ### | union()
+```python
+a = {1, 2, 3, 4}
+b = {2, 3, 4, 5}
+c = {3, 4, 5, 6}
+d = {4, 5, 6, 7}
+s = a.union(b, c, d)
+s = a | b | c | d  # s = {1, 2, 3, 4, 5, 6, 7}
+```
 ### & intersection()
+```python
+a = {1, 2, 3, 4}
+b = {2, 3, 4, 5}
+c = {3, 4, 5, 6}
+d = {4, 5, 6, 7}
+s = a.intersection(b, c, d)
+s = a & b & c & d  # s = {4}
+```
 ### - difference()
+```python
+a = {1, 2, 3, 30, 300}
+b = {10, 20, 30, 40}
+c = {100, 200, 300, 400}
+s = a.difference(b, c)
+s = a - b - c  # s = {1, 2, 3}
+```
 ### ^ symmetric_difference() - xor
+```python
+a = {1, 2, 3, 4, 5}
+b = {10, 2, 3, 4, 50}
+c = {1, 50, 100}
+s = a ^ b ^ c  # s = {100, 5, 10}
+s =  a.symmetric_difference(b, c)
+# TypeError: symmetric_difference() takes exactly one argument (2 given)
+s = a.symmetric_difference(b)  # s = {1, 50, 5, 10}
+```
 ### isdisjoint()
+```python
+a = {1, 3, 5}
+b = {2, 4, 6}
+s = a.isdisjoint(b)  # s = True
+```
 ### issubset() <=
+```python
+a = {1, 2, 3, 4, 5}
+b = {2, 3, 4}
+s = b.issubset(a)  # s = True
+s = (b <= a)       # s = True
+```
 ### <
+```python
+a = {1, 2, 3, 4, 5}
+b = {2, 3, 4}
+s = (b < a)  # s = True
+```
 ### issuperset() >=
+```python
+a = {1, 2, 3, 4, 5}
+b = {2, 3, 4}
+s = a.issuperset (b)  # s = True
+s = (a >= b)          # s = True
+```
 ### \>
-
+```python
+a = {1, 2, 3, 4, 5}
+b = {2, 3, 4}
+s2 = (a > b)          # s = True
+```
 ---
 
 ## frozenset
@@ -115,8 +201,44 @@ keys in dictionary must be immutable !
 ---
 
 ## Set operations
-...
 ### Set comprehension
-no duplicates
+No duplicates!
+```python
+l = [1, 2, 3, 4, 4, 5, 6, 6, 6, 7, 7]
+s = {i for i in l}  # s = {1, 2, 3, 4, 5, 6, 7}
+```
+### Sorting
+Set is unordered - sorting to list.
+```python
+s = {4, 1, 3, 2}
+l = sorted(s)  # l = [1, 2, 3, 4]
+```
+### Merging
+\+ operator is not supported !!!
+Excluding duplicate items !
+```python
+s1 = {4, 1, 3, 2}
+s2 = {5, 6, 3, 1}
+ss = s1.union(s2)  # ss = {1, 2, 3, 4, 5, 6}
+s1.update(s2)      # s1 = {1, 2, 3, 4, 5, 6}
+```
+### Copy
+Shallow copy  
+```python
+s = {4, 1, 3, 2}
+ss = s.copy()  # ss = {1, 2, 3, 4}
+```
+### Counting
+```python
+s = {4, 1, 3, 2}
+c = len(s)  # c = 4
+```
+### Reversing
+Set is not reversible !!! - set is unordered !!!!!!
+```python
+s = {4, 1, 3, 2}
+l = reversed(s)
+# TypeError: 'set' object is not reversible
+```
 
 ---

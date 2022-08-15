@@ -258,6 +258,8 @@ l += [4, 5, 6]       # l = [1, 2, 3, 4, 5, 6] - same result
 ### Comprehension
 Creating lists in short form with mapping and filtering.  
 More pythonic than **map()**, and **filter()**.  
+**Use generator comprehension for large datasets !!!**  
+Comprehensions are faster than loops
 ```python
 s = [i * i for i in range(10) if 1 % 2 == 0]  # s = [0, 4, 16, 36, 64]
 ```
@@ -272,16 +274,28 @@ f = lambda s: s**2
 l = [1, 2, 3, 4, 5, 6]
 lc = [g for s in l if (g := f(s)) > 8]  # lc = [9, 16, 25, 36]
 ```
-Nested  
-flattening  
-expanding  
+Nested - expanding  
+```python
+l = [0, 1, 2, 3]
+r = [[i + j for i in l] for j in l]
+# r = [[0, 1, 2, 3], [1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]]
+```
+Nested - flattening, be careful with syntax !!!  
+```python
+l = [[0, 1, 2, 3], [1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]]
+r = [n for row in l for n in row]
+# r = [0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6]
+# equivalent for:
+for row in l:
+    for n in row: 
+        r.append(n)
+```
 ### Deep copy
 ```python
 import copy
 l = [1, 2, 3, 4, 5]
 ldc = copy.deepcopy(l)  # ldc = [1, 2, 3, 4, 5]
 ```
-Use generator comprehension for large datasets !!!
 ### Counting
 All elements together
 ```python

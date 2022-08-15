@@ -2,6 +2,8 @@
 
 1. [Brief]()
 2. [Iterable](#iterable)
+   1. Definition
+   2. Custom iterable (\_\_iter\_\_)
 3. [Iterator](#iterator)  
    1. iter(), next()
    2. iter() with sentinel
@@ -19,13 +21,26 @@ A process that is repeated more than one time by applying the same logic is call
 ---
 
 ## iterable  
+### Definition
 An object capable of returning its members one at a time:
 1. Sequence types:  (have **\_\_getitem\_\_()** and **\_\_len\_\_()** methods)
    + list, str, tuple, ...  
 2. Non-sequence types:
    + dict, file objects, ...
-   + object (class) with **\_\_iter\_\_()** and **\_\_next\_\_()**  method 
+   + object (class) with **\_\_iter\_\_()**   method 
    + generators
+### Custom iterable
+Object must have **\_\_iter\_\_** method
+```python
+class Foo(object):
+    def __iter__(self):
+        return (x for x in range(4))
+
+it = iter(Foo())       # it = <generator object Foo.__iter__.<locals>.<genexpr> at 0x...>
+l = list(Foo())        # l = [0, 1, 2, 3]
+for i in Foo():
+    print(i, end=' ')  # output: 0 1 2 3
+```
 
 ---
 
@@ -45,6 +60,12 @@ i = iter([1, 2, 3])
 for x in i:
     print(x, end=' ')  # output: 1 2 3 
 ```
+*One don't have to use **iter()** on iterable when using **for in** to loop over. It does it automatically !!!*  
+```python
+i = [1, 2, 3]
+for x in i:
+    print(x, end=' ')  # output: 1 2 3 
+```
 ### iter() with sentinel
 Something like ***while True*** with ***break***
 ```python
@@ -53,7 +74,6 @@ with open('mydata.db', 'rb') as f:
     for block in iter(partial(f.read, 64), b''):
         process_block(block)
 ```
-*One don't have to use **iter()** on iterable when using **for in** to loop over. It does it automatically*
 ### Custom iterator: \_\_iter\_\_(), \_\_next\_\_()
 Can have **\_\_init\_\_** like other casses but must have methods:
 1. **\_\_iter\_\_** - has to return self + some initialisation if **\_\_init\_\_** is omitted
