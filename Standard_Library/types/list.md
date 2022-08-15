@@ -230,6 +230,7 @@ l.sort(key=lambda x: x[::-1], reverse=True)  # l = ['Washington', 'book', 'pie',
 
 ## List operations  
 ### Sorting
+Lists With Non-Comparable Data Types Can’t Be sorted !!!  
 In-place
 ```python
 l = [5, 2, 3, 1, 4]

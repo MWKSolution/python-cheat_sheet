@@ -15,7 +15,8 @@
       4. [ChainMap](Standard_Library/collections/ChainMap.md) 
       5. [Other containers](Standard_Library/collections.md)
    3. [Iterator](Standard_Library/iterator.md)
-   4. [Built-in functions](Standard_Library/built-ins.md)
+   4. [Context manager](Standard_Library/context_manager.md)
+   5. [Built-in functions](Standard_Library/built-ins.md)
 
 ---
 

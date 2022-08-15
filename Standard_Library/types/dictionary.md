@@ -61,7 +61,7 @@ d = dict(Colorado='Rockies',
          Milwaukee='Brewers',
          Seattle='Mariners')
 ```
-From iterable (iterable of two elements iterable !!!)
+From iterable (iterable of two elements iterables !!!)
 ```python
 t = ((2, 'B'), (1, 'A'), (2, 'X'), (3, 'C'))
 d = dict(t)  # d = {2: 'X', 1: 'A', 3: 'C'}

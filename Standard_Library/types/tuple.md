@@ -192,7 +192,10 @@ t = ('B' ,'B' ,'A' ,'B' ,'C' ,'A' ,'B' ,'B' ,'A' ,'C')
 c = Counter(t)  # c = Counter({'B': 5, 'A': 3, 'C': 2})
 ```
 ### Merging
-[See \+ operator]()
-
+```python
+t1 = (1, 2)
+t2 = ("Hey", "there")
+t = t1 + t2  # t =  (1, 2, "Hey", "there")
+```
 ---
 
