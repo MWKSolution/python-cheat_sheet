@@ -67,7 +67,7 @@
    4. exec()
    5. help()
    6. \_\_import\_\_
-10. [Creating variables]()
+10. [Creating variables](built_ins.md)
     1. **bytearray()**
     2. **bytes()**
     3. **dict()**
