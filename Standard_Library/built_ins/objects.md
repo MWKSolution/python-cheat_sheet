@@ -345,3 +345,36 @@ The **isinstance()** built-in function is recommended for testing the type of an
 
 ### Three arguments - new object  
 This is essentially a dynamic form of the class statement.  
+```python
+class Foo:
+    pass
+
+Fuu = type('Fuu', (Foo,), dict(a=100, av=lambda x : x.a))
+
+f = Fuu()          # f = <__main__.Fuu object at 0x...>
+v = f.__class__    # v = <class '__main__.Fuu'>
+c = Fuu.__class__  # c = <class 'type'>
+b = Fuu.__bases__  # b = (<class '__main__.Foo'>,)
+n = Fuu.__name__   # n = 'Fuu'
+r = Fuu.__dict__   # r = mappingproxy({'a': 100, 'av': <function <lambda> at 0x...>, '__module__': '__main__', '__doc__': None})
+q = vars(Fuu)      # q = mappingproxy({'a': 100, 'av': <function <lambda> at 0x...>, '__module__': '__main__', '__doc__': None})
+
+# definition with type is equivalent to:
+class Fuu(Foo):
+    a = 100
+    def av(self):
+        return self.a
+```
+
+---
+
+## dir()
+
+
+---
+
+
+## vars()
+
+
+---

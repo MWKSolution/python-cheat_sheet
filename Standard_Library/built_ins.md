@@ -13,7 +13,7 @@
    7. **zip()**
    8. **reversed()**
    9. **sorted()**
-2. [Math](#Math)
+3. [Math](#Math)
    1. abs()
    2. bin()
    3. complex()
@@ -25,7 +25,7 @@
    9. pow(), **
    10. round()
    11. sum()
-3. [Strings](#Strings)
+4. [Strings](#Strings)
    1. ascii()
    2. chr()
    3. format()
@@ -33,7 +33,7 @@
    5. ord()
    6. print()
    7. str()
-4. [General](#General)
+5. [General](#General)
    1. len()
    2. max()
    3. min()
@@ -52,7 +52,7 @@
    11. **repr()**
    12. **setattr()**
    13. vars()
-   14. type()
+   14. **type()**
 7. [Class](#Class)
    1. @classmethod
    2. property(), @property
@@ -76,6 +76,11 @@
     6. **set()**
     7. **tuple()**
     8. **memoryview()**
+
+
+globals
+locals
+
 
 ---
 ## builtins module
