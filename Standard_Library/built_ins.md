@@ -10,9 +10,9 @@
    4. iter()
    5. next()
    6. **range()**
-   7. **reversed()**
-   8. **sorted()**
-   9. **zip()**
+   7. **zip()**
+   8. **reversed()**
+   9. **sorted()**
 2. [Math](#Math)
    1. abs()
    2. bin()
@@ -38,19 +38,19 @@
    2. max()
    3. min()
    4. slice()
-6. [Objects](#Objects)
-   1. callable()
-   2. delattr()
+6. [Objects](built_ins/objects.md)
+   1. **callable()**
+   2. **delattr()**
    3. dir()
-   4. getattr()
-   5. hasattr()
-   6. hash()
-   7. id()
-   8. isinstance()
-   9. issubclass()
-   10. object
-   11. repr()
-   12. setattr()
+   4. **getattr()**
+   5. **hasattr()**
+   6. **hash()**
+   7. **id()**
+   8. **isinstance()**
+   9. **issubclass()**
+   10. **object()**
+   11. **repr()**
+   12. **setattr()**
    13. vars()
    14. type()
 7. [Class](#Class)
@@ -76,6 +76,13 @@
     6. **set()**
     7. **tuple()**
     8. **memoryview()**
+
+---
+## builtins module
+
+This module is not normally accessed explicitly by most applications, but can be useful in modules that provide objects with the same name as a built-in value.  
+most modules have the name **\_\_builtins\_\_** made available as part of their globals. The value of **\_\_builtins\_\_** is normally either this module or the value of this module’s **\_\_dict\_\_** attribute.  
+
 
 ---
 
@@ -112,27 +119,6 @@
 ### max()
 ### min()
 ### slice()
-
----
-
-
-## Objects
-### callable()
-### delattr()
-### dir()
-### getattr()
-### globals()
-### hasattr()
-### hash()
-### id()
-### isinstance()
-### issubclass()
-### locals()
-### object
-### repr()
-### setattr()
-### vars()
-### type()
 
 ---
 

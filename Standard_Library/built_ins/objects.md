@@ -41,6 +41,10 @@ v = c()          # v =5
 i = callable(C)  # i = True
 j = callable(c)  # j = True
 ```
+Use **\_\_call\_\_()** when:
+1. Instance has only one method
+2. Your arguments need to be functions
+3. You want to return functions
 
 ---
 
@@ -124,4 +128,220 @@ v =  hasattr(str, '__len__')  # v = True
 
 ---
 
+## object()
+Return a new featureless object. object is a base for all classes.  
+ object does not have a **\_\_dict\_\_**, so you can’t assign arbitrary attributes to an instance of the object class !!!  
+```python
+class C:
+    pass
 
+v = issubclass(C, object)  # v = True
+o = object()               # o = <object object at 0x...>
+w = dir(C)                 # w = ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']
+z = dir(object)            # z = ['__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
+x = set(w) - set(z)        # x = {'__module__', '__dict__', '__weakref__'}
+```
+**object()** could be used as a unique sentinel when **None** cannot be used.  
+Every **object()** call creates unique object contrary to **None** !!!  
+```python
+a, b = None, None
+s1, s2 = object(), object()
+v = a is b   # v = True
+w = s1 is b  # w = False
+```
+
+---
+
+## id()
+Return the “identity” of an object. This is an integer which is guaranteed to be unique and constant for this object during its lifetime.  
+This is the address of the object in memory.  
+Objects with the same value are usually stored at separate memory addresses !!!
+Immutable:  
+```python
+a = 'Hello World'
+b = 'Hello World'
+c = 'Hello Worl'
+d = 'Hello Worl' + 'd'
+ida = id(a)   # ida = 40196528
+idb = id(b)   # idb = 40196528 = ida
+idc = id(c)   # idc = 40217264
+idd = id(d)   # idd = 40196528 = ida = idb
+v = (a is b)  # v = True
+w = (a == b)  # w = True
+x = (a is d)  # w = True
+y = (a == d)  # w = True
+```
+Mutable:
+```python
+a = [1, 2, 3, 4]
+b = [1, 2, 3, 4]
+c = [1, 2, 3]
+c.append(4)
+
+ida = id(a)   # ida = 40065792
+idb = id(b)   # idb = 40065344
+idc = id(c)   # idc = 41695168 
+
+v = (a is b)  # v = False
+w = (a == b)  # w = True
+x = (a is c)  # x = False
+y = (a == c)  # y = True
+```
+
+---
+
+## repr()
+Return a string containing a printable "official" representation of an object.  
+For many objects it returns representation that could be used for objdect creation with **eval()**.  
+```python
+import datetime
+d = datetime.datetime.now()               # d = datetime.datetime(2022, 8, 17, 15, 7, 32, 902063) - from repr :-)
+# readable format for date-time object
+s = str(d)                                # s = '2022-08-17 15:07:32.902063' - type str
+# the official format of date-time object
+r = repr(d)                               # r = 'datetime.datetime(2022, 8, 17, 15, 7, 32, 902063)' - type str
+dd = eval(r)                              # dd = datetime.datetime(2022, 8, 17, 15, 9, 40, 894384)
+t = type(dd)                              # t = <class 'datetime.datetime'>
+```
+What this function returns for its instances can be overridden by defining a **\_\_repr\_\_()** method.  
+```python
+class Test:
+    pass
+
+t = Test()      # t = <__main__.Test object at 0x...>
+ty = type(t)    # ty = <class '__main__.Test'>
+
+class ReprTest:
+    def __repr__(self):
+        return 'ReprTest()'
+
+c = ReprTest()  # c = ReprTest()
+r = repr(c)     # r = 'ReprTest()'
+v = eval(r)     # v = ReprTest()
+tt = type(v)    # tt = <class '__main__.ReprTest'>
+```
+str() is used for creating output for end user while repr() is mainly used for debugging and development. repr’s goal is to be unambiguous and str’s is to be readable.  
+
+---
+
+## isinstance()
+Return True if the object argument is an instance of the class argument, or of a (direct, indirect, or virtual) subclass thereof.  
+```python
+class C:
+    pass
+
+c = C()
+v = isinstance(c, C)                     # v = True
+w = isinstance(c, object)                # w = True
+x = isinstance(5, int)                   # x = True
+y = isinstance(5, object)                # y = True
+z = isinstance('abc', (int, str, dict))  # z = True, from 3.10 Union can be used
+```
+
+---
+
+## issubclass()
+Return True if class is a subclass (direct, indirect, or virtual) of class. A class is considered a subclass of itself.
+```python
+class C:
+    pass
+
+class SC(C):
+    pass
+
+v = issubclass(SC, C)                    # v = True
+w = issubclass(SC, object)               # w = True
+x = issubclass(SC, list)                 # x = False
+y = issubclass(SC, (int, list, object))  # y = True
+```
+
+---
+
+## hash()
+1. A hash function performs hashing by turning any data into a fixed-size sequence of bytes called the hash value or the hash code.  
+2. **hash()** return the hash value of the object (if it has one). Hash values are integers. They are used to quickly compare dictionary keys during a dictionary lookup. Numeric values that compare equal have the same hash value (even if they are of different types, as is the case for 1 and 1.0).  
+3. Objects hashed using hash() are irreversible, leading to loss of information.
+4. hash() returns hashed value only for immutable objects, hence can be used as an indicator to check for mutable/immutable objects !!!  
+5. because the hash function projects a potentially infinite set of values onto a finite space, this can lead to a *hash collision* when two different inputs produce the same hash value.  
+```python
+v = hash(123)        # v = 123
+w = hash('abc')      # w = 5864359080172279384
+x = hash((1, 2, 3))  # x = 529344067295497451
+z = hash([1, 2, 3])  # TypeError: unhashable type: 'list'
+```
+Python provides a default implementation for the special method .__hash__() in your classes, which merely uses the object’s identity to derive its hash code:
+```python
+class C:
+    pass
+
+c1 = C()
+c2 = C()
+v1 = hash(c1)  # v1 = 2506816
+v2 = hash(c2)  # v2 = 2509927
+```
+You can explicitly mark your class as unhashable by setting its **\_\_hash\_\_** attribute equal to **None**:
+```python
+class H:
+    __hash__ = None
+    pass
+
+h = H()
+v = hash(h)  # TypeError: unhashable type: 'H'
+```
+Therefore, hash codes must be immutable for the hashing to work as expected.  
+!!! hash-equal contract !!!
+when you implement .__eq__(), you should always implement a corresponding .__hash__(). The only time you don’t have to implement both methods is when you use a wrapper such as a data class or an immutable named tuple that already does this for you.  
+```python
+class Person:
+    def __init__(self, name, date_of_birth, married):
+        self.name = name
+        self.date_of_birth = date_of_birth
+        self.married = married
+
+    def __hash__(self):
+        return hash(self._fields)
+
+    def __eq__(self, other):
+        if self is other:
+            return True
+        if type(self) is not type(other):
+            return False
+        return self._fields == other._fields
+
+    @property
+    def _fields(self):
+        return self.name, self.date_of_birth, self.married
+```
+!!! stick to Python’s data classes or named tuples whenever you can to guarantee the proper implementation of hashable types. !!!  
+
+```python
+@dataclass(unsafe_hash=True)
+class Person:
+    name: str
+```
+
+---
+
+## type()
+### One argument - type(object):  
+Return the type of an object. The return value is a type object and generally the same object as returned by **object.\_\_class\_\_**
+In Python, everything is an object. Classes are objects as well. As a result, a class must have a type.  
+```python
+v = type([1, 2, 3])  # v = <class 'list'>
+w = type(35)         # w = <class 'int'>
+
+class C:
+    pass
+
+c = C()
+x = type(c)          # x = <class '__main__.C'>
+r = c.__class__      # r = <class '__main__.C'>
+
+y = type(C)          # y = <class 'type'>
+z = type(list)       # z = <class 'type'>
+t = type(type)       # t = <class 'type'>
+```
+The **isinstance()** built-in function is recommended for testing the type of an object, because it takes subclasses into account!!!  
+
+### Three arguments - new object  
+This is essentially a dynamic form of the class statement.  

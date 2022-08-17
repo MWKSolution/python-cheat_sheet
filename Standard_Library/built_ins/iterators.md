@@ -147,10 +147,97 @@ n = [0, 1, 2]
 z = zip(l, n)
 d = dict(z)  # d = {'a': 0, 'b': 1, 'c': 2}
 ```
+
+---
+
 ## reversed()
-...   
+### dict
+Reversing keys order
+```python
+d = {'a': 10, 'b': 20, 'c': 30}
+r = reversed(d.items())  # r = <dict_reverseitemiterator object at ...>, reversed returns iterator !!!!
+v = dict(r)                    # v = {'c': 30, 'b': 20, 'a': 10}
+```
+### list
+in-place
+```python
+l = [1, 2, 3, 4]
+l.reverse()  # l = [4, 3, 2, 1]
+```
+out-of-place
+```python
+l = [1, 2, 3, 4]
+lr = list(reversed(l))  # lr = [4, 3, 2, 1], reversed() returns iterator !!!!
+```
+### tuple
+Reversed shallow copy  
+```python
+t = (2, 5, 8, 1, 9, 3, 7)
+rt = t[::-1]  # rt = (7, 3, 9, 1, 8, 5, 2)
+```
+```python
+t = (2, 5, 8, 1, 9, 3, 7) 
+r = reversed(t)  # r = <reversed object at 0x...>
+rt = tuple(r)    # rt = (7, 3, 9, 1, 8, 5, 2)
+```
+### set
+Set is not reversible !!! - set is unordered !!!!!!
+```python
+s = {4, 1, 3, 2}
+l = reversed(s)
+# TypeError: 'set' object is not reversible
+```
+
+---
+
 ## sorted()
-...  
+### dict
+General sorting using built-in sorted()
+```python
+d = {6:'George', 2:'John', 1:'Potter', 9:'Micheal', 7:'Robert', 8:'Gayle'} 
+v = sorted(d)           # v = [1, 2, 6, 7, 8, 9]
+v = sorted(d.keys())    # v = [1, 2, 6, 7, 8, 9]
+v = sorted(d.items())   # v = [(1, 'Potter'), (2, 'John'), (6, 'George'), (7, 'Robert'), (8, 'Gayle'), (9, 'Micheal')]
+v = sorted(d.values())  # v = ['Gayle', 'George', 'John', 'Micheal', 'Potter', 'Robert']
+```
+Sorting by value in reverse order  
+```python
+d = {6:'George', 2:'John', 1:'Potter', 9:'Micheal', 7:'Robert', 8:'Gayle'}  
+lst = sorted(d.items(), key=lambda x: x[1], reverse=True)
+# lst = [(7, 'Robert'), (1, 'Potter'), (9, 'Micheal'), (2, 'John'), (6, 'George'), (8, 'Gayle')]
+dct = dict(lst)
+# dct = {7: 'Robert', 1: 'Potter', 9: 'Micheal', 2: 'John', 6: 'George', 8: 'Gayle'}
+```
+### list
+Lists With Non-Comparable Data Types Can’t Be sorted !!!  
+In-place
+```python
+l = [5, 2, 3, 1, 4]
+l.sort()  # l = [1, 2, 3, 4, 5]
+```
+Out-of-place
+```python
+l = [5, 2, 3, 1, 4]
+ls = sorted(l)  # ls = [1, 2, 3, 4, 5]
+```
+With parameters (sort and sorted)
+```python
+l = ['aaaa', 'bb', 'ccccccc', 'd', 'eee']
+l.sort(key=len, reverse=True)  # l = ['ccccccc', 'aaaa', 'eee', 'bb', 'd']
+```
+### tuple
+Sorting in reverse order  
+```python
+t = (2, 5, 8, 1, 9, 3, 7)
+r = sorted(t, reverse=True)
+rt = tuple(result)  # rt = (9, 8, 7, 5, 3, 2, 1)
+```
+### set
+Set is unordered - sorting to list.
+```python
+s = {4, 1, 3, 2}
+l = sorted(s)  # l = [1, 2, 3, 4]
+```
 
 ---
 
