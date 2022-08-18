@@ -1,9 +1,21 @@
 # Built-in Functions
-1. [Boolean](built_ins/boolean.md)
+
+1. [Builtins module](built_ins.md)
+2. [Boolean](built_ins/boolean.md)
    1. **all()**
    2. **any()**
    3. **bool()**
-2. [Iterators](built_ins/iterators.md)
+3. [General](#General)
+   1. len()
+   2. max()
+   3. min()
+   4. slice()
+4. [Scope](built_ins/scope.md)
+   1. dir()
+   2. globals()
+   3. locals()
+   4. vars()
+5. [Iterators](built_ins/iterators.md)
    1. **enumerate()**
    2. filter()
    3. map()
@@ -13,7 +25,7 @@
    7. **zip()**
    8. **reversed()**
    9. **sorted()**
-3. [Math](#Math)
+6. [Math](#Math)
    1. abs()
    2. bin()
    3. complex()
@@ -25,7 +37,7 @@
    9. pow(), **
    10. round()
    11. sum()
-4. [Strings](#Strings)
+7. [Strings](#Strings)
    1. ascii()
    2. chr()
    3. format()
@@ -33,41 +45,34 @@
    5. ord()
    6. print()
    7. str()
-5. [General](#General)
-   1. len()
-   2. max()
-   3. min()
-   4. slice()
-6. [Objects](built_ins/objects.md)
-   1. **callable()**
-   2. **delattr()**
-   3. dir()
-   4. **getattr()**
-   5. **hasattr()**
-   6. **hash()**
-   7. **id()**
-   8. **isinstance()**
-   9. **issubclass()**
-   10. **object()**
-   11. **repr()**
-   12. **setattr()**
-   13. vars()
-   14. **type()**
-7. [Class](#Class)
+8. [Objects](built_ins/objects.md)
+   1. **object()**
+   2. **id()**
+   3. **type()**
+   4. **repr()**
+   5. **hash()**
+   6. **setattr()**
+   7. **delattr()**
+   8. **getattr()**
+   9. **hasattr()**
+   10. **isinstance()**
+   11. **issubclass()**
+   12. **callable()**
+9. [Class](#Class)
    1. @classmethod
    2. property(), @property
    3. @staticmethod
    4. super()
-8. [Files](#Files)
-   1. open()
-9. [Code](#Code)
-   1. breakpoint()
-   2. compile()
-   3. eval()
-   4. exec()
-   5. help()
-   6. \_\_import\_\_
-10. [Creating variables](built_ins.md)
+10. [Files](#Files)
+    1. open()
+11. [Code](#Code)
+    1. breakpoint()
+    2. compile()
+    3. eval()
+    4. exec()
+    5. help()
+    6. \_\_import\_\_
+12. [Creating variables](built_ins.md)
     1. **bytearray()**
     2. **bytes()**
     3. **dict()**
@@ -78,8 +83,7 @@
     8. **memoryview()**
 
 
-globals
-locals
+
 
 
 ---
@@ -88,8 +92,13 @@ locals
 This module is not normally accessed explicitly by most applications, but can be useful in modules that provide objects with the same name as a built-in value.  
 most modules have the name **\_\_builtins\_\_** made available as part of their globals. The value of **\_\_builtins\_\_** is normally either this module or the value of this module’s **\_\_dict\_\_** attribute.  
 
+---
+
+## Creating variables
+Functions that creates new: **bytearray()**, **bytes()**, **dict()**, **frozenset()**, **list()**, **set()**, **tuple()**, **memoryview()**.  
 
 ---
+
 
 ## Math  
 
