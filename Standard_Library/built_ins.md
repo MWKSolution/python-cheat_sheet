@@ -5,17 +5,12 @@
    1. **all()**
    2. **any()**
    3. **bool()**
-3. [General](#General)
+3. [General](built_ins/general.md)
    1. len()
    2. max()
    3. min()
    4. slice()
-4. [Scope](built_ins/scope.md)
-   1. dir()
-   2. globals()
-   3. locals()
-   4. vars()
-5. [Iterators](built_ins/iterators.md)
+4. [Iterators](built_ins/iterators.md)
    1. **enumerate()**
    2. filter()
    3. map()
@@ -25,7 +20,7 @@
    7. **zip()**
    8. **reversed()**
    9. **sorted()**
-6. [Math](#Math)
+5. [Math](#Math)
    1. abs()
    2. bin()
    3. complex()
@@ -37,7 +32,7 @@
    9. pow(), **
    10. round()
    11. sum()
-7. [Strings](#Strings)
+6. [Strings](#Strings)
    1. ascii()
    2. chr()
    3. format()
@@ -45,7 +40,7 @@
    5. ord()
    6. print()
    7. str()
-8. [Objects](built_ins/objects.md)
+7. [Objects](built_ins/objects.md)
    1. **object()**
    2. **id()**
    3. **type()**
@@ -58,20 +53,25 @@
    10. **isinstance()**
    11. **issubclass()**
    12. **callable()**
-9. [Class](#Class)
+8. [Class](#Class)
    1. @classmethod
    2. property(), @property
    3. @staticmethod
    4. super()
-10. [Files](#Files)
-    1. open()
-11. [Code](#Code)
+9. [Files](#Files)
+   1. open()
+10. [Code](#Code)
     1. breakpoint()
     2. compile()
     3. eval()
     4. exec()
     5. help()
     6. \_\_import\_\_
+11. [Scope](built_ins/scope.md)
+    1. **dir()**
+    2. **globals()**
+    3. **locals()**
+    4. **vars()**
 12. [Creating variables](built_ins.md)
     1. **bytearray()**
     2. **bytes()**

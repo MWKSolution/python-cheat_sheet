@@ -19,9 +19,10 @@
    5. [Built-in functions](Standard_Library/built_ins.md)
       1. [Builtins module](Standard_Library/built_ins.md)
       2. [Boolean](Standard_Library/built_ins/boolean.md)
-      3. [Scope](Standard_Library/built_ins/scope.md)
+      3. [General](Standard_Library/built_ins/general.md)
       4. [Iterators](Standard_Library/built_ins/iterators.md)
-      5. [Creating variables](Standard_Library/built_ins.md)
+      5. [Scope](Standard_Library/built_ins/scope.md)
+      6. [Creating variables](Standard_Library/built_ins.md)
 
 ---
 
