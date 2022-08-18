@@ -79,8 +79,8 @@ class StrangeNumber:
         return self.strange(self.number) < self.strange(other.number)
     def __eq__(self, other):
         return self.strange(self.number) == self.strange(other.number)
-    @classmethod
-    def strange(cls, n):
+    @staticmethod
+    def strange(n):
         return float("".join(reversed(str(n))))
 
 x = StrangeNumber(12345.56)    # x = StrangeNumber(12345.56)

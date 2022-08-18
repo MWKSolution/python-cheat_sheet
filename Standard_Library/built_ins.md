@@ -6,10 +6,10 @@
    2. **any()**
    3. **bool()**
 3. [General](built_ins/general.md)
-   1. len()
-   2. max()
-   3. min()
-   4. slice()
+   1. **len()**
+   2. **max()**
+   3. **min()**
+   4. **slice()**
 4. [Iterators](built_ins/iterators.md)
    1. **enumerate()**
    2. filter()
