@@ -60,7 +60,7 @@
    4. super()
 9. [Files](#Files)
    1. open()
-10. [Code](#Code)
+10. [Code](built_ins/code.md)
     1. breakpoint()
     2. compile()
     3. eval()
@@ -125,14 +125,6 @@ Functions that creates new: **bytearray()**, **bytes()**, **dict()**, **frozense
 ### ord()
 ### print()
 ### str()
-
----
-
-## General
-### len()
-### max()
-### min()
-### slice()
 
 ---
 

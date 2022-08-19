@@ -21,8 +21,9 @@
       2. [Boolean](Standard_Library/built_ins/boolean.md)
       3. [General](Standard_Library/built_ins/general.md)
       4. [Iterators](Standard_Library/built_ins/iterators.md)
-      5. [Scope](Standard_Library/built_ins/scope.md)
-      6. [Creating variables](Standard_Library/built_ins.md)
+      5. [Objects](Standard_Library/built_ins/objects.md)
+      6. [Scope](Standard_Library/built_ins/scope.md)
+      7. [Creating variables](Standard_Library/built_ins.md)
 
 ---
 
