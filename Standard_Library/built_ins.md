@@ -33,7 +33,7 @@
    10. **isinstance()**
    11. **issubclass()**
    12. **callable()**
-6. [Class](#Class)
+6. [Class](built_ins/class.md)
    1. @classmethod
    2. property(), @property
    3. @staticmethod
@@ -82,7 +82,14 @@
     7. **tuple()**
     8. **memoryview()**
 
+---
 
+## builtins module
+
+This module is not normally accessed explicitly by most applications, but can be useful in modules that provide objects with the same name as a built-in value.  
+most modules have the name **\_\_builtins\_\_** made available as part of their globals. The value of **\_\_builtins\_\_** is normally either this module or the value of this module’s **\_\_dict\_\_** attribute.  
+
+---
 
 ## Math  
 
@@ -106,12 +113,6 @@ See strings.
 **open()**  
 
 see files
-
----
-## builtins module
-
-This module is not normally accessed explicitly by most applications, but can be useful in modules that provide objects with the same name as a built-in value.  
-most modules have the name **\_\_builtins\_\_** made available as part of their globals. The value of **\_\_builtins\_\_** is normally either this module or the value of this module’s **\_\_dict\_\_** attribute.  
 
 ---
 
