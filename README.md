@@ -22,8 +22,9 @@
       3. [General](Standard_Library/built_ins/general.md)
       4. [Iterators](Standard_Library/built_ins/iterators.md)
       5. [Objects](Standard_Library/built_ins/objects.md)
-      6. [Scope](Standard_Library/built_ins/scope.md)
-      7. [Creating variables](Standard_Library/built_ins.md)
+      6. [Code](Standard_Library/built_ins/code.md)
+      7. [Scope](Standard_Library/built_ins/scope.md)
+      8. [Creating variables](Standard_Library/built_ins.md)
 
 ---
 

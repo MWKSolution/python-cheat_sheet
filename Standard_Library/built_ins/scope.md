@@ -1,6 +1,7 @@
 # Scope
 1. globals(), locals()
 2. vars(), dir()
+3. \_\_import\_\_
 
 ---
 
@@ -115,3 +116,19 @@ a = dir(10)
 # '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator',
 # 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
 ```
+
+## \_\_import\_\_
+when there is a need of importing modules during the runtime.  
+This function is invoked by the import statement.  
+```python
+s = __import__('sys', globals(), locals(), ['platform', 'version'])
+p = s.platform  # p = 'win32'
+v = s.version   # v = '3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]'
+```
+is equivalent to:  
+```python
+from sys import platform, version
+p = platform  # p = 'win32'
+v = version   # v = '3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]'
+```
+If you simply want to import a module (potentially within a package) by name, use importlib.import_module().  

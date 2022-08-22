@@ -61,17 +61,17 @@
 9. [Files](#Files)
    1. open()
 10. [Code](built_ins/code.md)
-    1. breakpoint()
+    1. **breakpoint()**
     2. compile()
-    3. eval()
-    4. exec()
-    5. help()
-    6. \_\_import\_\_
+    3. **eval()**
+    4. **exec()**
+    5. **help()**
 11. [Scope](built_ins/scope.md)
     1. **dir()**
     2. **globals()**
     3. **locals()**
     4. **vars()**
+    5. **\_\_import\_\_**
 12. [Creating variables](built_ins.md)
     1. **bytearray()**
     2. **bytes()**
@@ -141,14 +141,6 @@ Functions that creates new: **bytearray()**, **bytes()**, **dict()**, **frozense
 
 ---
 
-## Code
-### breakpoint()
-### compile()
-### eval()
-### exec()
-### help()
-### \_\_import\_\_
 
----
 
 
