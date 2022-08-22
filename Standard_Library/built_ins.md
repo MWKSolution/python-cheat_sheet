@@ -20,7 +20,25 @@
    7. **zip()**
    8. **reversed()**
    9. **sorted()**
-5. [Math](#Math)
+5. [Objects](built_ins/objects.md)
+   1. **object()**
+   2. **id()**
+   3. **type()**
+   4. **repr()**
+   5. **hash()**
+   6. **setattr()**
+   7. **delattr()**
+   8. **getattr()**
+   9. **hasattr()**
+   10. **isinstance()**
+   11. **issubclass()**
+   12. **callable()**
+6. [Class](#Class)
+   1. @classmethod
+   2. property(), @property
+   3. @staticmethod
+   4. super()
+7. [Math](#Math)
    1. abs()
    2. bin()
    3. complex()
@@ -40,39 +58,21 @@
    5. ord()
    6. print()
    7. str()
-7. [Objects](built_ins/objects.md)
-   1. **object()**
-   2. **id()**
-   3. **type()**
-   4. **repr()**
-   5. **hash()**
-   6. **setattr()**
-   7. **delattr()**
-   8. **getattr()**
-   9. **hasattr()**
-   10. **isinstance()**
-   11. **issubclass()**
-   12. **callable()**
-8. [Class](#Class)
-   1. @classmethod
-   2. property(), @property
-   3. @staticmethod
-   4. super()
-9. [Files](#Files)
+8. [Files](#Files)
    1. open()
-10. [Code](built_ins/code.md)
-    1. **breakpoint()**
-    2. compile()
-    3. **eval()**
-    4. **exec()**
-    5. **help()**
-11. [Scope](built_ins/scope.md)
+9. [Code](built_ins/code.md)
+   1. **breakpoint()**
+   2. compile()
+   3. **eval()**
+   4. **exec()**
+   5. **help()**
+10. [Scope](built_ins/scope.md)
     1. **dir()**
     2. **globals()**
     3. **locals()**
     4. **vars()**
     5. **\_\_import\_\_**
-12. [Creating variables](built_ins.md)
+11. [Creating variables](built_ins.md)
     1. **bytearray()**
     2. **bytes()**
     3. **dict()**
@@ -84,7 +84,28 @@
 
 
 
+## Math  
 
+**abs(), bin(), complex(), divmode(), hex(), float(), int(), oct(), pow(), round(), sum()**  
+
+See: math and numbers.
+
+---
+
+## Strings  
+
+**ascii(), chr(), format(), input(), ord(), print(), str()**  
+
+See strings.
+
+---
+
+
+## Files
+ 
+**open()**  
+
+see files
 
 ---
 ## builtins module
@@ -100,46 +121,7 @@ Functions that creates new: **bytearray()**, **bytes()**, **dict()**, **frozense
 ---
 
 
-## Math  
 
-### abs()
-### bin()
-### complex()
-### divmode()
-### hex()
-### float()
-### int()
-### oct()
-### pow(), **
-### round()
-### sum()
-
----
-
-## Strings  
-
-### ascii()
-### chr()
-### format()
-### input()
-### ord()
-### print()
-### str()
-
----
-
-## Class
-### @classmethod
-### property(), @property
-### @staticmethod
-### super()
-
----
-
-## Files
-### Open
-
----
 
 
 
