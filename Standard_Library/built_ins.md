@@ -35,7 +35,7 @@
    12. **callable()**
 6. [Class](built_ins/class.md)
    1. @classmethod
-   2. property(), @property
+   2. @property
    3. @staticmethod
    4. super()
 7. [Math](#Math)
