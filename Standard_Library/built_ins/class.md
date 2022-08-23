@@ -4,7 +4,12 @@
    2. @classmethod
    3. instance method
 2. @property
+   1. Defining
+   2. Restricting access
+   3. Usage
 3. super()
+   1. Basic use
+   2. Multiple inheritance
 4. \_\_new\_\_()
 
 ---
@@ -129,6 +134,7 @@ v = c.im()  # v = 'C'
 ---
 
 ## @property
+### Defining
 To hide internal attributes make them properties.  
 Unless you need something more than bare attribute access, don’t write properties. They’re a waste of CPU time, and more importantly, they’re a waste of your time.  
 ```python
@@ -186,10 +192,12 @@ class C:
 c = C()
 v = c.x  # v = 'prop'
 ```
-Restricting access (read, write and even delete only properties)
+
+### Restricting access
+(read, write and even delete only properties)
 When you omit property methods you get access level you want. (see property with lambda)   
 
-Usage:
+### Usage
 1. validating inputs
 ```python
 class Point:
@@ -230,6 +238,120 @@ If you want to create a cached property that doesn’t allow modification
 3. logging access, managing deletion
 4. Creating Backward-Compatible Class APIs
 5. Overriding Properties in Subclasses
+
+---
+
+## super()
+Return a proxy object that delegates method calls to a parent or sibling class of type.  
+It allows you to call methods of the superclass in your subclass - mainly used with **\_\_init\_\_**  
+### Basic use
+```python
+class B:
+    def method(self, argb):
+        self.arg = argb * 2 + '_'
+        return True
+
+class C(B):
+    def method(self, argc1, argc2):
+        super().method(argc1)  # same as super(C, self).method(argc1)
+        self.arg += argc2 * 3  # self.arg could be used because of super()
+        return True
+
+c = C()
+c.method('a', 'b')
+v = c.arg  # v = 'aa_bbb'
+```
+### Multiple inheritance
+1. MRO method resolution order - order of super() callings
+2. All methods that are called with super() need to have a call to their superclass’s version of that method.  
+3. inheritance - "is a", other methods:
+   1. composition - "has a"
+   2. mixin - "includes a"
+4. !!! composition instead of inheritance !!!
+
+Matching arguments' signature:
+1. fixed positional arguments
+2. keyword arguments:
+```python
+class Shape:
+    def __init__(self, shapename, **kwds):
+        self.shapename = shapename
+        super().__init__(**kwds)        
+
+class ColoredShape(Shape):
+    def __init__(self, color, **kwds):
+        self.color = color
+        super().__init__(**kwds)
+
+cs = ColoredShape(color='red', shapename='circle')
+```
+Make sure target exists: (at the end  - **object** doesn't have method)
+1. root class
+```python
+class Root:
+    def method(self):
+        # do something
+        assert not hasattr(super(), 'method')
+
+class B(Root):
+    def method(self):
+        super().method()
+
+class C(B):
+    def method(self):
+        super().method()
+
+c = C()
+c.method()
+```
+Incorporating non-cooperative class and other things collected together
+```python
+class Root:
+    def __init__(self, **kwds):
+        print('root init', kwds)
+    def method(self):
+        print('root method')
+        assert not hasattr(super(), 'method')
+
+class NonCooperative:
+    def __init__(self, x, y):
+        print('non-cooperative init', x, y, end=' -> ')
+        self.x = x
+        self.y = y
+    def method(self):
+        print('non-cooperative method', end=' -> ')
+
+class NonCooperativeAdapter(Root):
+    def __init__(self, x, y, **kwds):
+        print('adapter init', kwds, end=' -> ')
+        self.nc = NonCooperative(x, y)
+        super().__init__(**kwds)
+    def method(self):
+        print('adapter method', end=' -> ')
+        self.nc.method()
+        super().method()
+
+class B(Root):
+    def __init__(self, a, b, **kwds):
+        print('B init', a, b, kwds, end=' -> ')
+        self.a = a
+        self.b = b
+        super().__init__(**kwds)
+    def method(self):
+        print('B method', end=' -> ')
+        super().method()
+
+class C(B, NonCooperativeAdapter):
+    pass
+
+c = C(a='a', b='b', x='x', y='y')
+c.method()
+d = C.__bases__  # d = (<class '__main__.B'>, <class '__main__.NonCooperativeAdapter'>)
+j = C.__mro__    # j = (<class '__main__.C'>, <class '__main__.B'>, <class '__main__.NonCooperativeAdapter'>, <class '__main__.Root'>, <class 'object'>)
+# output:
+# B init a b {'x': 'x', 'y': 'y'} -> adapter init {} -> non-cooperative init x y -> root init {}
+# B method -> adapter method -> non-cooperative method -> root method
+```
 
 ---
 
