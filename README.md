@@ -29,6 +29,7 @@
       10. [Code](Standard_Library/built_ins/code.md)
       11. [Scope](Standard_Library/built_ins/scope.md)
       12. [Creating variables](Standard_Library/built_ins.md)
+   6. [Operator](Standard_Library/operator.md)
 
 ---
 
