@@ -10,6 +10,4 @@
 
 total_ordering
 singledispach, singledispachmethod
-
-other other
 cmp_to_key
