@@ -8,6 +8,6 @@
 5. lru_cache
 6. wraps, update wrapper
 
-total_ordering
-singledispach, singledispachmethod
+total_ordering  
+singledispach, singledispachmethod  
 cmp_to_key
