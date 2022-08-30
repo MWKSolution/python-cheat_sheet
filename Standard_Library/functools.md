@@ -3,18 +3,18 @@
 
 1. Functional programming  
 
-Important tools
+Tools:
 
 2. partial()
 3. partialmethod()
 4. @lru_cache(), @cache
 5. @cashed_property()
-6. wraps, update wrapper
-7. total_ordering
-8. singledispach
-9. singledispachmethod  
+6. @wraps, update wrapper
+7. @total_ordering
+8. @singledispatch
+9. @singledispatchmethod  
 
-Deprecated or non-pythonic
+Deprecated or non-pythonic:
 10. reduce()
 11. cmp_to_key()
 
@@ -204,7 +204,52 @@ def factorial(n):
     return n * factorial(n-1) if n else 1
 ```
 Simple lightweight unbounded function cache.   
-Returns the same as *lru_cache(maxsize=None)*. Because it never needs to evict old values, this is smaller and faster than lru_cache() with a size limit.  
+Returns the same as *lru_cache(maxsize=None)*. Because it never needs to evict old values, this is smaller and faster than lru_cache() with a size limit.
+
+---
+## @singledispatch
+Function overloading. Transform a function into a single-dispatch generic function.  
+The original function decorated with @singledispatch is registered for the base object type,
+```python
+from functools import singledispatch
+
+@singledispatch
+def fun(arg):
+    return 'No implementations for this argument type!'
+
+@fun.register
+def _(arg: list):
+    return list(enumerate(arg))
+
+@fun.register(float)
+@fun.register(int)
+def _(arg):
+    return arg*5
+
+fun.register(str, lambda x: x.upper())
+
+@fun.register
+def _(arg: type(None)):
+    return 'Nothing'
+
+v = fun(1+1j)             # v = 'No implementations for this argument type!'
+w = fun(10.5)             # w = 52.5
+u = fun('txt')            # u = 'TXT'
+x = fun(['a', 'b', 'c'])  # x = [(0, 'a'), (1, 'b'), (2, 'c')]
+y = fun(None)             # y = 'Nothing'
+
+o = fun.dispatch(int)     # o = <function _ at 0x...> == fun.registry[int]
+p = fun.registry.keys()   # p = dict_keys([<class 'object'>, <class 'list'>, <class 'int'>, <class 'float'>, <class 'str'>, <class 'NoneType'>])
+```
+If an implementation is registered to an abstract base class, virtual subclasses of the base class will be dispatched to that implementation.  
+
+---
+
+## @singledispatchmethod
+Add multiple constructors to your classes and run them selectively, according to the type of their first argument.  
+
+---
+
 ---
 
 ## reduce()
