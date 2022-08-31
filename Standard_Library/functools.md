@@ -3,7 +3,7 @@
 
 1. Functional programming  
 
-Tools:
+Tools:  
 
 2. partial()
 3. partialmethod()
@@ -14,9 +14,10 @@ Tools:
 8. @singledispatch
 9. @singledispatchmethod  
 
-Deprecated or non-pythonic:
+Deprecated or non-pythonic:  
+
 10. reduce()
-11. cmp_to_key()
+11. cmp_to_key()  
 
 ---
 ## Functional programming
@@ -48,7 +49,7 @@ pfun2.__doc__ = 'Second power'
 pfun3 = partial(fun, b=3)
 
 v = pfun2(5)        # v = 25
-x = pfun2.func      # x = <function fun at 0x0000000002844280>
+x = pfun2.func      # x = <function fun at 0x...>
 y = pfun2.args      # y = ()
 z = pfun2.keywords  # z = {'b': 2}
 t = pfun2.__doc__   # t = 'Second power'

@@ -21,7 +21,7 @@ Some interesting operators:
 ```python
 import operator as op 
 op.setitem(obj, k, v)  ->  obj[k] = v
-op.setitem(obj, k)     ->  del obj[k]
+op.delitem(obj, k)     ->  del obj[k]
 op.getitem(obj, k)     ->  obj[k]
 # all above with slices
 seq[i:j] = values      ->  setitem(seq, slice(i, j), values)
