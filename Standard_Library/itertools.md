@@ -157,10 +157,60 @@ r = list(i)  # r = ['A', 'C', 'E', 'G']
 New in 3.10 !!!  
 Return successive overlapping pairs taken from the input iterable.
 ### starmap()
-### takewhile()
-### tee()
-### zip_longest()
+Like **map()** but iterable is a list of tuples.  
+```python
+import itertools as it
 
+i = it.starmap(pow, [(1, 2), (2, 2), (3, 2)])
+q = list(i)  # q = [1, 4, 9]
+# vs map
+i = map(pow, [1, 2, 3], [2, 2, 2])
+w = list(i)  # w = [1, 4, 9]
+# or:
+i = map(pow, [1, 2, 3], it.repeat(2))
+x = list(i)  # x = [1, 4, 9]
+```
+### takewhile()
+Make an iterator that returns elements from the iterable as long as the predicate is true.  
+Opposite to **dropwhile()**  
+```python
+import itertools as it
+
+l = [5, 3, 1, 0, -1, -2, 3, 5]
+
+i = it.takewhile(lambda x: x >= 0, l)
+q = list(i)         # q = [5, 3, 1, 0]
+
+i = it.dropwhile(lambda x: x >= 0, [5, 3, 1, 0, -1, -2, 3, 5])
+w = list(i)         # q = [-1, -2, 3, 5]
+
+v = ((q + w) == l)  # v = True
+```
+### tee()
+Return n independent iterators from a single iterable.  
+```python
+import itertools as it
+
+l = [1, 2, 3]
+i = it.tee(l, 3)
+t = [list(n) for n in i]  # t = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+
+r = type(i)  # r = <class 'tuple'>
+```
+### zip_longest()
+Like **zip()** but Iteration continues until the longest iterable is exhausted.  
+missing values are filled-in with fillvalue (default - None).  
+```python
+import itertools as it
+
+l1 = [1, 2, 3, 4]
+l2 = [1, 2]
+i = it.zip_longest(l1, l2)  
+q = list(i)  # q = [(1, 1), (2, 2), (3, None), (4, None)]
+
+i = it.zip_longest(l1, l2, fillvalue='xxx')
+r = list(i)  # r = [(1, 1), (2, 2), (3, 'xxx'), (4, 'xxx')]
+```
 ---
 
 ## Combinatoric
