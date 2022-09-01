@@ -65,7 +65,7 @@ w = max(["20", "3", "35", "7"], key=int)           # w = "35"
 ```
 You can also make instances of your custom classes compatible with **min()** and **max()**.   
 To achieve this, you need to provide your own implementations of **\_\_lt\_\_()**, **\_\_le\_\_()**, **\_\_gt\_\_()**, or **\_\_ge\_\_()** and **\_\_eq\_\_()**.
-To make it easier use **functools.total_ordering**
+To make it easier use [**functools.total_ordering**](../functools.md)
 ```python
 from functools import total_ordering
 

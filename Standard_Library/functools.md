@@ -8,8 +8,8 @@ Tools:
 2. partial()
 3. partialmethod()
 4. @lru_cache(), @cache
-5. @cashed_property()
-6. @wraps, update wrapper
+5. @cached_property
+6. @wraps, update_wrapper
 7. @total_ordering
 8. @singledispatch
 9. @singledispatchmethod  
@@ -207,7 +207,76 @@ def factorial(n):
 Simple lightweight unbounded function cache.   
 Returns the same as *lru_cache(maxsize=None)*. Because it never needs to evict old values, this is smaller and faster than lru_cache() with a size limit.
 
+
 ---
+
+## @cached_property
+Transform a method of a class into a property whose value is computed once and then cached as a normal attribute for the life of the instance.  
+There are differences between @property and @cached_property - check documentation...  
+Unlike property(), cached_property() doesn’t block attribute mutations unless you provide a proper setter method. 
+```python
+from functools import cached_property
+import statistics
+class DataSet:
+
+    def __init__(self, sequence_of_numbers):
+        self._data = tuple(sequence_of_numbers)
+
+    @cached_property
+    def stdev(self):
+        return statistics.stdev(self._data)
+```
+Cached property that doesn’t allow modification:
+```python
+from functools import lru_cache
+import statistics
+class DataSet:
+    def __init__(self, sequence_of_numbers):
+        self._data = sequence_of_numbers
+
+    @property
+    @lru_cache  # or @cache from 3.9
+    def stdev(self):
+        return statistics.stdev(self._data)
+```
+
+---
+
+## @wraps, update_wrapper
+
+
+---
+
+## @total_ordering
+Given a class defining one or more rich comparison ordering methods, this class decorator supplies the rest.  
+The class must define one of __lt__(), __le__(), __gt__(), or __ge__(). In addition, the class should supply an __eq__() method.  
+```python
+from functools import total_ordering
+
+@total_ordering
+class StrangeNumber:
+    def __init__(self, number):
+        self.number = number
+    def __repr__(self):
+        return f'{type(self).__name__}({self.number})'
+    def __lt__(self, other):
+        return self.strange(self.number) < self.strange(other.number)
+    def __eq__(self, other):
+        return self.strange(self.number) == self.strange(other.number)
+    @staticmethod
+    def strange(n):
+        return float("".join(reversed(str(n))))
+
+x = StrangeNumber(12345.56)    # x = StrangeNumber(12345.56)
+y = StrangeNumber(13.3333333)  # y = StrangeNumber(13.3333333)
+z = (x >= y)                   # z = False
+k = max(x, y)                  # k = StrangeNumber(13.3333333)
+```
+While this decorator makes it easy to create well behaved totally ordered types, it does come at the cost of slower execution and more complex stack traces for the derived comparison methods. If performance benchmarking indicates this is a bottleneck for a given application, implementing all six rich comparison methods instead is likely to provide an easy speed boost.  
+This decorator makes no attempt to override methods that have been declared in the class or its superclasses. Meaning that if a superclass defines a comparison operator, total_ordering will not implement it again, even if the original method is abstract.  
+
+---
+
 ## @singledispatch
 Function overloading. Transform a function into a single-dispatch generic function.  
 The original function decorated with @singledispatch is registered for the base object type,
@@ -242,14 +311,109 @@ y = fun(None)             # y = 'Nothing'
 o = fun.dispatch(int)     # o = <function _ at 0x...> == fun.registry[int]
 p = fun.registry.keys()   # p = dict_keys([<class 'object'>, <class 'list'>, <class 'int'>, <class 'float'>, <class 'str'>, <class 'NoneType'>])
 ```
+More than one argument:  
+```python
+from functools import singledispatch
+
+@singledispatch
+def fun(arg1, arg2):
+    return 'No implementations for this argument type!'
+
+@fun.register
+def fun_int(arg1: int, arg2: int):
+    return arg1 + arg2
+
+@fun.register(float)
+def fun_float(arg1, arg2):
+    return arg1 - arg2
+
+z = fun('a', 5)           # z = 'No implementations for this argument type!'
+v = fun(1, 1)             # v = 2
+w = fun(1.5, 1.5)         # w = 0.0
+
+o = fun.dispatch(int)     # o = <function _int at 0x...> == fun.registry[int]
+p = fun.registry.values() # p = dict_values([<function fun at 0x...>, <function fun_int at 0x...>, <function fun_float at 0x...>])
+```
 If an implementation is registered to an abstract base class, virtual subclasses of the base class will be dispatched to that implementation.  
 
 ---
 
 ## @singledispatchmethod
-Add multiple constructors to your classes and run them selectively, according to the type of their first argument.  
+Like @singledipatch but for methods in class.  
+Transform a method into a single-dispatch generic function.  
+```python
+from functools import singledispatchmethod
 
----
+class Negator:
+    @singledispatchmethod
+    def neg(self, arg):
+        raise NotImplementedError("Cannot negate a")
+
+    @neg.register
+    def _(self, arg: int):
+        return -arg
+
+    @neg.register
+    def _(self, arg: bool):
+        return not arg
+
+n = Negator()
+v = n.neg(1)        # v = -1
+w = n.neg(True)     # w = False
+# z = n.neg('abc')  # NotImplementedError: Cannot negate a
+```
+Add multiple constructors to your classes and run them selectively, according to the type of their first argument.  
+```python
+from functools import singledispatchmethod
+
+class C:
+    @singledispatchmethod
+    def __init__(self, arg):
+        raise NotImplementedError
+    @__init__.register(int)
+    def from_int(self, arg):
+        self.n = arg
+    @__init__.register(float)
+    def from_float(self, arg):
+        self.n = int(arg)
+
+n1 = C(1)
+v = n1.n        # v = 1
+n2 = C(1.5)
+w = n2.n        # w = 1
+# x = C('aaa')  # NotImplementedError
+```
+@singledispatchmethod supports nesting with other decorators such as @classmethod...  
+... but there is bug before Python 3.9.8 - need to be tweeked
+```python
+from functools import singledispatchmethod
+# tweek:
+def _register(self, cls, method=None):
+    if hasattr(cls, '__func__'):
+        setattr(cls, '__annotations__', cls.__func__.__annotations__)
+    return self.dispatcher.register(cls, func=method)
+singledispatchmethod.register = _register
+
+class Negator:
+    @singledispatchmethod
+    @classmethod
+    def neg(cls, arg):
+        raise NotImplementedError("Cannot negate a")
+
+    @neg.register
+    @classmethod
+    def neg_int(cls, arg: int):
+        return -arg
+
+    @neg.register
+    @classmethod
+    def neg_bool(cls, arg: bool):
+        return not arg
+
+
+v = Negator.neg(1)     # v = -1
+w = Negator.neg(True)  # w = False
+```
 
 ---
 
