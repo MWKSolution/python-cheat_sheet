@@ -32,6 +32,7 @@
    6. [Itertools](Standard_Library/itertools.md)
    7. [Functools](Standard_Library/functools.md)
    8. [Operator](Standard_Library/operator.md)
+   9. [Decorator](Standard_Library/decorator.md)
 
 ---
 
