@@ -5,6 +5,9 @@
 4. Parameters and return
 5. Introspection
 6. Chaining decorators
+7. Decorator without wrapper
+8. Decorators with arguments
+9. Decorating classes
 
 ---
 
@@ -157,7 +160,119 @@ v = fun(1, 2)  # v = 3
 ---
 
 ## Introspection
+Preserve information about the original function.  By default, preserved attributes: 
+**\_\_module\_\_, \_\_name\_\_, \_\_qualname\_\_, \_\_annotations\_\_, \_\_doc\_\_, \_\_dict\_\_**.  
+See [@wraps](functools.md)  
+Only decorator:
+```python
+def decorator(func):
+
+    def wrapper(*args, **kwargs):
+        """I'm wrapper"""
+        print(f'Decorating {args} + {kwargs}')
+        return func(*args, **kwargs)
+    return wrapper
+
+@decorator
+def fun(a, b):
+    """I'm fun."""
+    print('This is some function')
+    return a + b
+
+v = fun(1, b=2)
+
+w = fun.__name__     # w = 'wrapper'
+z = fun.__doc__      # z = "I'm wrapper"
+m = fun.__wrapped__  # 'function' object has no attribute '__wrapped__'
+```
+With **@wraps**:
+```python
+from functools import wraps
+
+def decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        """I'm wrapper"""
+        print(f'Decorating {args} + {kwargs}')
+        return func(*args, **kwargs)
+    return wrapper
+
+@decorator
+def fun(a, b):
+    """I'm fun."""
+    print('This is some function')
+    return a + b
+
+v = fun(1, b=2)
+
+w = fun.__name__     # w = 'fun'
+z = fun.__doc__      # z = "I'm fun."
+m = fun.__wrapped__  # m = <function fun at 0x...>
+```
 
 ---
 
 ## Chaining decorators
+```python
+from functools import wraps
+
+def decorator1(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        """I'm wrapper1"""
+        print(f'Decorator1 >>>>> {args} + {kwargs}')
+        return func(*args, **kwargs)
+    return wrapper
+
+def decorator2(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        """I'm wrapper2"""
+        print(f'Decorator2 ##### {args} + {kwargs}')
+        return func(*args, **kwargs)
+    return wrapper
+
+@decorator1
+@decorator2
+def fun(a, b):
+    """I'm fun."""
+    print('This is some function')
+    return a + b
+
+v = fun(1, b=2)
+# Output: Decorator1 >>>>> (1,) + {'b': 2}
+#         Decorator2 ##### (1,) + {'b': 2}
+#         This is some function
+```
+
+---
+
+## Decorator without wrapper
+```python
+PLUGINS = dict()
+
+def register(func):
+    PLUGINS[func.__name__] = func
+    return func
+
+@register
+def func1():
+    pass
+
+@register
+def func2():
+    pass
+
+v = PLUGINS  # v = {'func1': <function func1 at 0x...>, 'func2': <function func2 at 0x... >}
+```
+
+---
+
+## Decorators with arguments
+
+---
+
+## Decorating classes
+
+---
+

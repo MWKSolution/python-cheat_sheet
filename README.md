@@ -45,6 +45,7 @@ Links:
 [Real Python](https://realpython.com/)  
 [Geeks for Geeks](https://www.geeksforgeeks.org/python-programming-language/?ref=shm)  
 [w3schools](https://www.w3schools.com/python/default.asp)  
+[Programiz](https://www.programiz.com/python-programming)
   
 [medium.com](https://medium.com/)  
 [towardsdatascience.com](https://towardsdatascience.com/)
