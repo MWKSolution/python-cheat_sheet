@@ -135,7 +135,8 @@ Possible is:
 something = decorator(fun)
 ```
 *something* function will be decorated *fun* function. But this will not alter behavior of *fun* after calls to *fun* !!!  
-See also [Decorator without wrapper](#Decorator without wrapper)
+See also **Decorator without wrapper**
+
 ---
 
 ## Parameters and return
