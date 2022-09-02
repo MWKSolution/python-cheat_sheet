@@ -118,7 +118,24 @@ fun()
 #         This is some function
 #         Decorating after
 ```
-
+**!!! IMPORTANT !!!**  
+Actually @ syntax:
+```python
+@decorator
+def fun():
+    pass
+```
+means:
+```python
+fun = decorator(fun)
+```
+Which is changing assignment to *fun* (now *wrapper* is assigned). But now every call to *fun* will run *wrapper* and *fun* inside it. Which is actual functionality of decorator.  
+Possible is:  
+```python
+something = decorator(fun)
+```
+*something* function will be decorated *fun* function. But this will not alter behavior of *fun* after calls to *fun* !!!  
+See also [Decorator without wrapper](#Decorator without wrapper)
 ---
 
 ## Parameters and return
@@ -248,6 +265,11 @@ v = fun(1, b=2)
 ---
 
 ## Decorator without wrapper
+**!!! IMPORTANT !!!**  
+**Wrapper is needed for three things:**
+- **to get access to arguments of decorated function**
+- **to actually run decorated function inside wrapper**
+- **to use decorator with arguments - additional wrapper**
 ```python
 PLUGINS = dict()
 
@@ -263,7 +285,12 @@ def func1():
 def func2():
     pass
 
-v = PLUGINS  # v = {'func1': <function func1 at 0x...>, 'func2': <function func2 at 0x... >}
+def fun3():
+    pass
+
+fun3 = register(fun3)
+
+v = PLUGINS  # v = {'func1': <function func1 at 0x...>, 'func2': <function func2 at 0x... >, 'fun3': <function fun3 at 0x...}
 ```
 
 ---
