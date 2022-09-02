@@ -33,7 +33,7 @@ Every **object()** call creates unique object contrary to **None** !!!
 a, b = None, None
 s1, s2 = object(), object()
 v = a is b   # v = True
-w = s1 is b  # w = False
+w = s1 is s2  # w = False
 ```
 
 ---
