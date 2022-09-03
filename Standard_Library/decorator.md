@@ -8,6 +8,7 @@
 7. Decorator without wrapper
 8. Decorators with arguments
 9. Decorating classes
+10. Decorators with state, classes as decorators
 
 ---
 
@@ -297,10 +298,101 @@ v = PLUGINS  # v = {'func1': <function func1 at 0x...>, 'func2': <function func2
 ---
 
 ## Decorators with arguments
+Additional wrapper for decorator arguments
+```python
+from functools import wraps
+
+def decorator_arg(n):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(a, b):
+            print(f'Decorating ({a} + {b}) * {n}')
+            return func(a, b) * n
+        return wrapper
+    return decorator
+
+@ decorator_arg(n=5)
+def fun(a, b):
+    print('This is some function')
+    return a + b
+
+v = fun(1, 2)  # v = 15
+# Output: Decorating (1 + 2) * 5
+#         This is some function
+```
+Using decorator with or without arguments.  
+
 
 ---
 
 ## Decorating classes
+Decorating methods:  
+**@classmethod**, **@staticmethod**, **@property**.   
+As for ordinary function...  
+
+Decorating class:  
+**@dataclass**  
+Simpler alternative of metaclasses.  
+Changing class definition dynamically.  
+Decorator receives class.  
+1. decorating all instances at once:
+```python
+def class_decorator(Cls):
+    class NewCls(Cls):
+        def __init__(self, *args, **kwargs):
+            print('Decorating class')
+            self.oInstance = Cls(*args, **kwargs)
+        def __getattribute__(self,s):
+            x = super(NewCls,self).__getattribute__(s)
+            print('Decorating method')
+            return x
+    return NewCls
+
+@class_decorator
+class C:
+    def m1(self):
+        print('Method 1')
+
+    def m2(self):
+        print('Method 2')
+
+c = C()
+c.m1()
+c.m2()
+# Output: 
+# Decorating class
+# Decorating method
+# Method 1
+# Decorating method
+# Method 2
+```
+Singelton:
+```python
+from functools import wraps
+
+def singleton(cls):
+    @wraps(cls)
+    def wrapper_singleton(*args, **kwargs):
+        if not wrapper_singleton.instance:
+            wrapper_singleton.instance = cls(*args, **kwargs)
+        return wrapper_singleton.instance
+    wrapper_singleton.instance = None    # wrapper keeps state if class has instance
+    return wrapper_singleton
+
+@singleton
+class C:
+    pass
+
+c1 = C()
+c2 = C()
+
+v = c1 is c2  # v = True
+```
+
+---
+
+## Decorators with state ## Classes as decorators
+
 
 ---
 

@@ -41,7 +41,7 @@ w = s1 is s2  # w = False
 ## id()
 Return the “identity” of an object. This is an integer which is guaranteed to be unique and constant for this object during its lifetime.  
 This is the address of the object in memory.  
-Objects with the same value are usually stored at separate memory addresses !!!
+Objects with the same value are usually stored at separate memory addresses !!!  
 Immutable:  
 ```python
 a = 'Hello World'
