@@ -9,7 +9,7 @@ Tools:
 3. partialmethod()
 4. @lru_cache(), @cache
 5. @cached_property
-6. @wraps, update_wrapper
+6. @wraps, update_wrapper()
 7. @total_ordering
 8. @singledispatch
 9. @singledispatchmethod  
@@ -242,8 +242,85 @@ class DataSet:
 
 ---
 
-## @wraps, update_wrapper
+## @wraps, update_wrapper()
+Preserve information about the original function.  By default, preserved attributes: 
+**\_\_module\_\_, \_\_name\_\_, \_\_qualname\_\_, \_\_annotations\_\_, \_\_doc\_\_, \_\_dict\_\_**.   
+Only decorator:
+```python
+def decorator(func):
 
+    def wrapper(*args, **kwargs):
+        """I'm wrapper"""
+        print(f'Decorating {args} + {kwargs}')
+        return func(*args, **kwargs)
+    return wrapper
+
+@decorator
+def fun(a, b):
+    """I'm fun."""
+    print('This is some function')
+    return a + b
+
+v = fun(1, b=2)
+
+w = fun.__name__     # w = 'wrapper'
+z = fun.__doc__      # z = "I'm wrapper"
+m = fun.__wrapped__  # 'function' object has no attribute '__wrapped__'
+```
+With **@wraps**:
+```python
+from functools import wraps
+
+def decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        """I'm wrapper"""
+        print(f'Decorating {args} + {kwargs}')
+        return func(*args, **kwargs)
+    return wrapper
+
+@decorator
+def fun(a, b):
+    """I'm fun."""
+    print('This is some function')
+    return a + b
+
+v = fun(1, b=2)
+
+w = fun.__name__     # w = 'fun'
+z = fun.__doc__      # z = "I'm fun."
+m = fun.__wrapped__  # m = <function fun at 0x...>
+```
+Actually **@wraps** is invoking **update_wrapper()** and is equivalent to calling:  
+**partial(update_wrapper, wrapped=wrapped, assigned=assigned, updated=updated)(func)**  
+By default:  *assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES*  
+Previous example with **update_wrapper()** would look like this:
+```python
+from functools import update_wrapper
+
+def decorator(func):
+
+    def wrapper(*args, **kwargs):
+        """I'm wrapper"""
+        print(f'Decorating {args} + {kwargs}')
+        return func(*args, **kwargs)
+    
+    update_wrapper(wrapper, func)
+    
+    return wrapper
+
+@decorator
+def fun(a, b):
+    """I'm fun."""
+    print('This is some function')
+    return a + b
+
+v = fun(1, b=2)
+
+w = fun.__name__     # w = 'fun'
+z = fun.__doc__      # z = "I'm fun."
+m = fun.__wrapped__  # m = <function fun at 0x...>
+```
 
 ---
 

@@ -449,7 +449,7 @@ from functools import update_wrapper
 
 class Decorator:
     def __init__(self, func):
-        update_wrapper(self, func)
+        update_wrapper(self, func)  # instead of wraps
         self.func = func
         self.calls = 0
 
