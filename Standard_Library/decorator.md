@@ -8,7 +8,8 @@
 7. Decorator without wrapper
 8. Decorators with arguments
 9. Decorating classes
-10. Decorators with state, classes as decorators
+10. Classes as decorators
+11. Decorators with state
 
 ---
 
@@ -298,7 +299,7 @@ v = PLUGINS  # v = {'func1': <function func1 at 0x...>, 'func2': <function func2
 ---
 
 ## Decorators with arguments
-Additional wrapper for decorator arguments
+Additional wrapper for decorator arguments. Argument must be given or "()" if default value is defined.  
 ```python
 from functools import wraps
 
@@ -321,7 +322,56 @@ v = fun(1, 2)  # v = 15
 #         This is some function
 ```
 Using decorator with or without arguments.  
+!!! But parameters should be all keywords arguments !!!  
+Two wrappers as above:
+```python
+from functools import wraps, partial
 
+def decorator_arg(func=None, *, n=2):  # when no parameters func is passed as first argument !!!
+    def decorator(func):
+        @wraps(func)
+        def wrapper(a, b):
+            print(f'Decorating ({a} + {b}) * {n}')
+            return func(a, b) * n
+        return wrapper
+    if func is None:
+        return decorator
+    else:
+        return decorator(func)
+
+@decorator_arg
+def fun(a, b):
+    print('This is some function')
+    return a + b
+
+v = fun(1, 2)  # v = 6
+```
+One wrapper with **partial()**  
+```python
+from functools import wraps, partial
+
+def decorator(func=None, *, n=2):
+    if func is None:
+        return partial(decorator, n=n)
+    @wraps(func)
+    def wrapper(a, b):
+        print(f'Decorating ({a} + {b}) * {n}')
+        return func(a, b) * n
+    return wrapper
+
+@decorator()
+def fun(a, b):
+    print('This is some function')
+    return a + b
+
+v = fun(1, 2)  # v = 6
+```
+Can be used like:
+```python
+@decorator
+@decorator()
+@decorator(n=10)
+```
 
 ---
 
@@ -391,8 +441,68 @@ v = c1 is c2  # v = True
 
 ---
 
-## Decorators with state ## Classes as decorators
+## Classes as decorators
+**\_\_init\_\_** in class gets function as an argument.  
+Also class should be callable - **\_\_call\_\_** method.  
+```python
+from functools import update_wrapper
 
+class Decorator:
+    def __init__(self, func):
+        update_wrapper(self, func)
+        self.func = func
+        self.calls = 0
+
+    def __call__(self, *args, **kwargs):
+        self.calls += 1
+        print(f'Function {self.func.__name__} called {self.calls} time(s).')
+        return self.func(*args, **kwargs)
+
+@Decorator   # crating instance of Decorator: fun = Decorator(fun)
+def fun():
+    print("I'm function")
+    return None
+
+fun()
+fun()
+# Output:
+# Function fun called 1 time(s).
+# I'm function
+# Function fun called 2 time(s).
+# I'm function
+```
+
+---
+
+## Decorators with state
+Class decorator from previous example is an example of stateful decorator.  
+Since it changes fun in instance of Decorator it is able to keep state throughout all calls to fun().  
+
+Classic stateful decorator:  
+```python
+from functools import wraps
+
+def decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        wrapper.func_calls += 1
+        print(f'Function {func.__name__} called {wrapper.func_calls} time(s).')
+        return func(*args, **kwargs)
+    wrapper.func_calls = 0
+    return wrapper
+
+@decorator
+def fun():
+    print("I'm function")
+
+fun()
+fun()
+# Output:
+# Function fun called 1 time(s).
+# I'm function
+# Function fun called 2 time(s).
+# I'm function
+```
 
 ---
 
