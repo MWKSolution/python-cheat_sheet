@@ -42,12 +42,12 @@
    1. abs()
    2. bin()
    3. complex()
-   4. divmode()
+   4. divmod()
    5. hex()
    6. float()
    7. int()
    8. oct()
-   9. pow(), **
+   9. pow()
    10. round()
    11. sum()
 6. [Strings](#Strings)
@@ -95,7 +95,7 @@ most modules have the name **\_\_builtins\_\_** made available as part of their 
 
 **abs(), bin(), complex(), divmode(), hex(), float(), int(), oct(), pow(), round(), sum()**  
 
-See: math and numbers.
+See: [Math and Numbers](math.md)
 
 ---
 
