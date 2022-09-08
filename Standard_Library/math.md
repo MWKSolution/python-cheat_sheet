@@ -19,6 +19,12 @@
    6. Hyperbolic functions
    7. Special functions
 6. cmath
+   1. Constants
+   2. Conversions to and from polar coordinates
+   3. Power and logarithmic functions
+   4. Trigonometric functions
+   5. Hyperbolic functions
+   6. Classification functions
 
 ---
 
@@ -410,5 +416,7 @@ isfinite()
 isinf()  
 isnan()  
 isclose()
+
+[All functions documentation...](https://docs.python.org/3/library/cmath.html)
 
 ---
