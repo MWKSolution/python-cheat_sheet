@@ -38,7 +38,7 @@
    2. **@property**
    3. **@staticmethod**
    4. **super()**
-7. [Math](#Math)
+7. [Math](math.md)
    1. abs()
    2. bin()
    3. complex()
@@ -50,7 +50,7 @@
    9. pow()
    10. round()
    11. sum()
-6. [Strings](#Strings)
+6. [Strings](string.md)
    1. ascii()
    2. chr()
    3. format()
@@ -58,7 +58,7 @@
    5. ord()
    6. print()
    7. str()
-8. [Files](#Files)
+8. [Files](files.md)
    1. open()
 9. [Code](built_ins/code.md)
    1. **breakpoint()**
@@ -103,16 +103,15 @@ See: [Math and Numbers](math.md)
 
 **ascii(), chr(), format(), input(), ord(), print(), str()**  
 
-See strings.
+See [Strings](string.md)
 
 ---
-
 
 ## Files
  
 **open()**  
 
-see files
+See [Files](files.md)
 
 ---
 

@@ -34,6 +34,7 @@
    8. [Operator](Standard_Library/operator.md)
    9. [Decorator](Standard_Library/decorator.md)
    10. [Math and Numbers](Standard_Library/math.md)
+   11. [Strings](Standard_Library/string.md)
 
 ---
 
