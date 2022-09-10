@@ -22,6 +22,7 @@
    3. Classification
    4. Formatting
    5. Conversion
+   6. Mappings
 5. f-strings
    1. Formatting
    2. expression
@@ -100,7 +101,7 @@ Escape sequences only recognized in string literals:
 [Unicode codes and characters...](https://en.wikipedia.org/wiki/List_of_Unicode_character)
 
 
-Uiversal newlines:
+Universal newlines:
 ```
 \n          Line Feed                     Unix
 \r          Carriage Return               Macintosh
@@ -121,7 +122,7 @@ h = string.whitespace
 ```
 
 ### Raw strings
-Raw string treats the backslashes (\) as literal characters.  
+Raw string treats the backslashes &bsol; as literal characters.  
 Unless an ‘r’ or ‘R’ prefix is present, escape sequences in strings are interpreted according to rules given above.    
 ```python
 s = 'abc\tdef\nghi'   # s = 'abc\tdef\nghi'
@@ -150,7 +151,8 @@ s = r'\\\'  # SyntaxError: EOL while scanning string literal
 ```
 Used for low level Windows path handling:
 ```python
-path = 'c:\user\task\new'  # SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \uXXXX escape
+path = 'c:\user\task\new'  
+# SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \uXXXX escape
 ```
 correct:  
 ```python
@@ -158,7 +160,7 @@ path = r'c:\user\task\new'
 # or
 path = 'c:\\user\\task\\new'
 ```
-Be careful with '\' at the end !!!
+Be careful with &bsol; at the end !!!  
 Raw strings with repr():
 ```python
 s = 'abc\tdef\nghi' 
@@ -254,47 +256,106 @@ lower()
 swapcase()  
 title()  
 upper()  
-casefold()  
+casefold() - more aggressibe than lower()  
 ### Search and replace
-count()  
+**count()**  
+```python
+s = 'ababababababababababa'
+v = s.count('ab')          # v = 10 
+v = s.count('ab', 10, -2)  # v = 4
+```
 endswith()  
-find()  
-index()  
+find()  - return index, if want to check only use 'in'  
+index()  - Like find(), but raise ValueError when the substring is not found.  
 rfind()  
 rindex()  
 replace()  
 startswith()  
 ### Classification
 isalnum()  
-isalfa()
+isalfa()  
 isdigit()  
 isidentifier()  
 islower()  
 isprintable()  
-isspace()  
+isspace()  - whitespace
 istitle()  
 isupper()  
 ### Formatting
+format()  
+format_map()  
 center()  
-expandtabs()  
+**expandtabs()**  
+```python
+s = '1\t2\t3'
+v = s.expandtabs(4)  # v = '1   2   3'
+```
 ljust()  
 lstrip()  
 rjust()  
 rstrip()  
-strip()  
-zfill()  
+**strip()**  
+```python
+s = '   abc   '
+v = s.strip()  # v = 'abc'
+s = '# .............. abceef #. qwert........#.'
+v = s.strip('# .')  # v = 'abceef #. qwert'
+```
+**zfill()**  
+```python
+v = '34'.zfill(5)   # v = '00034'
+v = '-34'.zfill(5)  # v = '-0034'
+```
+removeprefix() - 3.9  
+removesuffix() - 3.9
 ### Conversion
-join()  
-partition()  
-rpartition()  
-rsplit()  
-split()  
-splitlines()  
+**join()**  
+Return a string which is the concatenation of the strings in iterable.  
+```python
+l = ['a', 'b', 'c']
+j = '_'
+s = j.join(l)  # s = 'a_b_c'
+```
+**partition()**  
+Split the string at the first occurrence of sep, and return a 3-tuple containing the part before the separator, the separator itself, and the part after the separator. If the separator is not found, return a 3-tuple containing the string itself, followed by two empty strings.
+```python
+s = 'asd asd d asda XXX dfgg d dfgd XXX df XXX'
+v = s.partition('XXX')  # v = ('asd asd d asda ', 'XXX', ' dfgg d dfgd XXX df XXX')
+```
+rpartition()  - from right side  
+rsplit()   - from right side  
+**split()**  
+Return a list of the words in the string, using sep as the delimiter string.  
+```python
+s = 'ab cd ef'
+v = s.split()  # v = ['ab', 'cd', 'ef']
+s = 'ab<>cd<>ef<>gh'
+v = s.split('<>', maxsplit=2)  # v = ['ab', 'cd', 'ef<>gh']
+```
+**splitlines()**  
+Return a list of the lines in the string, breaking at line boundaries. Line breaks are not included in the resulting list unless keepends is given and true.  
+See list of universal newlines.  
+```python
+s = 'ab c\n\nde fg\rkl\r\n'
+v = s.splitlines()  # v = ['ab c', '', 'de fg', 'kl']
+v = s.splitlines(keepend=True)  # v = ['ab c\n', '\n', 'de fg\r', 'kl\r\n']
+```
+**encode()**  
+Return an encoded version of the string as a bytes object. Default encoding is 'utf-8'.  
+```python
+s = 'ąćźabc'
+b = s.encode(encoding='utf-8')  # b = b'\xc4\x85\xc4\x87\xc5\xbaabc'
+b = s.encode(encoding='ascii')
+# UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-2: ordinal not in range(128)
+b = s.encode(encoding='ascii', errors='replace')  # b = b'???abc'
+```
+Possible *errors* keyword:  
+strict, ignore, replace,xmlcharrefreplace, backslashreplace, namereplace  
+[Standard encodings](https://docs.python.org/3/library/codecs.html#standard-encodings)
 
+### Mappings
 translate()  
-maketrans()  
-format_map()  
-encode()  ---- !!!!!!!!!!
+maketrans()
 
 ---
 
@@ -306,8 +367,8 @@ Other (older) methods of string formatting:
 - string.Template
 
 f-strings are faster !!!,  
-can be multiline, nested  
-can't be empty, can't contain '\'
+Can be multiline and nested.    
+Can't be empty, can't contain &bsol;.  
 
 general format:
 ```python
@@ -316,7 +377,7 @@ print(f'{expression!conversion:format}')
 ### expression
 variable, object, expression
 
-###conversion
+### conversion
 ```
 !s - str() - default
 !r - repr()
@@ -355,9 +416,8 @@ i = string.printable
 # digits + ascii_letters + punctuation + whitespace
 ```
 And...  
-class Formatter - > str.format  
-class Template
-
-capwords()
+- class Formatter - > str.format  
+- class Template
+- capwords()
 
 ---
