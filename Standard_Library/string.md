@@ -38,6 +38,7 @@
 ### Indexing and slicing:
 ```python
 s = 'abcdefgh'
+t = type(s)    # t = <class 'str'>
 a = s[1]       # a = 'b'
 b = s[-2]      # b = 'g'
 c = len(s)     # c = 8
@@ -176,7 +177,7 @@ See also f-strings for **f'**_string_**'** and bytes for **b'**_string_**'**
 ### ascii()
 Returns only ascii characters. Escaping others.  
 ```python
-t = """ąĄĆć
+t = """ 
 Ńńżź"""
 s = ascii(t)  # s = "'\\u0105\\u0104\\u0106\\u0107\\n\\u0143\\u0144\\u017c\\u017a'"
 print(s)
