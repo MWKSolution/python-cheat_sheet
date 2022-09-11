@@ -1,9 +1,17 @@
 # Binary
-
-bytes is a immutable sequence of small integers in the range 0 to 255.   
-bytesarray is mutable sequence of small integers in the range 0 to 255.
+1. Defining bytes
+2. Defining bytearray
+3. operations, operators (bytes, bytearray)
+4. Methods (bytes, bytearray)
+   1. fromhex(), hex()
+   2. decode()
+   3. rest...
+5. memoryview
+  
+---
 
 ## Defining bytes
+bytes is a immutable sequence of small integers in the range 0 to 255. 
 ```python
 a = b'dfsdfsdfs'  # a = b'dfsdfsdfs'
 t = type(a)       # t = <class 'bytes'>
@@ -24,13 +32,35 @@ f = bytes(l)  # f = b'abc',   only from integers!
 ```
 Possible errors keyword:
 strict, ignore, replace,xmlcharrefreplace, backslashreplace, namereplace
-## Defining bytesarray
 
-## operations, operators (bytes, bytesarray)
+---
+
+## Defining bytearray
+bytearray is a mutable sequence of small integers in the range 0 to 255.  
+No dedicated syntax built into Python for defining a bytearray literal.  
+```python
+d = bytearray('abcdżźć', encoding='utf-8')
+# d = bytearray(b'abcd\xc5\xbc\xc5\xba\xc4\x87')
+t = type(d)  # t = <class 'bytearray'>
+g = bytearray(b'dfsdfsdfs')  # g = bytearray(b'dfsdfsdfs')
+g[1:3] = b'xxx'
+# g = bytearray(b'dxxxdfsdfs') - mutable!!!
+
+e = bytearray(10)
+# e = bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+l = [97, 98, 99]
+f = bytearray(l)  # f = bytearray(b'abc'),   only from integers!
+```
+
+---
+
+## operations, operators (bytes, bytearray)
 Like for strings  
 bytesarray is mutable !!!
 
-## Methods (bytes, bytesarray)
+---
+
+## Methods (bytes, bytearray)
 ### fromhex(), hex()
 fromhex() is a classmethod!!!
 ```python
@@ -42,11 +72,28 @@ e = b.hex('.', 2)  # e = 'aa68.4682.c1f2'
 ```
 
 ### decode()
+Oposite for str.encode.  
 ```python
+# encoding into bytes or bytearray
+s = 'ĄĄĄĄ'
+a = s.encode(encoding='utf-8')
+# !! or !!
+a = bytes(s, encoding='utf-8')  # a = b'\xc4\x84\xc4\x84\xc4\x84\xc4\x84'
+# decoding into string
+e = a.decode(encoding='utf-8')       # e = 'ĄĄĄĄ'
+# !! or !!                  
+e = str(a, encoding='utf-8')         # e = 'ĄĄĄĄ'
+b = str(a)   # b = "b'\\xc4\\x84\\xc4\\x84\\xc4\\x84\\xc4\\x84'"
 
+f = a.decode(encoding='ascii', errors='replace')
+# f = '��������' - replacement character
+# Possible errors keyword:
+# strict, ignore, replace,xmlcharrefreplace, backslashreplace, namereplace
 ```
+[Standard encodings](https://docs.python.org/3/library/codecs.html#standard-encodings)  
+[Error Handlers](https://docs.python.org/3/library/codecs.html#error-handlers)  
 
-Like for strings, but there is subset of string methods.  
+Rest of the methods like for strings, but there is subset of string methods.  
 ### Case conversion
 capitalize(), lower(), swapcase(), title(), upper()  
 ### Search and replace
@@ -63,6 +110,7 @@ join(), partition(), rpartition(), rsplit(), split(), splitlines()
 translate()
 maketrans()
 
+---
 
 ## memoryview
 memoryview objects allow Python code to access the internal data of an object that supports the buffer protocol without copying. The memoryview() function allows direct read and write access to an object’s byte-oriented data without needing to copy it first. That can yield large performance gains when operating on large objects since it doesn’t create a copy when slicing.  
