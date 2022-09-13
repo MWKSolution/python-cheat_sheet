@@ -44,6 +44,7 @@
 # Links
 
 Documentation:  
+[Python](https://docs.python.org/3/)  
 [The Python Standard Library](https://docs.python.org/3/library/)
 
 Links:   
