@@ -16,6 +16,8 @@
    1. properties
    2. methods
 3. Read and write
+   1. Built-in open()
+   2. pathlib
 4. Useful stuff
 
 ---
@@ -224,12 +226,8 @@ import pathlib as plb
 pth = plb.Path('old.name')
 pth.rename('new.name')
 ```
-### Change current dir
-```python
-os.chdir(dir)
-```
 
-## Archiving - shutil.make_archive(), shutil_unpack_archive()
+### Archiving - shutil.make_archive(), shutil_unpack_archive()
 Old:
 ```python
 zipfile
@@ -246,6 +244,11 @@ import shutil as sht
 sht.make_archive('arch', 'tar', 'Standard_Library')
 sht.unpack_archive('arch.tar', 'somedir')
 ```
+### Change current dir
+```python
+os.chdir(dir)
+```
+
 
 ---
 
@@ -311,6 +314,80 @@ returns True/False, based on matching the path with the glob-style pattern provi
 ---
 
 ## Read and write
+### Built-in open()
+Buit-in **open()** calls **io.open()**  
+open(file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None)  
+File type:  
+**t - text** - encoding must be specified, by default: None - got from locale.getpreferredencoding.  
+**b - binary**  - no coding, decoding  
+File mode:  
+```
+r:
+r, rt, rb     only for reading, file must exists – pointer at the beginning. This is the default mode.
+r+, rt+, rb+  for both reading and writing. pointer at the beginning of the file.
+w:
+w, wt, wb     writing only. Overwrites if the file exists. If does not exist, creates a new file for writing.
+w+, wt+, wb+  for both writing and reading. Overwrites if the file exists. If does not exist, it creates a new file for reading and writing.
+a, at, ab     for writing - like w. pointer is at the end if the file exists. If does not exist, it creates a new file for writing.
+a+, at+, ab+  for both writing and reading - like w+. pointer is at the end if file exists. If does not exist, it creates a new file for reading and writing.
+x, xt, xb     open for writing, -  like w - if file exists - error.
+x+, xt+, xb+  open for reading and writing, -  like w+ - if file exists - error.
+```
+errors:
+strict, ignore, replace,xmlcharrefreplace, backslashreplace, namereplace  
+encodng:
+[Standard encodings](https://docs.python.org/3/library/codecs.html#standard-encodings)  
+```python
+import locale
+e = locale.getpreferredencoding()  # e = 'cp1250'
+```
+newline:
+```
+None   - reading - universal newline, return translated to '\n' 
+       - writing - '\n' - translated to system default newline,  
+''     - reading - universal newline, return untranslated
+       - writing - no translation
+'\n'   - reading - '\n' newline, return untranslated
+       - writing - no translation
+'\r'   - reading - '\r' newline, return untranslated
+       - writing - '\n' translated to '\r'
+'\r\n' - reading - '\r\n' newline, return untranslated
+       - writing - '\n' translated to '\r\n'
+```
+```python
+import os
+s = os.linesep  # s = '\r\n'
+```
+Universal newlines:
+```
+\n          Line Feed                     Unix
+\r          Carriage Return               Macintosh
+\r\n        Carriage Return + Line Feed   Windows
+\v or \x0b  Line Tabulation
+\f or \x0c  Form Feed
+\x1c        File Separator
+\x1d        Group Separator
+\x1e        Record Separator
+\x85        Next Line (C1 Control Code)
+\u2028      Line Separator
+\u2029      Paragraph Separator
+```
+buffering:  
+```
+0  - buffering switched off, only binary
+1  - line buffering, only text
+>1 - size of buffer, only for binary
+-1 - binary:  io.DEFAULT_BUFFER_SIZE - device blocksize
+   - text: like binary, isatty() = True - linebuffer
+```
+
+
+File methods:
+
+
+
+
+### pathlib
 open()
 .read_text(): open the path in text mode and return the contents as a string.
 .read_bytes(): open the path in binary/bytes mode and return the contents as a bytestring.
