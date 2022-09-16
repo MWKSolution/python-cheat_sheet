@@ -422,3 +422,14 @@ And...
 - capwords()
 
 ---
+
+## io.StringIO
+
+**StringIO**(*initial_value=''*, *newline='\n'*)  
+A text stream using an in-memory text buffer.  
+Methods:  
+'close', 'closed', 'detach', 'encoding', 'errors', 'fileno', 'flush', 'getvalue', 'isatty', 'line_buffering', 'newlines', 'read', 'readable', 'readline', 'readlines', 'seek', 'seekable', 'tell', 'truncate', 'writable', 'write', 'writelines'  
+
+**getvalue()** - returns entire buffer - string. 
+
+---

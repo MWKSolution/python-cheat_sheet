@@ -17,8 +17,14 @@
    2. methods
 3. Read and write
    1. Built-in open()
-   2. pathlib
-4. Useful stuff
+   2. File methods
+   3. Custom context manager
+   4. pathlib methods
+4. Memory streams/files
+   1. text
+   2. binary
+5. Useful stuff
+6. High level file handling
 
 ---
 
@@ -316,11 +322,11 @@ returns True/False, based on matching the path with the glob-style pattern provi
 ## Read and write
 ### Built-in open()
 Buit-in **open()** calls **io.open()**  
-open(file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None)  
+**open**(*file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None*)  
 File type:  
 **t - text** - encoding must be specified, by default: None - got from locale.getpreferredencoding.  
 **b - binary**  - no coding, decoding  
-File mode:  
+*mode:*  
 ```
 r:
 r, rt, rb     only for reading, file must exists – pointer at the beginning. This is the default mode.
@@ -333,15 +339,16 @@ a+, at+, ab+  for both writing and reading - like w+. pointer is at the end if f
 x, xt, xb     open for writing, -  like w - if file exists - error.
 x+, xt+, xb+  open for reading and writing, -  like w+ - if file exists - error.
 ```
-errors:
-strict, ignore, replace,xmlcharrefreplace, backslashreplace, namereplace  
-encodng:
-[Standard encodings](https://docs.python.org/3/library/codecs.html#standard-encodings)  
+*encodng:*  
+[Standard encodings...](https://docs.python.org/3/library/codecs.html#standard-encodings)  
 ```python
 import locale
 e = locale.getpreferredencoding()  # e = 'cp1250'
 ```
-newline:
+*errors:*  
+strict, ignore, replace,xmlcharrefreplace, backslashreplace, namereplace  
+
+*newline:*
 ```
 None   - reading - universal newline, return translated to '\n' 
        - writing - '\n' - translated to system default newline,  
@@ -372,7 +379,7 @@ Universal newlines:
 \u2028      Line Separator
 \u2029      Paragraph Separator
 ```
-buffering:  
+*buffering:*  
 ```
 0  - buffering switched off, only binary
 1  - line buffering, only text
@@ -380,30 +387,222 @@ buffering:
 -1 - binary:  io.DEFAULT_BUFFER_SIZE - device blocksize
    - text: like binary, isatty() = True - linebuffer
 ```
+### File Methods
+io inherited types: 
+```python
+with open('text.txt', 'r') as f:
+    t = type(f)  # t = <class '_io.TextIOWrapper'> - it is random and buffered
+with open('bin.bin', 'rb') as f:
+    t = type(f)  # t = <class '_io.BufferedReader'>
+with open('bin.bin', 'wb') as f:
+    t = type(f)  # t = <class '_io.BufferedWriter'>
+with open('bin.bin', 'rb+') as f:
+    t = type(f)  # t = <class '_io.BufferedRandom'>
+```
+Text methods inherited from *<class '_io.TextIOWrapper'>*  
+```python
+f = open('text.txt', 'r')
+f.close()          # Closes an opened file. It has no effect if the file is already closed.
+f.detach()         # Separates the underlying binary buffer from the TextIOBase and returns it.
+f.fileno()         # Returns an integer number (file descriptor) of the file.
+f.flush()          # Flushes the write buffer of the file stream.
+f.isatty()         # Returns True if the file stream is interactive.
+f.read(n)          # Reads at most n characters from the file. Reads till end of file if it is negative or None.
+f.readable()       # Returns True if the file stream can be read from.
+f.readline(n=-1)   # Reads and returns one line from the file. Reads in at most n bytes if specified.
+f.readlines(n=-1)  # Reads and returns a list of lines from the file. Reads in at most n bytes/characters if specified.
+f.seek(offset, whence=SEEK_SET)
+# Changes the file position to offset bytes, in reference to from (start, current, end).
+# SEEK_SET or 0 – start of the stream (the default); offset should be zero or positive
+# SEEK_CUR or 1 – current stream position; offset may be negative
+# SEEK_END or 2 – end of the stream; offset is usually negative
+f.seekable()       # Returns True if the file stream supports random access.
+f.tell()           # Returns an integer that represents the current position of the file's object.
+f.truncate(size=None)  # Resizes the file stream to size bytes. If size is not specified, resizes to current location.
+f.writable()       # Returns True if the file stream can be written to.
+f.write(s)         # Writes the string s to the file and returns the number of characters written.
+f.writelines(lines)# Writes a list of lines to the file.
+```
+Rest of the text attributes and methods:  
+```python
+f = open('text.txt', 'r')
+f.encoding
+f.errors
+f.newlines
+f.buffer
+f.closed
+f.__del__()
+f.line_buffering
+f.write_through
+f.reconfigure()
+```
+Binary methods:  
+Methods inherited from:  
+<class '_io.BufferedReader'>, 
+<class '_io.BufferedWriter'>, 
+<class '_io.BufferedRandom'>
+```python
+f = open('text.txt', 'rb+')
+f.close()
+f.closed
+f.fileno()
+f.flush()
+f.isatty()
+f.readable()
+f.readline(size=- 1, /)
+f.readlines(hint=- 1, /)
+f.seek(offset, whence=SEEK_SET, /)
+f.seekable()
+f.tell()
+f.truncate(size=None, /)
+f.writable()
+f.writelines(lines, /)
+f.__del__()
+f.raw
+f.detach()
+f.readinto(b, /)
+f.readinto1(b, /)
+f.write(b, /)
+f.peek(size=0, /)
+f.read(size=- 1, /)
+f.read1(size=- 1, /)
+f.flush()
+f.write(b, /)
+```
+Reading all lines, iterating:  
+```python
+with open('text.txt', 'r') as f:
+    # 1
+    l1 = f.readlines()  # l1 - list of lines
+    # 2
+    l2 = list(f)        # same
+    # 3
+    l3 = []
+    for line in f:
+        l3.append(line) # l3 - list of lines
+```
+### Custom context manager
+Custom context manager for opening png file with iterator...  
+```python
+class PngReader():
+    # Every .png file contains this in the header.  Use it to verify
+    # the file is indeed a .png.
+    _expected_magic = b'\x89PNG\r\n\x1a\n'
+
+    def __init__(self, file_path):
+        # Ensure the file has the right extension
+        if not file_path.endswith('.png'):
+            raise NameError("File must be a '.png' extension")
+        self.__path = file_path
+        self.__file_object = None
+
+    def __enter__(self):
+        self.__file_object = open(self.__path, 'rb')
+
+        magic = self.__file_object.read(8)
+        if magic != self._expected_magic:
+            raise TypeError("The File is not a properly formatted .png file!")
+
+        return self
+
+    def __exit__(self, type, val, tb):
+        self.__file_object.close()
+
+    def __iter__(self):
+        # This and __next__() are used to create a custom iterator
+        # See https://dbader.org/blog/python-iterators
+        return self
+
+    def __next__(self):
+        # Read the file in "Chunks"
+        # See https://en.wikipedia.org/wiki/Portable_Network_Graphics#%22Chunks%22_within_the_file
+
+        initial_data = self.__file_object.read(4)
+
+        # The file hasn't been opened or reached EOF.  This means we
+        # can't go any further so stop the iteration by raising the
+        # StopIteration.
+        if self.__file_object is None or initial_data == b'':
+            raise StopIteration
+        else:
+            # Each chunk has a len, type, data (based on len) and crc
+            # Grab these values and return them as a tuple
+            chunk_len = int.from_bytes(initial_data, byteorder='big')
+            chunk_type = self.__file_object.read(4)
+            chunk_data = self.__file_object.read(chunk_len)
+            chunk_crc = self.__file_object.read(4)
+            return chunk_len, chunk_type, chunk_data, chunk_crc
+```
 
 
-File methods:
+### pathlib methods
+```python
+import pathlib
+pth = pathlib.Path('text.txt')
+with pth.open(mode='r') as f:
+    pass
+```
+simple:
+```python
+import pathlib as plb
+tpth = plb.Path('tetx.tx')
+bpth = plb.Path('bin.bin')
 
+tpth.write_text('text')   # 'wt' opens writes and closes
+s = tpth.read_text()      # 'rt' opens reads and closes
 
+bpth.write_bytes(b'bin')  # 'wb' opens writes and closes
+b = bpth.read_bytes()     # 'rb' opens reads and closes
+# encoding, error for text files, newlines for text writing
+```
 
+---
+## Memory streams/files
+### text
+**StringIO**(*initial_value=''*, *newline='\n'*)  
+A text stream using an in-memory text buffer.  
+Methods:  
+'close', 'closed', 'detach', 'encoding', 'errors', 'fileno', 'flush', 'getvalue', 'isatty', 'line_buffering', 'newlines', 'read', 'readable', 'readline', 'readlines', 'seek', 'seekable', 'tell', 'truncate', 'writable', 'write', 'writelines'  
 
-### pathlib
-open()
-.read_text(): open the path in text mode and return the contents as a string.
-.read_bytes(): open the path in binary/bytes mode and return the contents as a bytestring.
-.write_text(): open the path and write string data to it.
-.write_bytes(): open the path in binary/bytes mode and write data to it.
-Each of these methods handles the opening and closing of the file, making them trivial to
+**getvalue()** - returns entire buffer - string.  
+### binary
+**BytesIO**(*initial_bytes=b''*)  
+A binary stream using an in-memory bytes buffer.  
+Methods:  
+'close', 'closed', 'detach', 'fileno', 'flush', 'getbuffer', 'getvalue', 'isatty', 'read', 'read1', 'readable', 'readinto', 'readinto1', 'readline', 'readlines', 'seek', 'seekable', 'tell', 'truncate', 'writable', 'write', 'writelines'  
+
+**getbuffer()** - returns buffer as a !!! **memoryview**  !!! for manipulating:  
+```python
+b = io.BytesIO(b"abcdef")
+view = b.getbuffer()
+view[2:4] = b"56"
+x = b.getvalue()  # x = b'ab56ef'   
+```
+**getvalue()** - returns entire buffer - bytes.  
 
 ---
 
 ## Useful stuff
-shutil.disk_usage(path)
+```python
+import shutil
+import sys
 
-PYTHONPATH:
-sys.path
+du = shutil.disk_usage(path)
 
+_PYTHONPATH = sys.path
 
-module path : **\_\_file\_\_**
+module_path = **\_\_file\_\_**
+```
 
+---
+
+## High level file handling
+```
+csv                 - csv, pandas
+json                - json
+yaml                - PyYAML
+configuration files - configparser
+Excel               - xlwings
+images              - Pillow
+```
 ---
