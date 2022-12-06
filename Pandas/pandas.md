@@ -27,15 +27,16 @@ d = pd.DataFrame(data=data, index=index)
 ### attributes
 ```python
 print(d,
-      d.dtypes,
-      d.index,
-      d.columns,
-      d.empty,
-      d.flags,
-      d.ndim,
-      d.shape,
-      d.size,
-      d.values, sep='\n---\n')
+      d.dtypes,     # columns data types
+      d.index,      # index column
+      d.columns,    # column names (as index!)
+      d.empty,      # if df is empty
+      d.flags,      # only one flag for now
+      d.ndim,       # df dimension
+      d.shape,      # df shape
+      d.size,       # number of elements (excluding index and columns names)
+      d.values,     # df as list(array) of rows (lists/arrays)
+      sep='\n---\n')
 ```
 ```
      Numbers Letters
@@ -73,7 +74,10 @@ False
 
 ### methods
 
-memory_usage
+memory_usage()
+to_numpy() = df.values
+
+modify type  df.astype(dtype={'age': np.int32, 'py-score': np.float32})
 
 ## Other constructors
 
@@ -85,12 +89,14 @@ memory_usage
 
 ```python
 print(d,
-      d.Numbers,
-      d['Numbers'],
-      d.loc[4],
-      d.iloc[3],
-      d.at[4, 'Numbers'],
-      d.iat[3, 0],sep='\n---\n')
+      d.Numbers,            # column
+      d['Numbers'],         # column/columns
+      d.loc[4],             # row by name in index
+      d.iloc[3],            # row by index
+      d.at[4, 'Numbers'],   # value by names of row and column or...
+      d.Numbers[4],
+      d.iat[3, 0],          # value by indexes
+      sep='\n---\n')
 ```
 ```
      Numbers Letters
@@ -128,6 +134,8 @@ Name: 4, dtype: object
 44
 ---
 44
+---
+44
 ```
 
 ## data types
@@ -136,14 +144,61 @@ Valid data types for series/columns:
 - [Numpy types](https://numpy.org/doc/stable/reference/arrays.scalars.html#sized-aliases)  
 - [Pandas extension types](https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes)
 
-## from files/to files
+## Creating DF from files
+[Reading from files](https://pandas.pydata.org/docs/user_guide/io.html#)
 
-### CSV
+### CSV and TXT
+
+```python
+pd.read_csv(file)
+pd.read_fwf(file)
+```
+[CSV](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html)  
+[Fixed width](https://pandas.pydata.org/docs/reference/api/pandas.read_fwf.html)
 
 ### JSON
 
-### Excel
+```python
+pd.read_json(file)
+```
+[JSON](https://pandas.pydata.org/docs/reference/api/pandas.read_json.html)
 
+### Excel and ODF
+
+```python
+pd.read_excel(file, sheet_name=0)
+pd.read_excel(file, engine='odf') # only reading
+```
+[Excel/ODF](https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html)
 ### SQL
 
+```python
+import pandas as pd
+from sqlalchemy import create_engine
+engine = create_engine("sqlite:///:memory:")
+
+with engine.connect() as conn, conn.begin():
+    df1 = pd.read_sql(sqlquerry_tablename, conn)
+    df2 = pd.read_sql_table(table_name, conn)
+    df3 = pd.read_sql_query(query, conn)
+```
+[sql](https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html#pandas.read_sql)  
+[table](https://pandas.pydata.org/docs/reference/api/pandas.read_sql_table.html#pandas.read_sql_table)  
+[query](https://pandas.pydata.org/docs/reference/api/pandas.read_sql_query.html#pandas.read_sql_query)
+
+
+### Other types
+XML, cliboard, HDF5 (.h5), Feather , Parquet, ORC, Stata (.dta),  SAS (.xpt, .sas7bdat), SPSS (.sav, .zsav), pickle
+
+
+
 ## Indexing / selecting
+
+## viewing
+
+tail, head
+
+## setting values
+d[1,1] = x
+
+## slicing
