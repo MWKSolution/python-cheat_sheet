@@ -1,3 +1,39 @@
+# Pandas
+1. [Basics](#Basics)
+   1. Data types
+   2. Indexes
+   3. Series
+2. [DataFrame](#DataFrame)
+   1. Constructor
+   2. Attributes
+   3. Methods
+   4. Other constructors
+3. [Simple operations](#Simple operations)
+   1. Accessing
+   2. Setting
+   3. Inserting
+   4. Deleting
+4. [Sorting](#Sorting)
+5. [Filtering](#Filtering)
+6. ffgdfg
+7. [Input Output](#Input Output)
+
+
+---
+## Basics
+### Data types
+
+Valid data types for series/columns:  
+- [Numpy types](https://numpy.org/doc/stable/reference/arrays.scalars.html#sized-aliases)  
+- [Pandas extension types](https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes)
+
+### Indexes
+
+set_index()
+multiindex !!!
+
+### Series
+
 
 ## DataFrame 
 
@@ -78,15 +114,19 @@ memory_usage()
 to_numpy() = df.values
 
 modify type  df.astype(dtype={'age': np.int32, 'py-score': np.float32})
+tail, head
 
-## Other constructors
+### Other constructors
 
-### from_dict
+[from_dict](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_dict.html)  
+[from_records](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_records.html#pandas.DataFrame.from_records)  
 
-### from_records
 
-## Accessors
 
+## Simple operations
+
+### accessing
+accessors
 ```python
 print(d,
       d.Numbers,            # column
@@ -136,15 +176,72 @@ Name: 4, dtype: object
 44
 ---
 44
+``` 
+with slicing  
+```python
+df.loc[:,'column-name']
+df.iloc[:,1]
+df.loc['i':'j',['c-n1','c-n2']]
+df.iloc[1:3,[0,1]]
+```
+### setting values
+Use accessors (with slices)
+
+### inserting
+Row 
+```python
+df.append(DataFrame_or_Series/dict-like_object_or_list_of_these)
+``` 
+Column
+```python 
+df['column-name'] = array_or_value
+```
+Column with location
+```python
+df.insert(loc, 'column-name', data)
+```
+### deleting
+Column
+```python
+del df['column-name'] 
+sr = df.pop('column-name')
+```
+Column or row
+```python
+df.drop(index=[index,...])
+df.drop(columns=[column,...])
+df.drop([column,...], axis=1)
+```
+## Sorting
+[by values](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html)  
+```python
+df.sort_values(by=[columns], ascending=[True, False, ...], kind='sorting-algorithm', axis=1, inplace=True, na_position='first')
+#  kind : {‘quicksort’, ‘mergesort’, ‘heapsort’, ‘stable’}, default ‘quicksort’
+```
+[by index or columns_index](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html?highlight=sort_index#pandas.DataFrame.sort_index)  
+```python
+df.sort_index()  # sort by index
+df.sort_index(axis=1)  # sort by column names
+```
+## Filtering
+general
+```python
+conditon = df['column'] > v
+df[condition]
+#  combining conditions: NOT (~), AND (&), OR (|), XOR (^)
+```
+where
+```python
+df.where(cond=condition, other=value)
 ```
 
-## data types
 
-Valid data types for series/columns:  
-- [Numpy types](https://numpy.org/doc/stable/reference/arrays.scalars.html#sized-aliases)  
-- [Pandas extension types](https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes)
 
-## Creating DF from files
+
+## Input Output
+
+
+### Creating DF from files
 [Reading from files](https://pandas.pydata.org/docs/user_guide/io.html#)
 
 ### CSV and TXT
@@ -190,15 +287,3 @@ with engine.connect() as conn, conn.begin():
 ### Other types
 XML, cliboard, HDF5 (.h5), Feather , Parquet, ORC, Stata (.dta),  SAS (.xpt, .sas7bdat), SPSS (.sav, .zsav), pickle
 
-
-
-## Indexing / selecting
-
-## viewing
-
-tail, head
-
-## setting values
-d[1,1] = x
-
-## slicing
