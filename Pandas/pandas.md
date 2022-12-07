@@ -15,8 +15,16 @@
    4. Deleting
 4. [Sorting](#Sorting)
 5. [Filtering](#Filtering)
-6. ffgdfg
-7. [Input Output](#Input Output)
+6. [Iteration](#Iteration)
+   1. items
+   2. iteritems
+   3. iterrows
+   4. itertuple
+7. [Combining](#Combining)
+   1. merge
+   2. join
+   3. concat
+8. [Input Output](#Input Output)
 
 
 ---
@@ -234,9 +242,36 @@ where
 ```python
 df.where(cond=condition, other=value)
 ```
-
-
-
+## Iteration
+### items
+over columns as tuple (label, series)
+```python
+for label, series in df.items():
+    print(f'label: {label}')
+    print(f'content: {series}', sep='\n')
+```
+### iteritems
+deprecated - same as items
+### iterrows
+over rows as tuple (index, series)
+```python
+for index, row in df.items():
+    print(f'index: {index}')
+    print(f'content: {row}', sep='\n')
+```
+### itertuples
+over rows as namedtuples
+```python
+for row in df.itertuples(index=True, name='Row'):
+    print(row)  # row = Row(Index='...', col1='...', col2='...', ...)
+```
+## Combining
+### merge
+on common columns or indices
+### join
+on key column or an index
+### concat
+across rows and columns
 
 ## Input Output
 
