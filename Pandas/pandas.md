@@ -285,7 +285,10 @@ across rows and columns
 pd.read_csv(file)
 pd.read_fwf(file)
 ```
-[CSV](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html)  
+[CSV](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html)   
+***sep/delimiter***, fields delimiter, default=','  
+***skiprows***, list of 0-indexed rows to skip, default=None (skip row with units: skiprows=1)
+
 [Fixed width](https://pandas.pydata.org/docs/reference/api/pandas.read_fwf.html)
 
 ### JSON
