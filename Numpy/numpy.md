@@ -51,14 +51,6 @@ Axes
 | **object_**     |                                        | Python objects                               | O    |
 
 
-
-
-object_
-void
-str_
-unicode_
-
-
 ### arange
 ```python
 numpy.arange([start, ]stop, [step, ], dtype=None)

@@ -8,7 +8,7 @@
    2. Attributes
    3. Methods
    4. Other constructors
-3. [Simple operations](#Simple operations)
+3. [Simple operations](#Simple-operations)
    1. Accessing
    2. Setting
    3. Inserting
@@ -24,7 +24,7 @@
    1. merge
    2. join
    3. concat
-8. [Input Output](#Input Output)
+8. [Input Output](#Input-Output)
 
 
 ---
