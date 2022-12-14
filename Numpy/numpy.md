@@ -1,9 +1,20 @@
 # NumPy
 1. [Brief](#Brief)
-   1. [Numpy]()
+   1. Numpy
    2. Axes
    3. Data types
-2. [ndarray]()
+2. [ndarray](#ndarray)
+   1. array
+   2. arange
+   3. linespace
+   4. meshgrid
+   5. fromfunction
+   6. other creation methods
+3. [attributes](#attributes)
+4. [methods](#methods)
+   1. reshape
+
+
 --- 
 
 ## Brief
@@ -14,6 +25,7 @@
 + all elements are of the same type
 + vectorization - same operation for each element - removes 'for' loops
 + broadcasting - way of treating arrays of different sizes during operations 
++ vector - 1D ndarray, matrix - 2D ndarray, tensor - nD ndarray
 
 ### Axes
 ```
@@ -93,8 +105,35 @@ a = np.linspace([0,1], [2, 3], num=5)
 #            [2. , 3. ]])
 ```
 ### meshgrid
+```python
+numpy.meshgrid(*xi, copy=True, sparse=False, indexing='xy')
+```
+```python
+x = np.linspace(-2, 2, 5)  # x = array([-2., -1.,  0.,  1.,  2.])
+y = np.linspace(-2, 2, 5)  # y = array([-2., -1.,  0.,  1.,  2.])
+xx, yy = np.meshgrid(x, y, indexing='xy')
+# xx = array([[-2., -1.,  0.,  1.,  2.],
+#             [-2., -1.,  0.,  1.,  2.],
+#             [-2., -1.,  0.,  1.,  2.],
+#             [-2., -1.,  0.,  1.,  2.],
+#             [-2., -1.,  0.,  1.,  2.]])
+# yy = array([[-2., -2., -2., -2., -2.],
+#             [-1., -1., -1., -1., -1.],
+#             [ 0.,  0.,  0.,  0.,  0.],
+#             [ 1.,  1.,  1.,  1.,  1.],
+#             [ 2.,  2.,  2.,  2.,  2.]])
+zz = xx + yy
+# zz = array([[-4., -3., -2., -1.,  0.],
+#             [-3., -2., -1.,  0.,  1.],
+#             [-2., -1.,  0.,  1.,  2.],
+#             [-1.,  0.,  1.,  2.,  3.],
+#             [ 0.,  1.,  2.,  3.,  4.]])
+#
+# indexing='xy' (cartesian indexing)-> xx=xx, yy=yy; indexing='ij' (matrix indexing) xx=yy yy=xx
+# sparse = True - reduce space for use with broadcasting
+```
 
-### fromfuntion
+### fromfunction
 ```python
 a = np.fromfunction(lambda i, j: i + j, (3, 3), dtype=int)
 # a = array([[0, 1, 2],
@@ -108,25 +147,88 @@ np.empty(shape, dtype) # faster than zeros
 np.zeros(shape, dtype) # filled with zeros
 np.ones(shape, dtype)  # filled with ones
 np.full(shape, dtype, value)  # filled with value
-np.eye(n, m, k, dtype)  # diagonal of shape (n,m) starting from index k
+np.eye(n, m, k, dtype)  # diagonal of shape (n,m) starting from index k with values '1'
 np.identity(n, dtype) # like np.eye(n)
 np.diag(a)            # make diag 2d matrix from 1d 'a'
 np...._like(a, dtype)  # return ... array with the same shape as 'a'
 ```
 
 ## attributes
-ndim - number of axes
-shape - dimensions of array
-size - number of elements
-dtype - type of elements
-itemsize - size of each element
-data
+**ndim** - number of axes  
+**shape** - dimensions of array  
+**size** - number of elements  
+**dtype** - type of elements  
+**itemsize** - size of each element  
+**data** - data in memory
+**T** - transposed array
 
-reshape
+## methods
+
+### reshape
+```python
+a = np.arange(1, 13)
+b = a.reshape(3, 4)
+c = a.reshape((3, 4))
+d = np.reshape(a, (3, 4))
+# a = array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])
+# b = c = d = array([[ 1,  2,  3,  4],
+#                    [ 5,  6,  7,  8],
+#                    [ 9, 10, 11, 12]])
+```
+flip
+### flatten, ravel
+```python
+a = np.arange(1, 5).reshape(2, 2)
+# a = array([[1, 2],
+#            [3, 4]])
+b = a.flatten()
+# b = array([1, 2, 3, 4]) ! new array
+c = a.ravel()
+# c = array([1, 2, 3, 4]) ! changes to 'c' will affect 'a'
+```
+
+swapaxes
 unique
-diag
+### diag
+```python
+a = np.arange(1,4)
+# a = array([1, 2, 3])
+b = np.diag(a)
+# b = array([[1, 0, 0],
+#            [0, 2, 0],
+#            [0, 0, 3]])
+```
 copy(a) - np.array(a, copy=True) 
-
+max
+transpose
+hstack
+vstack
+hsplit
+view
+copy
+concatenate
 files
-
+sum mean std
 print, np.set_printoptions(threshold=sys.maxsize)
+vectorize
+newaxis
+nonzero
+
+## operations
+### indexing
+np.newaxis == None
+### mask
+### sort
+
+## universal functions
+
+## structured arrays
+recarray
+
+## modules
+### numpy.fft
+### numpy.linalg
+### numpy.matlib
+### numpy.random
+### numpy.testing
+### numpy.typing
