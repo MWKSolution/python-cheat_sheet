@@ -13,6 +13,16 @@
 3. [attributes](#attributes)
 4. [methods](#methods)
    1. reshape
+   2. sdf
+   3. sdf
+5. sdfsdfsf
+6. [Modules](#Modules)
+   1. numpy.fft
+   2. numpy.linalg
+   3. numpy.matlib
+   4. numpy.polynomial
+   5. numpy.testing
+   6. numpy.typing
 
 
 --- 
@@ -225,10 +235,68 @@ np.newaxis == None
 ## structured arrays
 recarray
 
-## modules
+## Modules
 ### numpy.fft
+Discrete Fourier Transform - [numpy.fft](https://numpy.org/doc/stable/reference/routines.fft.html)  
+Use [scipy.fft](https://docs.scipy.org/doc/scipy/reference/fft.html#module-scipy.fft). It is more comprehensive.  
 ### numpy.linalg
+Linear algebra - [numpy.linalg](https://numpy.org/doc/stable/reference/routines.linalg.html)  
+Mtrices and vectors operations.   
 ### numpy.matlib
+Matrix library [numpy.matlib](https://numpy.org/doc/stable/reference/routines.matlib.html) - 2D array !!!    
+[*numpy.matrix*](https://numpy.org/doc/stable/reference/generated/numpy.matrix.html#) - ***It is no longer recommended to use this class, even for linear algebra. Instead, use regular arrays. The class may be removed in the future.***  
+
+matrix vs array:  
+1. matrix is 2D, always !!!
+2. \* for matrices is product, for array is an element-wise operation, for array use @ etc...
+
+### numpy.polynomial
+Polynomials: power series and other... - [numpy.polynomial](https://numpy.org/doc/stable/reference/routines.polynomials.html)  
+Power series - [numpy.polynomial.polynomial](https://numpy.org/doc/stable/reference/routines.polynomials.polynomial.html) - adding, multiplying, ...,differentiate, integrate, roots, ...  
+
+*Legacy: numpy.poly1d*  
 ### numpy.random
+Random sampling [numpy.random](https://numpy.org/doc/stable/reference/random/index.html)  
+**random generator** - numpy.random.default_rng() - returns new Generator with the default BitGenerator (PCG64)
+```python
+from numpy.random import default_rng
+rng = default_rng()
+vals = rng.standard_normal(10)
+# this is equivalent for
+from numpy.random import Generator, PCG64
+rng = Generator(PCG64())
+vals = rng.standard_normal(10)
+```
+PCG64DXSM is better for heavily-parallel use cases.
+
+seed
+
+Default seed is generated using entropy (128-bit) gathered from the OS. Also could be used:  
+SeedSequence(entropy), entropy -> 128bit  
+secrets.randbits(128)
+
+simple
+integers(low[, high, size, dtype, endpoint])
+random([size, dtype, out])
+choice(a[, size, replace, p, axis, shuffle])
+bytes(length)
+
+permutations
+shuffle(x[, axis])
+permutation(x[, axis])
+permuted(x[, axis, out])  axis?
+
+
+[Distributions](https://numpy.org/doc/stable/reference/random/generator.html#distributions)  
+...
+
 ### numpy.testing
+Test support [numpy.testing](https://numpy.org/doc/stable/reference/routines.testing.html)  
+
+for example:  
+numpy.testing.assert_allclose(actual, desired, rtol=1e-07, atol=0, equal_nan=True, err_msg='', verbose=True)
+
+[Testing guidlines](https://numpy.org/doc/stable/reference/testing.html)  
+
 ### numpy.typing
+Type annotations - [numpy.typing](https://numpy.org/doc/stable/reference/typing.html)  
