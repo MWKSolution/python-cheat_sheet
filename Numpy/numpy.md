@@ -45,37 +45,9 @@ axis=0  |   ,   axis=1 --------
 ```
 
 ### Data types
-**NumPy data types:** (depends on platform!)
-
-| alias           | type, other alias                      | range                                        | code |
-|-----------------|----------------------------------------|----------------------------------------------|------|
-|                 | BOOL TYPES                             |                                              |      |
-| **bool8**       | bool_                                  | True, False                                  | ?    |
-|                 | INT TYPES                              |                                              |
-| **int8**        | byte                                   | -128...127                                   | b    |
-| **int16**       | short                                  | -32_768...32_767                             | h    |
-| **int32**       | intc, int_                             | -2_147_483_648...2_147_483_647               | i, l |
-| **int64**       | intp, longlong                         | ...9_223_372_036_854_775_807                 | q    |
-|                 |                                        |                                              |      |
-| **uint8**       | ubyte                                  | 0...255                                      | B    |
-| **uint16**      | ushort                                 | 0...65535                                    | H    |
-| **uint32**      | uintc, uint                            | 0...4_294_967_295                            | I, L |
-| **uint64**      | ulonglong                              | 0...18_446_744_073_709_551_615               | Q    |
-|                 | FLOAT TYPES                            |                                              |      |
-| **float16**     | half                                   | sign bit, 5 bits exponent, 10 bits mantissa  | e    |
-| **float32**     | single                                 | sign bit, 8 bits exponent, 23 bits mantissa  | f    |
-| **float64**     | double, float_, longdouble, longfloat  | sign bit, 11 bits exponent, 52 bits mantissa | d, g |
-|                 | COMPLEX TYPES                          |                                              |      |
-| **complex64**   | csingle, singlecomplex                 | 2 * float32                                  | F    |
-| **complex128**  | cdouble, cfloat, complex_, clongfloat, | 2 * float64                                  | D    |
-|                 | TIME TYPES                             |                                              |      |
-| **datetime64**  |                                        | uint64 from  1970-01-01                      | M    |
-| **timedelta64** |                                        | uint64                                       | m    |
-|                 | OTHER TYPES                            |                                              |      |
-| **bytes_**      | string_                                | byte string b'...'                           | S    |
-| **unicode_**    | str_                                   | unicode string b'...'                        | U    |
-| **void**        |                                        | sequence of bytes                            | V    |
-| **object_**     |                                        | Python objects                               | O    |
+**NumPy data types:** 
+(depends on platform!)  
+[Table...](/Numpy/numpy_types.md)  
 
 ## ndarray
 ### array
@@ -114,6 +86,7 @@ a = np.linspace([0,1], [2, 3], num=5)
 #            [1.5, 2.5],
 #            [2. , 3. ]])
 ```
+logspace, geomspace
 ### meshgrid
 ```python
 numpy.meshgrid(*xi, copy=True, sparse=False, indexing='xy')
@@ -150,7 +123,6 @@ a = np.fromfunction(lambda i, j: i + j, (3, 3), dtype=int)
 #            [1, 2, 3],
 #            [2, 3, 4]])
 ```
-logspace, geomspace
 ### other creation methods
 ```python
 np.empty(shape, dtype) # faster than zeros
@@ -271,30 +243,49 @@ PCG64DXSM is better for heavily-parallel use cases.
 
 seed
 
-Default seed is generated using entropy (128-bit) gathered from the OS. Also could be used:  
-SeedSequence(entropy), entropy -> 128bit  
+Default seed is generated using entropy (128-bit) gathered from the OS. Also could be used:
+```python
+SeedSequence(entropy)  # entropy -> 128bit  
 secrets.randbits(128)
-
+```
 simple
+```python
 integers(low[, high, size, dtype, endpoint])
+```
+```python
 random([size, dtype, out])
+```
+```python
 choice(a[, size, replace, p, axis, shuffle])
+```
+```python
 bytes(length)
+```
 
 permutations
+```python
 shuffle(x[, axis])
+```
+```python
 permutation(x[, axis])
-permuted(x[, axis, out])  axis?
-
+```
+```python
+permuted(x[, axis, out])
+```  
+axis?
 
 [Distributions](https://numpy.org/doc/stable/reference/random/generator.html#distributions)  
+```python
 ...
+```
 
 ### numpy.testing
 Test support [numpy.testing](https://numpy.org/doc/stable/reference/routines.testing.html)  
 
 for example:  
+```python
 numpy.testing.assert_allclose(actual, desired, rtol=1e-07, atol=0, equal_nan=True, err_msg='', verbose=True)
+```
 
 [Testing guidlines](https://numpy.org/doc/stable/reference/testing.html)  
 
