@@ -13,10 +13,25 @@
 3. [attributes](#attributes)
 4. [methods](#methods)
    1. reshape
-   2. sdf
-   3. sdf
-5. sdfsdfsf
-6. [Modules](#Modules)
+   2. flatten, ravel
+   3. swapaxes
+   4. unique
+   5. duag
+   6. transpose
+   7. printoptions
+   8. vectorize
+   9. nonzero
+   10. astype
+5. [Operations](#operations)
+   1. questions
+   2. indexing
+   3. mask
+   4. sort
+   5. reverse
+6. [Universal functions](#universal-functions)
+7. [Structured arrays](#structured-arrays)
+8. [Files](#files)
+9. [Modules](#Modules)
    1. numpy.fft
    2. numpy.linalg
    3. numpy.matlib
@@ -208,7 +223,7 @@ a = vfun([1, 2, 3])  # a = array([1, 4, 9])
 ### nonzero
 Returns (tuple!!!) indices of non-zero elements
 
-###astype  
+### astype  
 Change dtype of array.  
 
 ## operations
