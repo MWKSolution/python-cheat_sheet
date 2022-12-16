@@ -157,7 +157,6 @@ d = np.reshape(a, (3, 4))
 #                    [ 5,  6,  7,  8],
 #                    [ 9, 10, 11, 12]])
 ```
-flip
 ### flatten, ravel
 ```python
 a = np.arange(1, 5).reshape(2, 2)
@@ -169,8 +168,11 @@ c = a.ravel()
 # c = array([1, 2, 3, 4]) ! changes to 'c' will affect 'a'
 ```
 
-swapaxes
-unique
+### swapaxes
+Interchange axes
+
+### unique
+Unique elements of array
 ### diag
 ```python
 a = np.arange(1,4)
@@ -180,32 +182,84 @@ b = np.diag(a)
 #            [0, 2, 0],
 #            [0, 0, 3]])
 ```
-copy(a) - np.array(a, copy=True) 
-max
-transpose
-hstack
-vstack
-hsplit
-view
-copy
-concatenate
-files
-sum mean std
-print, np.set_printoptions(threshold=sys.maxsize)
-vectorize
-newaxis
-nonzero
+### transpose
+```python
+b = a.transpose()
+b = a.T
+```
+### expand_dims
+np.expand_dims() or with np.newaxis (=None) with slices
+
+### printoptions
+print options for print function  
+np.set_printoptions(threshold=sys.maxsize)  
+### vectorize
+Vectorize function
+
+```python
+import numpy as np
+
+def fun(a):
+   return a ** 2
+
+vfun = np.vectorize(fun)
+a = vfun([1, 2, 3])  # a = array([1, 4, 9])
+```
+### nonzero
+Returns (tuple!!!) indices of non-zero elements
+
+###astype  
+Change dtype of array.  
 
 ## operations
++, -, *, ....  
+max sum mean std cov var
+### questions
+all, any
+### copy
+view  
+copy will make deep copy of an array or...  
+copy(a) is like np.array(a, copy=True)   
 ### indexing
-np.newaxis == None
+```python
+x[0, 2] == x[0][2]  # first is more efficient 
+```
+slicing,  newaxis, ::
+hstack, vstack, hsplit
+
+concatenate
 ### mask
+```python
+a = np.array([[1, 5],[3, 6]])
+# a = array([[1, 5],
+#            [3, 6]])
+m = a > 1
+# m = array([[False,  True],
+#            [ True,  True]])
+b = a[a > 1]
+# b = array([5, 3, 6])
+```
+```python
+a = np.array([[0, 5],[3, 6]])
+b = a[np.nonzero(a)]
+# b = array([5, 3, 6])
+```
 ### sort
+np.sort
+
+### reverse
+```python
+b = np.flip(a)
+```
+flipud, flipr
 
 ## universal functions
 
 ## structured arrays
 recarray
+
+## files
+np.save, np.savez, np.savetxt, np.load, np.loadtxt
 
 ## Modules
 ### numpy.fft
@@ -213,7 +267,9 @@ Discrete Fourier Transform - [numpy.fft](https://numpy.org/doc/stable/reference/
 Use [scipy.fft](https://docs.scipy.org/doc/scipy/reference/fft.html#module-scipy.fft). It is more comprehensive.  
 ### numpy.linalg
 Linear algebra - [numpy.linalg](https://numpy.org/doc/stable/reference/routines.linalg.html)  
-Mtrices and vectors operations.   
+Matrices and vectors operations.   
+@ - numpy.matmul
+
 ### numpy.matlib
 Matrix library [numpy.matlib](https://numpy.org/doc/stable/reference/routines.matlib.html) - 2D array !!!    
 [*numpy.matrix*](https://numpy.org/doc/stable/reference/generated/numpy.matrix.html#) - ***It is no longer recommended to use this class, even for linear algebra. Instead, use regular arrays. The class may be removed in the future.***  
@@ -236,13 +292,11 @@ rng = default_rng()
 vals = rng.standard_normal(10)
 # this is equivalent for
 from numpy.random import Generator, PCG64
-rng = Generator(PCG64())
+rng = Generator(PCG64())  # PCG64DXSM is better for heavily-parallel use cases.
 vals = rng.standard_normal(10)
+# with seed
+rng = default_rng(seed=12345)
 ```
-PCG64DXSM is better for heavily-parallel use cases.
-
-seed
-
 Default seed is generated using entropy (128-bit) gathered from the OS. Also could be used:
 ```python
 SeedSequence(entropy)  # entropy -> 128bit  
@@ -250,32 +304,33 @@ secrets.randbits(128)
 ```
 simple
 ```python
-integers(low[, high, size, dtype, endpoint])
+rng.integers(low[, high, size, dtype, endpoint])  # array of integers, high is exclusive
 ```
 ```python
-random([size, dtype, out])
+rng.random([size, dtype, out])  # array of floats, interval [0.0, 1.0)
 ```
 ```python
-choice(a[, size, replace, p, axis, shuffle])
+rng.choice(a[, size, replace, p, axis, shuffle])  # random sample from array
 ```
 ```python
-bytes(length)
+rng.bytes(length)  # random sequence of bytes
 ```
 
 permutations
 ```python
-shuffle(x[, axis])
+rng.shuffle(x[, axis])  # shuffle given sequence, in-place !!!
 ```
 ```python
-permutation(x[, axis])
+rng.permutation(x[, axis])  # permuted sequence or range    , copy !!!
 ```
 ```python
-permuted(x[, axis, out])
+rng.permuted(x[, axis, out])  # permuted sequence, each row or column(axis) independently, either(out)
 ```  
 axis?
 
 [Distributions](https://numpy.org/doc/stable/reference/random/generator.html#distributions)  
 ```python
+rngstandard_normal([size, dtype, out])  # normal dist. mean=0, stdev=1
 ...
 ```
 
