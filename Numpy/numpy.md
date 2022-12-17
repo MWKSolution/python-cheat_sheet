@@ -69,6 +69,7 @@ axis=0  |   ,   axis=1 --------
 ```python
 numpy.array(object, dtype=None, *, copy=True, order='K', subok=False, ndmin=0, like=None)
 ```
+**asarray** doesn't make copy 
 ```python
 a = np.array([[1, 2], [3, 4]], dtype=np.int8)
 # a = array([[1, 2],
@@ -183,9 +184,6 @@ c = a.ravel()
 # c = array([1, 2, 3, 4]) ! changes to 'c' will affect 'a'
 ```
 
-### swapaxes
-Interchange axes
-
 ### unique
 Unique elements of array
 ### diag
@@ -202,6 +200,7 @@ b = np.diag(a)
 b = a.transpose()
 b = a.T
 ```
+transpose is like **a.swapaxes(0, -1)** - swaping first and last axis
 ### expand_dims
 np.expand_dims() or with np.newaxis (=None) with slices
 
@@ -221,23 +220,61 @@ vfun = np.vectorize(fun)
 a = vfun([1, 2, 3])  # a = array([1, 4, 9])
 ```
 ### nonzero
-Returns (tuple!!!) indices of non-zero elements
+Returns (tuple!!!) indices of non-zero elements - for use with fancy indexing
 
 ### astype  
-Change dtype of array.  
+Change dtype of an array (copy)
+```python
+a = np.array([1,0,1])  # a = array([1, 0, 1])
+t = a.dtype            # t = dtype('int32')
+b = a.astype('bool')   # b = array([ True, False,  True])
+t = b.dtype            # t = dtype('bool')
+# a == b,  !(a is b)
+```
+### where
+vectorized conditional
+```python
+a = np.arange(4).reshape(2,2)
+b = np.where(a >=2, -1, 1)
+# b = array([[ 1,  1],
+#            [-1, -1]])
+```
+
 
 ## operations
-+, -, *, ....  
-max sum mean std cov var
++, -, *, ....
 ### questions
 all, any
 ### copy
 view  
 copy will make deep copy of an array or...  
 copy(a) is like np.array(a, copy=True)   
-### indexing
+### indexing...
+indexing
 ```python
-x[0, 2] == x[0][2]  # first is more efficient 
+a[0, 2] == a[0][2]  # first is more efficient !
+```
+slicing will give view instead of copy
+```python
+a = np.arange(4).reshape(2,2)
+b = a[:,:]            # view (shallow copy)
+c = a[:,:].copy()     # deep copy
+# a = b = c = array([[0, 1],
+#                   [2, 3]])
+b[0, 2] = 66
+# a = b = array([[ 0, 66],
+#                [ 2,  3]])
+```
+fancy indexing - choosing elements by index
+```python
+# just indices
+a = np.arange(4)  # a = array([0, 1, 2, 3])
+b = a[[1,2]]      # b = array([1, 2])
+# lists of 'coordinates' !!!
+a = np.arange(4).reshape(2,2)
+# a = array([[0, 1],
+#            [2, 3]])
+b = a[[1],[1]]  # b = array([3])
 ```
 slicing,  newaxis, ::
 hstack, vstack, hsplit
@@ -259,6 +296,9 @@ a = np.array([[0, 5],[3, 6]])
 b = a[np.nonzero(a)]
 # b = array([5, 3, 6])
 ```
+### math and statistics
+max sum mean std cov var ...
+
 ### sort
 np.sort
 
@@ -269,6 +309,10 @@ b = np.flip(a)
 flipud, flipr
 
 ## universal functions
+vectorizing wrapper for simple functions  
+[ufunc](vectorizing wrapper for simple functions)  
+[Defined functions](https://numpy.org/doc/stable/reference/ufuncs.html?highlight=universal#available-ufuncs)  
+
 
 ## structured arrays
 recarray
