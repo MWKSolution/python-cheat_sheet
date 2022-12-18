@@ -5,29 +5,34 @@
    3. Data types
 2. [ndarray](#ndarray)
    1. array
-   2. arange
-   3. linespace
-   4. meshgrid
-   5. fromfunction
-   6. other creation methods
+   2. asarray
+   3. arange
+   4. linespace
+   5. meshgrid
+   6. fromfunction
+   7. other creation methods
 3. [attributes](#attributes)
 4. [methods](#methods)
    1. reshape
-   2. flatten, ravel
-   3. swapaxes
-   4. unique
-   5. duag
-   6. transpose
-   7. printoptions
-   8. vectorize
-   9. nonzero
-   10. astype
+   2. flatten
+   3. unique
+   4. diag
+   5. transpose
+   6. printoptions
+   7. vectorize
+   8. nonzero
+   9. astype
+   10. where
 5. [Operations](#operations)
-   1. questions
-   2. indexing
-   3. mask
-   4. sort
-   5. reverse
+   1. simple math
+   2. bool
+   3. copy
+   4. manipulating
+   5. expand
+   6. mask
+   7. math and statistics
+   8. sort
+   9. reverse
 6. [Universal functions](#universal-functions)
 7. [Structured arrays](#structured-arrays)
 8. [Files](#files)
@@ -69,12 +74,13 @@ axis=0  |   ,   axis=1 --------
 ```python
 numpy.array(object, dtype=None, *, copy=True, order='K', subok=False, ndmin=0, like=None)
 ```
-**asarray** doesn't make copy 
 ```python
 a = np.array([[1, 2], [3, 4]], dtype=np.int8)
 # a = array([[1, 2],
 #            [3, 4]], dtype=int8)
 ```
+### asarray
+**asarray** is like array - doesn't make copy - view 
 
 ### arange
 ```python
@@ -157,7 +163,7 @@ np...._like(a, dtype)  # return ... array with the same shape as 'a'
 **size** - number of elements  
 **dtype** - type of elements  
 **itemsize** - size of each element  
-**data** - data in memory
+**data** - data in memory  
 **T** - transposed array
 
 ## methods
@@ -173,19 +179,27 @@ d = np.reshape(a, (3, 4))
 #                    [ 5,  6,  7,  8],
 #                    [ 9, 10, 11, 12]])
 ```
-### flatten, ravel
+### flatten
 ```python
 a = np.arange(1, 5).reshape(2, 2)
 # a = array([[1, 2],
 #            [3, 4]])
 b = a.flatten()
-# b = array([1, 2, 3, 4]) ! new array
+# b = array([1, 2, 3, 4]) ! new array, copy
 c = a.ravel()
-# c = array([1, 2, 3, 4]) ! changes to 'c' will affect 'a'
+# c = array([1, 2, 3, 4]) ! changes to 'c' will affect 'a', view
 ```
 
 ### unique
 Unique elements of array
+```python
+import numpy as np
+
+a = np.array([3, 3, 3, 2, 2, 1, 1, 4, 4])
+b = np.unique(a)
+#a = array([1, 2, 3, 4])
+```
+intersect1d, union1d, in1d
 ### diag
 ```python
 a = np.arange(1,4)
@@ -201,8 +215,6 @@ b = a.transpose()
 b = a.T
 ```
 transpose is like **a.swapaxes(0, -1)** - swaping first and last axis
-### expand_dims
-np.expand_dims() or with np.newaxis (=None) with slices
 
 ### printoptions
 print options for print function  
@@ -221,6 +233,15 @@ a = vfun([1, 2, 3])  # a = array([1, 4, 9])
 ```
 ### nonzero
 Returns (tuple!!!) indices of non-zero elements - for use with fancy indexing
+```python
+a = np.arange(4).reshape(2,2)
+# a = array([[0, 1],
+#            [2, 3]])
+b = np.nonzero(a)  # b = (array([0, 1, 1], dtype=int64), array([1, 0, 1], dtype=int64))
+c = type(b)        # c =  <class 'tuple'>
+# to get 'coordinates' in the array:
+z = list(zip(b[0], b[1]))  # z = [(0, 1), (1, 0), (1, 1)]
+```
 
 ### astype  
 Change dtype of an array (copy)
@@ -239,22 +260,27 @@ b = np.where(a >=2, -1, 1)
 # b = array([[ 1,  1],
 #            [-1, -1]])
 ```
-
-
 ## operations
-+, -, *, ....
-### questions
-all, any
+### simple math
++, -, *, ** .... (with broadcasting)
+### bool
+**all()** - if all elements are True  
+**any()** - if any element is True  
+Counting True's and False's or positive and negative values:
+```python
+(a > 0).sum() # number of positive/True values
+(a <= 0).sum() # number of negative/False values
+```
 ### copy
 view  
 copy will make deep copy of an array or...  
 copy(a) is like np.array(a, copy=True)   
-### indexing...
-indexing
+### manipulating
+**indexing**
 ```python
 a[0, 2] == a[0][2]  # first is more efficient !
 ```
-slicing will give view instead of copy
+**slicing** will give view instead of copy
 ```python
 a = np.arange(4).reshape(2,2)
 b = a[:,:]            # view (shallow copy)
@@ -265,7 +291,7 @@ b[0, 2] = 66
 # a = b = array([[ 0, 66],
 #                [ 2,  3]])
 ```
-fancy indexing - choosing elements by index
+**fancy indexing** - choosing elements by index
 ```python
 # just indices
 a = np.arange(4)  # a = array([0, 1, 2, 3])
@@ -276,10 +302,21 @@ a = np.arange(4).reshape(2,2)
 #            [2, 3]])
 b = a[[1],[1]]  # b = array([3])
 ```
-slicing,  newaxis, ::
-hstack, vstack, hsplit
+**concatenate**
+concatenate or use:  
+hstack, vstack, row_stack, column_stack, dstack  
 
-concatenate
+**splitting**  
+hsplit, vsplit, split
+
+**helpers**
+r_, c_  
+
+### expand
+np.expand_dims() or with np.newaxis (=None) with slices
+newaxis, ::  
+
+
 ### mask
 ```python
 a = np.array([[1, 5],[3, 6]])
@@ -297,7 +334,13 @@ b = a[np.nonzero(a)]
 # b = array([5, 3, 6])
 ```
 ### math and statistics
-max sum mean std cov var ...
+**sum** -  Sum of all the elements in the array or along an axis; zero-length arrays have sum 0  
+**mean** -  Arithmetic mean; invalid (returns NaN) on zero-length arrays  
+**std**, **var** -  Standard deviation and variance, respectively
+**min**, **max** -  Minimum and maximum
+**argmin**, **argmax** -  Indices of minimum and maximum elements, respectively
+**cumsum** -  Cumulative sum of elements starting from 0  
+**cumprod** -  Cumulative product of elements starting from 1
 
 ### sort
 np.sort
@@ -318,6 +361,7 @@ vectorizing wrapper for simple functions
 recarray
 
 ## files
+[files...](https://numpy.org/doc/stable/reference/routines.io.html?highlight=file#numpy-binary-files-npy-npz)  
 np.save, np.savez, np.savetxt, np.load, np.loadtxt
 
 ## Modules
