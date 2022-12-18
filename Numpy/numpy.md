@@ -33,7 +33,8 @@
    7. math and statistics
    8. sort
    9. reverse
-6. [Universal functions](#universal-functions)
+   10. Universal functions
+6. [print options](#print-options)
 7. [Structured arrays](#structured-arrays)
 8. [Files](#files)
 9. [Modules](#Modules)
@@ -215,10 +216,7 @@ b = a.transpose()
 b = a.T
 ```
 transpose is like **a.swapaxes(0, -1)** - swaping first and last axis
-
-### printoptions
-print options for print function  
-np.set_printoptions(threshold=sys.maxsize)  
+ 
 ### vectorize
 Vectorize function
 
@@ -351,14 +349,19 @@ b = np.flip(a)
 ```
 flipud, flipr
 
-## universal functions
+### universal functions
 vectorizing wrapper for simple functions  
 [ufunc](vectorizing wrapper for simple functions)  
 [Defined functions](https://numpy.org/doc/stable/reference/ufuncs.html?highlight=universal#available-ufuncs)  
 
+## print options
+These [options](https://numpy.org/doc/stable/reference/generated/numpy.set_printoptions.html#numpy-set-printoptions) determine the way floating point numbers, arrays and other NumPy objects are displayed.  
+```python
+numpy.set_printoptions(precision=None, threshold=None, edgeitems=None, linewidth=None, suppress=None, nanstr=None, infstr=None, formatter=None, sign=None, floatmode=None, *, legacy=None)
+```
 
 ## structured arrays
-recarray
+General rather Pandas... unless some special uses...
 
 ## files
 [files...](https://numpy.org/doc/stable/reference/routines.io.html?highlight=file#numpy-binary-files-npy-npz)  
