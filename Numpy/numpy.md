@@ -18,11 +18,10 @@
    3. unique
    4. diag
    5. transpose
-   6. printoptions
-   7. vectorize
-   8. nonzero
-   9. astype
-   10. where
+   6. vectorize
+   7. nonzero
+   8. astype
+   9. where
 5. [Operations](#operations)
    1. simple math
    2. bool
@@ -307,13 +306,11 @@ hstack, vstack, row_stack, column_stack, dstack
 **splitting**  
 hsplit, vsplit, split
 
-**helpers**
+**helpers**  
 r_, c_  
 
 ### expand
-np.expand_dims() or with np.newaxis (=None) with slices
-newaxis, ::  
-
+np.expand_dims() or with np.newaxis (=None) -  with slices
 
 ### mask
 ```python
@@ -359,9 +356,9 @@ These [options](https://numpy.org/doc/stable/reference/generated/numpy.set_print
 ```python
 numpy.set_printoptions(precision=None, threshold=None, edgeitems=None, linewidth=None, suppress=None, nanstr=None, infstr=None, formatter=None, sign=None, floatmode=None, *, legacy=None)
 ```
-
+Other [formatting options](https://numpy.org/doc/stable/reference/routines.io.html#text-formatting-options)...  
 ## structured arrays
-General rather Pandas... unless some special uses...
+Generally rather use Pandas... unless some special cases...
 
 ## files
 [files...](https://numpy.org/doc/stable/reference/routines.io.html?highlight=file#numpy-binary-files-npy-npz)  
