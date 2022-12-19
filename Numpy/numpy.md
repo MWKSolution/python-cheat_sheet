@@ -164,7 +164,8 @@ np...._like(a, dtype)  # return ... array with the same shape as 'a'
 **dtype** - type of elements  
 **itemsize** - size of each element  
 **data** - data in memory  
-**T** - transposed array
+**T** - transposed array  
+**base** - *None* - array or copy, *object* - view  
 
 ## methods
 
@@ -269,9 +270,25 @@ Counting True's and False's or positive and negative values:
 (a <= 0).sum() # number of negative/False values
 ```
 ### copy
-view  
-copy will make deep copy of an array or...  
-copy(a) is like np.array(a, copy=True)   
+view
+```python
+a = np.arange(4).reshape(2,2)
+b = a.view()   # b is view of a, changes to b affect a 
+``` 
+copy will make deep copy of an array or...
+```python
+a = np.arange(4).reshape(2,2)
+b = a.copy()  # a.copy() is like np.array(a, copy=True) 
+```
+use **base** to check  
+```python
+x = np.array([1,2,3,4])
+x.base is None   # True - copy or array
+y = x[2:]
+y.base is x   # True - view
+```
+The numpy.reshape function creates a view where possible or a copy otherwise  
+Slicing creates a view  
 ### manipulating
 **indexing**
 ```python
@@ -338,7 +355,26 @@ b = a[np.nonzero(a)]
 **cumprod** -  Cumulative product of elements starting from 1
 
 ### sort
-np.sort
+```python
+import numpy as np
+from numpy.random import default_rng
+np.set_printoptions(precision=2)
+rng = default_rng()
+v = rng.standard_normal(10)
+# v = array([ 0.82,  0.43,  0.81,  1.2 ,  1.78, -0.59,  0.85, -0.74, -1.12,
+#             0.84])
+v.sort()  # in-place!
+# v = array([-1.12, -0.74, -0.59,  0.43,  0.81,  0.82,  0.84,  0.85,  1.2 ,
+#             1.78]) 
+```
+```python
+ndarray.sort(axis=-1, kind=None, order=None)
+
+numpy.sort(a, axis=-1, kind=None, order=None)
+# axis - None: flatten, -1: last axis or axis index
+# kind - ‘quicksort’, ‘mergesort’, ‘heapsort’, ‘stable’, default is quickrort = None
+```
+argsort, lexsort, partition, argpartition, searchsort
 
 ### reverse
 ```python
