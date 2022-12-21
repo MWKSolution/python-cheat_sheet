@@ -13,18 +13,20 @@
    2. Setting
    3. Inserting
    4. Deleting
-4. [Sorting](#Sorting)
-5. [Filtering](#Filtering)
-6. [Iteration](#Iteration)
+   5. math
+4. [Data cleaning](#Data-cleaning)
+5. [Sorting](#Sorting)
+6. [Filtering](#Filtering)
+7. [Iteration](#Iteration)
    1. items
    2. iteritems
    3. iterrows
    4. itertuple
-7. [Combining](#Combining)
+8. [Combining](#Combining)
    1. merge
    2. join
    3. concat
-8. [Input Output](#Input-Output)
+9. [Input Output](#Input-Output)
 
 
 ---
@@ -183,6 +185,12 @@ d.reindex(index=np.arange(4), columns=['col1', 'x', 'col2'], fill_value=-999)
 
 **head()** - first rows...
 
+**sample(n)** - random sample of n rows or columns (axis)
+
+**count()** - count non-NA cells
+
+**get_dummies** - 
+
 T transpose - view !!!!
 
 memory_usage()
@@ -339,6 +347,133 @@ add +, sub -, div /, floordiv //, mul *, pow **, + r___ - reversed
 
 NumPy ufunc work with Pandas.  
 **df.apply(func, axis)** - for user defined functions  
+
+## Data cleaning
+
+### Missing data
+float NaN : **np.nan**, **None**  
+int  \< NA \>  : **pd.NA**
+```python
+df = pd.DataFrame([[np.nan,2, 3, 4], [1, 2, pd.NA, None],[1, 2, 3, 4]])
+#       0	1	2	3
+# 0	NaN	2	3	4.0
+# 1	1.0	2	<NA>	NaN
+# 2	1.0	2	3	4.0
+b = df.isna()
+#       0	1	2	3
+# 0	True	False	False	False
+# 1	False	False	True	True
+# 2	False	False	False	False
+```
+**notna()** - opposite of **isna()**
+```python
+b = df.dropna()
+# 
+#       0	1	2	3
+# 2	1.0	2	3	4.0
+b = df.dropna(axis=1, how='any')  # or how='all' - drop only if all row or column in NaN
+# axis: 0 or index, 1 or columns; thresh - how many NaNs to be dropped
+#       1
+# 0	2
+# 1	2
+# 2	2
+```
+```python
+b = df.fillna(666)
+#       0	1	2	3
+# 0	666.0	2	3	4.0
+# 1	1.0	2	666	666.0
+# 2	1.0	2	3	4.0
+d = {0:-1, 1:999, 2:'c'}
+b = df.fillna(d)
+#        0	1	2	3
+# 0	-1.0	2	3	4.0
+# 1	1.0	2	c	999.0
+# 2	1.0	2	3	4.0
+# method - ffil, bfil, None
+```
+### Data transformation
+**duplicates** 
+```python
+df.duplicated()  ?  
+df.drop_duplicates(subset=...)
+```
+**mapping**  
+```python
+df['new_column'] = df['column'].map(mapping)  # mapping could be function  
+```
+**replacing**  
+```python
+df.replace(-999, np.nan)
+df.replace({-999: 0, -999.25: -1})
+```
+**renaming**  
+```python
+df.index = df.index.map(transform)
+df.rename(index=tr1, columns=tr2)
+df.rename(index=dict1, columns=dict2)
+```
+**bins**  
+```python
+rng = np.random.default_rng()
+a = rng.standard_normal(100)
+bins = [-100, 0, 100]
+pd_bins = pd.cut(a, bins)
+c = pd_bins.categories
+# c = IntervalIndex([(-100, 0], (0, 100]], dtype='interval[int64, right]')')
+d = pd.value_counts(pd_bins)
+# (0, 100]     53
+# (-100, 0]    47
+# dtype: int64
+c = pd_bins = pd.cut(a, bins, labels =['negative', 'positive'] )
+# c = Index(['negative', 'positive'], dtype='object')
+d = pd.value_counts(pd_bins)
+# positive    53
+# negative    47
+# dtype: int64
+```
+qut with number instead of bins cut in (number)  bins of equal length  
+qcut - cuts for quantiles (equal probability)  
+
+**outliers**   
+```python
+rng = np.random.default_rng()
+a = rng.standard_normal((1000,4))
+df = pd.DataFrame(a)
+df.describe()
+#        0                  1      	2       	3
+# count	1000.000000	1000.000000	1000.000000	1000.000000
+# mean	-0.051248	0.059981	0.041690	-0.015677
+# std	0.993138	1.025045	1.016295	0.995514
+# min	-2.970296	-3.553033	-3.227038	-3.145625
+# 25%	-0.716895	-0.615683	-0.703306	-0.663732
+# 50%	-0.058155	0.055179	0.066547	-0.013794
+# 75%	0.622315	0.723527	0.705924	0.645226
+# max	3.900632	3.043639	3.466084	3.117405
+# abs > 3 :
+df[(df.abs() > 3).any(axis='columns')]
+#            0  	1       	2       	3
+# 15	-1.221766	0.062596	-0.951186	3.117405
+# 48	0.673354	3.043639	-1.171271	0.523487
+# 212	-0.717276	-1.070818	-3.227038	0.494111
+# 304	1.725815	-0.623826	3.466084	-0.552276
+# 368	3.060529	-0.240531	0.312437	-1.059358
+# 372	-0.998372	-3.553033	-0.316823	-1.088046
+# 632	-0.646031	0.180089	3.310936	-2.984301
+# 667	0.782512	1.112181	0.288309	-3.145625
+# 781	-0.056040	-0.604476	1.466349	3.023612
+# 848	3.900632	0.574898	-1.129511	0.804713
+# do something with outliers - change to NaN
+df[(df.abs() > 3)] = np.nan
+# count them by column
+df.isna().sum()
+# 0    2
+# 1    2
+# 2    3
+# 3    3
+# dtype: int64
+```
+
 ## Sorting
 [by values](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html)  
 ```python
