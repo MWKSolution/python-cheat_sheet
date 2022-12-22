@@ -15,6 +15,8 @@
    4. Deleting
    5. math
 4. [Data cleaning](#Data-cleaning)
+   1. Missing data
+   2. Data transformation
 5. [Sorting](#Sorting)
 6. [Filtering](#Filtering)
 7. [Iteration](#Iteration)
@@ -39,7 +41,8 @@ Valid data types for series/columns:
 
 ### Indexes
 Indexes are immutable - cannot be changed by simple assigning  
-set_index()
+**set_index(col)** - set new index as col 
+**reset_index(drop=True)**  
 multiindex !!!
 
 ### Series
@@ -474,6 +477,11 @@ df.isna().sum()
 # dtype: int64
 ```
 
+## String
+
+[String methods](https://pandas.pydata.org/pandas-docs/stable/user_guide/text.html?highlight=string#method-summary)  
+
+
 ## Sorting
 [by values](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html)  
 ```python
@@ -520,16 +528,140 @@ for row in df.itertuples(index=True, name='Row'):
     print(row)  # row = Row(Index='...', col1='...', col2='...', ...)
 ```
 ## Combining
+
+
 ### merge
-on common columns or indices
+Use to JOIN on specified key columns, rest of columns could have the same names, default 'inner'  
+[merge](https://pandas.pydata.org/docs/reference/api/pandas.merge.html?highlight=merge#pandas.merge)  
+```python
+pandas.merge(left, right, how='inner', on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=('_x', '_y'), copy=True, indicator=False, validate=None)
+```
+**left, right** - *dataframes or series*  
+**how** - *'left', right’, ‘outer’, ‘inner’, ‘cross’(cartesian product)* -  default ‘inner’  
+**on** - *list*, default None - if not on indexes - intersection of columns because key is all common columns  
+**left_on=None, right_on=None, left_index=False, right_index=False** instead of on, on columns or inices!!!   
+the most general method - join and concat are the cases of merge
 ### join
-on key column or an index
+Use to JOIN on indices with different columns, default 'left'  
+[join](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html?highlight=join#pandas.DataFrame.join)  
+By default ON INDICES !!!  or left on key column and right (other) on index  
+--- If not on indices new df index won't be range, **reset_index(drop=True)** may be necessary... !!!! ---    
+
+```python
+DataFrame.join(other, on=None, how='left', lsuffix='', rsuffix='', sort=False, validate=None)[source]
+```
 ### concat
+```python
+pandas.concat(objs, *, axis=0, join='outer', ignore_index=False, keys=None, levels=None, names=None, verify_integrity=False, sort=False, copy=True)  
+```
 across rows and columns
+default outer
+### Pandas vs SQL
+```python
+d1 = {'key':[1, 1, 3, 4, 5, 7], 'value':['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'x']}
+df1 = pd.DataFrame(d1)
+d2 = {'key':[2, 3, 3, 4, 6, 7], 'value':['gg', 'hh', 'kk', 'nn', 'oo', 'x']}
+df2 = pd.DataFrame(d2)
+# df1:
+#       key	value
+# 0	1	aaa
+# 1	1	bbb
+# 2	3	ccc
+# 3	4	ddd
+# 4	5	eee
+# 5	7	x
+# df2:
+#       key	value
+# 0	2	gg
+# 1	3	hh
+# 2	3	kk
+# 3	4	nn
+# 4	6	oo
+# 5	7	x
+```
 
+*----------------joins----------------*
+
+**INNER**
+```python
+pd.merge(df1, df2, on='key')  # how = 'inner'
+df1.join(df2.set_index('key'), on='key', how='inner', lsuffix='_x', rsuffix='_y').reset_index(drop=True)
+#       key	value_x	value_y
+# 0	3	ccc	hh
+# 1	3	ccc	kk
+# 2	4	ddd	nn
+# 3	7	x	x
+```
+If keys are indices, columns are different  
+```python
+df1.join(df2, how='inner')  # on indices!
+pd.merge(df1, df2, left_index=True, right_index=True) # on indices
+```
+On column (df1) and index (df2), columns are different   
+```python
+df1.join(df2, on='key', how='inner')
+pd.merge(df1, df2, left_on='key', right_index=True) # on column and index
+```
+
+**LEFT**  
+```python
+pd.merge(df1, df2, on='key', how='left')
+df1.join(df2.set_index('key'), on='key', lsuffix='_x', rsuffix='_y').reset_index(drop=True)
+#       key	value_x	value_y
+# 0	1	aaa	NaN
+# 1	1	bbb	NaN
+# 2	3	ccc	hh
+# 3	3	ccc	kk
+# 4	4	ddd	nn
+# 5	5	eee	NaN
+# 6	7	x	x
+```
+**RIGHT**  
+```python
+pd.merge(df1, df2, on='key', how='right')
+df1.join(df2.set_index('key'), on='key', how='right', lsuffix='_x', rsuffix='_y').reset_index(drop=True)
+#       key	value_x	value_y
+# 0	2	NaN	gg
+# 1	3	ccc	hh
+# 2	3	ccc	kk
+# 3	4	ddd	nn
+# 4	6	NaN	oo
+# 5	7	x	x
+```
+**OUTER**  
+```python
+pd.merge(df1, df2, on='key', how='outer')
+df1.join(df2.set_index('key'), on='key', how='outer', lsuffix='_x', rsuffix='_y').reset_index(drop=True)
+#       key	value_x	value_y
+# 0	1	aaa	NaN
+# 1	1	bbb	NaN
+# 2	3	ccc	hh
+# 3	3	ccc	kk
+# 4	4	ddd	nn
+# 5	5	eee	NaN
+# 6	7	x	x
+# 7	2	NaN	gg
+# 8	6	NaN	oo
+```
+**CROSS**  
+pd.merge(df1, df2, how='cross')
+**self**
+
+*---------------sets--------------*  
+UNION with concat
+**UNION**  
+```python
+pd.concat([df1, df2])                    # UNION ALL
+pd.merge(df1, df2, how='outer')
+pd.concat([df1, df2]).drop_duplicates()  # UNION
+```
+**EXCEPT**  
+
+**INTERSECT**  
+```python
+pd.merge(df1, df2) # on = None, by default (key is all common columns
+```
 ## Input Output
-
-
 ### Creating DF from files
 [Reading from files](https://pandas.pydata.org/docs/user_guide/io.html#)
 
