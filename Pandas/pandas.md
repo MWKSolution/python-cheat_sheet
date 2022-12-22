@@ -554,8 +554,7 @@ DataFrame.join(other, on=None, how='left', lsuffix='', rsuffix='', sort=False, v
 ```python
 pandas.concat(objs, *, axis=0, join='outer', ignore_index=False, keys=None, levels=None, names=None, verify_integrity=False, sort=False, copy=True)  
 ```
-across rows and columns
-default outer
+
 ### Pandas vs SQL
 ```python
 d1 = {'key':[1, 1, 3, 4, 5, 7], 'value':['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'x']}
@@ -644,22 +643,68 @@ df1.join(df2.set_index('key'), on='key', how='outer', lsuffix='_x', rsuffix='_y'
 # 8	6	NaN	oo
 ```
 **CROSS**  
+Cartesian product  
+```python
 pd.merge(df1, df2, how='cross')
-**self**
-
+#       key_x	value_x	key_y	value_y
+# 0	1	aaa	2	gg
+# 1	1	aaa	3	hh
+# 2	1	aaa	3	kk
+# . .    .  .    .
+# . .    .  .    .   each row with each row etc...
+```
+**self**  
+INNER or LEFT  
+```python
+pd.merge(df1, df1, on='key', how='inner')
+df1.join(df1.set_index('key'), on='key', how='inner', lsuffix='_x', rsuffix='_y').reset_index(drop=True)
+#       key 	value_x	value_y
+# 0	1	aaa	aaa
+# 1	1	aaa	bbb
+# 2	1	bbb	aaa
+# 3	1	bbb	bbb
+# 4	3	ccc	ccc
+# 5	4	ddd	ddd
+# 6	5	eee	eee
+# 7	7	x	x
+```
 *---------------sets--------------*  
-UNION with concat
 **UNION**  
 ```python
-pd.concat([df1, df2])                    # UNION ALL
+# UNION ALL
+pd.concat([df1, df2]).reset_index(drop=True)                
+# UNION
 pd.merge(df1, df2, how='outer')
-pd.concat([df1, df2]).drop_duplicates()  # UNION
+pd.concat([df1, df2]).drop_duplicates().reset_index(drop=True)
+#       key	value
+# 0	1	aaa
+# 1	1	bbb
+# 2	3	ccc
+# 3	4	ddd
+# 4	5	eee
+# 5	7	x
+# 6	2	gg
+# 7	3	hh
+# 8	3	kk
+# 9	4	nn
+# 10	6	oo
 ```
 **EXCEPT**  
+```python
+df1[~(df1.isin(df2).all(axis=1))]
+#       key	value
+# 0	1	aaa
+# 1	1	bbb
+# 2	3	ccc
+# 3	4	ddd
+# 4	5	eee
+```
 
 **INTERSECT**  
 ```python
-pd.merge(df1, df2) # on = None, by default (key is all common columns
+pd.merge(df1, df2) # on = None, by default (key is all common columns!)
+#       key	value
+# 0	7	x
 ```
 ## Input Output
 ### Creating DF from files
