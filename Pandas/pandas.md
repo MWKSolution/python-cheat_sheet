@@ -1,8 +1,9 @@
 # Pandas
 1. [Basics](#Basics)
    1. Data types
-   2. Indexes
-   3. Series
+   2. Axis
+   3. Indexes
+   4. Series
 2. [DataFrame](#DataFrame)
    1. Constructor
    2. Attributes
@@ -18,17 +19,19 @@
    1. Missing data
    2. Data transformation
 5. [Sorting](#Sorting)
-6. [Filtering](#Filtering)
-7. [Iteration](#Iteration)
+6. [Ranking](#Ranking)
+7. [Filtering](#Filtering)
+8. [Statistics](#Statistics)
+9. [Iteration](#Iteration)
    1. items
    2. iteritems
    3. iterrows
    4. itertuple
-8. [Combining](#Combining)
-   1. merge
-   2. join
-   3. concat
-9. [Input Output](#Input-Output)
+10. [Combining](#Combining)
+    1. merge
+    2. join
+    3. concat
+11. [Input Output](#Input-Output)
 
 
 ---
@@ -38,11 +41,20 @@
 Valid data types for series/columns:  
 - [Numpy types](https://numpy.org/doc/stable/reference/arrays.scalars.html#sized-aliases)  
 - [Pandas extension types](https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes)
+### Axis
+```python
+axis=0, axis='index'
+axis=1, axis='columns'
+```
 
 ### Indexes
 Indexes are immutable - cannot be changed by simple assigning  
 **set_index(col)** - set new index as col 
 **reset_index(drop=True)**  
+Duplicate indexes  
+```python
+df.index.is_unique
+```
 multiindex !!!
 
 ### Series
@@ -347,9 +359,37 @@ df.drop([column,...], axis=1)
 Aligning indexes and columns, inserts *NaN* or *fill_value*  
 With broadcasting  
 add +, sub -, div /, floordiv //, mul *, pow **, + r___ - reversed  
-
-NumPy ufunc work with Pandas.  
-**df.apply(func, axis)** - for user defined functions  
+```python
+df1 = pd.DataFrame(np.arange(4).reshape(2,2), columns=['A', 'B'], index=['a', 'b'])
+df2 = pd.DataFrame(np.arange(4).reshape(2,2), columns=['B', 'C'], index=['a', 'c'])
+df = df1 + df2
+#       A       B	C
+# a	NaN	1.0	NaN
+# b	NaN	NaN	NaN
+# c	NaN	NaN	NaN00000
+# b	0.5	0.333333
+df = df1.add(df2, fill_value=-1)
+#       A	B	C
+# a	-1.0	1.0	0.0
+# b	1.0	2.0	NaN
+# c	NaN	1.0	2.0
+df = np.multiply(df1, 5)
+#       A	B
+# a	0	5
+# b	10	15
+```
+NumPy ufunc work with Pandas.   
+```python
+df1.apply(np.sum, axis=0) # function could be applied acress axis
+# A    2
+# B    4
+# dtype: int64
+f= lambda x: x**2
+df1.applymap(f)  # apply scalar function
+#       A	B
+# a	0	1
+# b	4	9
+```
 
 ## Data cleaning
 
@@ -490,8 +530,33 @@ df.sort_values(by=[columns], ascending=[True, False, ...], kind='sorting-algorit
 ```
 [by index or columns_index](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html?highlight=sort_index#pandas.DataFrame.sort_index)  
 ```python
+DataFrame.sort_index(*, axis=0, level=None, ascending=True, inplace=False, kind='quicksort', na_position='last', sort_remaining=True, ignore_index=False, key=None)
+```
+```python
+df.sort_values('column')
+df.sort_values(['column_1', 'column_2'])
+```
+```python
 df.sort_index()  # sort by index
-df.sort_index(axis=1)  # sort by column names
+df.sort_index(axis=1)  # sort columns by names
+```
+## Ranking
+```python
+DataFrame.rank(axis=0, method='average', numeric_only=_NoDefault.no_default, na_option='keep', ascending=True, pct=False)
+```
+```python
+df = pd.DataFrame({'a':[1, 2, 2, 5], 'b':[1, 2, 7, 9]})
+#       a	b
+# 0	1.0	1.0
+# 1	2.5	2.0
+# 2	2.5	3.0
+# 3	4.0	4.0
+dfr = df.rank(axis='index')
+#       a	b
+# 0	1.0	1.0
+# 1	2.5	2.0
+# 2	2.5	3.0
+# 3	4.0	4.0
 ```
 ## Filtering
 general
@@ -503,6 +568,24 @@ df[condition]
 where
 ```python
 df.where(cond=condition, other=value)
+```
+## Statistics
+Get a single value from series or dataframe.  Built-in handling for missing data.  
+```python
+df.sum(axis='columns', skipna=True)
+df.mean()
+df.idxmax()
+df.cumsum()
+df.describe()
+
+df.corr()
+df.cov()
+df.corrwith()
+
+df.unique()
+df.value_counts()
+df.isin()
+Index().get_indexer()
 ```
 ## Iteration
 ### items
