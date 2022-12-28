@@ -18,20 +18,31 @@
 4. [Data cleaning](#Data-cleaning)
    1. Missing data
    2. Data transformation
-5. [Sorting](#Sorting)
-6. [Ranking](#Ranking)
-7. [Filtering](#Filtering)
-8. [Statistics](#Statistics)
-9. [Iteration](#Iteration)
+5. [String operations](#String-operations)
+6. [Operations](#Operations)
+   1. Sorting
+   2. Ranking
+   3. Filtering
+   4. Statistics
+7. [Iteration](#Iteration)
    1. items
    2. iteritems
    3. iterrows
    4. itertuple
-10. [Combining](#Combining)
-    1. merge
-    2. join
-    3. concat
-11. [Input Output](#Input-Output)
+8. [Combining](#Combining)
+   1. merge
+   2. join
+   3. concat
+9. [categorical data](#Categorical-data)
+10. [Input Output](#Input-Output)
+    1. Creating DF from files
+    2. CSV and TXT
+    3. JSON
+    4. Excel and ODF
+    5. SQL
+    6. Other types
+11. [Options](#Options)
+12. [Extensions](#Extensions)
 
 
 ---
@@ -529,7 +540,7 @@ df.isna().sum()
 # dtype: int64
 ```
 
-## String
+## String operations
 
 [String methods](https://pandas.pydata.org/pandas-docs/stable/user_guide/text.html?highlight=string#method-summary)  
 
@@ -537,7 +548,8 @@ Methods:
 - python string methods
 - regex methods
 
-## Sorting
+## Operations
+### Sorting
 [by values](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html)  
 ```python
 df.sort_values(by=[columns], ascending=[True, False, ...], kind='sorting-algorithm', axis=1, inplace=True, na_position='first')
@@ -555,7 +567,7 @@ df.sort_values(['column_1', 'column_2'])
 df.sort_index()  # sort by index
 df.sort_index(axis=1)  # sort columns by names
 ```
-## Ranking
+### Ranking
 ```python
 DataFrame.rank(axis=0, method='average', numeric_only=_NoDefault.no_default, na_option='keep', ascending=True, pct=False)
 ```
@@ -573,7 +585,7 @@ dfr = df.rank(axis='index')
 # 2	2.5	3.0
 # 3	4.0	4.0
 ```
-## Filtering
+### Filtering
 general
 ```python
 conditon = df['column'] > v
@@ -584,7 +596,7 @@ where
 ```python
 df.where(cond=condition, other=value)
 ```
-## Statistics
+### Statistics
 Get a single value from series or dataframe.  Built-in handling for missing data.  
 ```python
 df.sum(axis='columns', skipna=True)
