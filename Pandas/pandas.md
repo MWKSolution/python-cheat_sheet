@@ -45,7 +45,9 @@ dtype = np.int64
 dtype = 'int64'
 ```
 - [Pandas extension types](extension_types.md)
+
 ```python
+dtype = pd.Int64Dtype()  # brackets !!!
 dtype = 'Int64'  # not int32 - pd.Int32Dtype
 ```
 ### Axis
@@ -531,6 +533,9 @@ df.isna().sum()
 
 [String methods](https://pandas.pydata.org/pandas-docs/stable/user_guide/text.html?highlight=string#method-summary)  
 
+Methods:
+- python string methods
+- regex methods
 
 ## Sorting
 [by values](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html)  
@@ -800,6 +805,10 @@ pd.merge(df1, df2) # on = None, by default (key is all common columns!)
 #       key	value
 # 0	7	x
 ```
+## Categorical data
+dimension tables...   
+improving performance and memory use
+
 ## Input Output
 ### Creating DF from files
 [Reading from files](https://pandas.pydata.org/docs/user_guide/io.html#)
