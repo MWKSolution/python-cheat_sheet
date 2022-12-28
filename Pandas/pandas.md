@@ -39,8 +39,15 @@
 ### Data types
 
 Valid data types for series/columns:  
-- [Numpy types](https://numpy.org/doc/stable/reference/arrays.scalars.html#sized-aliases)  
-- [Pandas extension types](https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes)
+- [Numpy types](../Numpy/numpy_types.md)  
+```python
+dtype = np.int64
+dtype = 'int64'
+```
+- [Pandas extension types](extension_types.md)
+```python
+dtype = 'Int64'  # not int32 - pd.Int32Dtype
+```
 ### Axis
 ```python
 axis=0, axis='index'
@@ -54,7 +61,10 @@ Indexes are immutable - cannot be changed by simple assigning
 Duplicate indexes  
 ```python
 df.index.is_unique
+df.index.unique
 ```
+Index().get_indexer() - return index pos (integer) or -1 if not present
+
 multiindex !!!
 
 ### Series
@@ -574,19 +584,20 @@ Get a single value from series or dataframe.  Built-in handling for missing data
 ```python
 df.sum(axis='columns', skipna=True)
 df.mean()
-df.idxmax()
-df.cumsum()
-df.describe()
+df.idxmax(), df.idxmin()    # return index of max/min val in columns or rows
+df.cumsum()    # cumulative sum over columns or rows
+df.describe()  # statistics summary
 
-df.corr()
-df.cov()
-df.corrwith()
+df.corr()       #  pairwise correlation of columns: pearson, kendall, spearman
+df.cov()        #   pairwise covariance of columns
+df.corrwith()   # corr for different dataframes
+df.pct_change() # Percentage change between the current and a prior element.
 
-df.unique()
-df.value_counts()
-df.isin()
-Index().get_indexer()
+pd.unique()        # unique values 
+df.value_counts()  # counts of unique rows
+df.isin(values)    # if each element of df is in list of 'values'
 ```
+count, argmin, argmax, quantile, median, mad, prod, var, std, skew, kurt, cummin, cummax, cumprod, diff
 ## Iteration
 ### items
 over columns as tuple (label, series)
@@ -839,3 +850,10 @@ with engine.connect() as conn, conn.begin():
 ### Other types
 XML, cliboard, HDF5 (.h5), Feather , Parquet, ORC, Stata (.dta),  SAS (.xpt, .sas7bdat), SPSS (.sav, .zsav), pickle
 
+## Options
+pd.options.display.max_rows = 10
+
+
+## Extensions
+
+[Pandas extensions](https://pandas.pydata.org/docs/ecosystem.html#text-extensions-for-pandas)  
