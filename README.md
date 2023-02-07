@@ -39,6 +39,7 @@
    10. [Math and Numbers](Standard_Library/math.md)
    11. [Strings](Standard_Library/string.md)
    12. [Paths and Files](Standard_Library/files.md)
+   13. [typing](Standard_Library/typing.md)
 
 ---
 
