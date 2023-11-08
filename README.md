@@ -40,6 +40,21 @@
    11. [Strings](Standard_Library/string.md)
    12. [Paths and Files](Standard_Library/files.md)
    13. [typing](Standard_Library/typing.md)
+14.  [regex](Standard_Library/regex.md)
+15. [dataclasses](Standard_Library/dataclasses.md)  
+
+---
+
+## Pytest  
+1. [Pytest](Pytest/pytest.md)  
+
+---
+
+## Data Science  
+1. [Numpy](Numpy/numpy.md)
+2. [Pandas](Pandas/pandas.md)
+3. [SciPy](Scipy/scipy.md)
+
 
 ---
 
