@@ -1,16 +1,17 @@
 # Class
-1. @staticmethod, @classmethod
-   1. @staticmethod
-   2. @classmethod
-   3. instance method
-2. @property
-   1. Defining
-   2. Restricting access
-   3. Usage
-3. super()
-   1. Basic use
-   2. Multiple inheritance
-4. \_\_new\_\_()
+1. [@staticmethod, @classmethod](#staticmethod-classmethod)
+   1. [@staticmethod](#staticmethod)
+   2. [@classmethod](#classmethod)
+   3. [instance method](#instance-method)
+2. [@property](#property)
+   1. [Defining](#defining)
+   2. [Restricting access](#restricting-access)
+   3. [Usage](#usage)
+3. [super()](#super)
+   1. [Basic use](#basic-use)
+   2. [Multiple inheritance](#multiple-inheritance)
+   3. [Mixin](#mixin-)
+4. [\_\_new\_\_()](#new)
 
 ---
 
@@ -351,6 +352,25 @@ j = C.__mro__    # j = (<class '__main__.C'>, <class '__main__.B'>, <class '__ma
 # output:
 # B init a b {'x': 'x', 'y': 'y'} -> adapter init {} -> non-cooperative init x y -> root init {}
 # B method -> adapter method -> non-cooperative method -> root method
+```
+### Mixin  
+
+Mixins are small classes (mini-classes) that focus on providing a small set of specific features that you can later combine with code that live in other classes.  
+Mixins are used to enhance or to add features to another set of code. A mixin is not meant to be used by itself.  
+In general, there are 2 cases where you would like to implement something like this:
+- You want to provide a lot of optional features for a class.
+- You want to use one particular feature in a lot of different classes.
+```python
+class MixIn:
+    def print_data(self):
+        print(self.data)
+
+class SomeClass(MixIn):
+    def __init__(self):
+        self.data = 'Some data'
+
+o = SomeClass()
+o.print_data()  # output: Some data
 ```
 
 ---

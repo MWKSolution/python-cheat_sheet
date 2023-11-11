@@ -60,6 +60,9 @@
 
 # Links
 
+Markdown  
+[Markdown Guide](https://www.markdownguide.org/)
+
 Documentation:  
 [Python](https://docs.python.org/3/)  
 [The Python Standard Library](https://docs.python.org/3/library/)
@@ -73,7 +76,8 @@ Links:
 [medium.com](https://medium.com/)  
 [towardsdatascience.com](https://towardsdatascience.com/)
 
-Markdown  
-[Markdown Guide](https://www.markdownguide.org/)
+[Secrets of the Framework Creators](http://farmdev.com/src/secrets/index.html)  
+
+
 
 

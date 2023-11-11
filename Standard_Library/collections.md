@@ -4,12 +4,13 @@ I. In detail
 2. [namedtuple](collections/namedtuple.md)  
 3. [defaultdict](collections/defaultdict.md)  
 4. [ChainMap](collections/ChainMap.md)  
+5. [abc](collections/abc.md)
   
 II. In general
 
 1. [OrderedDict](#OrderedDict)
-2. [UserDict, UserList, UserString](#UserDict)
-3. [deque](#deque)  
+2. [UserDict, UserList, UserString](#)
+3. [deque](#deque-)  
 
 ---
 

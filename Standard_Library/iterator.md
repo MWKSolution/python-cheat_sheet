@@ -3,7 +3,7 @@
 1. [Brief]()
 2. [Iterable](#iterable)
    1. Definition
-   2. Custom iterable (\_\_iter\_\_)
+   2. Custom iterable (\_\_iter__)
 3. [Iterator](#iterator)  
    1. iter(), next()
    2. iter() with sentinel
