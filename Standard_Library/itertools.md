@@ -1,9 +1,9 @@
 # Itertools
 
-1. Infinite
-2. Terminating
-3. Combinatoric
-4. More-Itertools
+1. [Infinite](#infinite)
+2. [Terminating](#terminating)
+3. [Combinatoric](#combinatoric)
+4. [More-Itertools](#more-itertools)
 
 [All itertools - python.org](https://docs.python.org/3/library/itertools.html)
 

@@ -16,6 +16,7 @@
       2. [namedtuple](Standard_Library/collections/namedtuple.md)
       3. [defaultdict](Standard_Library/collections/defaultdict.md)
       4. [ChainMap](Standard_Library/collections/ChainMap.md) 
+      5. [Abstarct Base Classes](Standard_Library/collections/abc.md)
       5. [Other containers](Standard_Library/collections.md)
    3. [Iterator](Standard_Library/iterator.md)
    4. [Context manager](Standard_Library/context_manager.md)
@@ -35,14 +36,17 @@
    6. [Itertools](Standard_Library/itertools.md)
    7. [Functools](Standard_Library/functools.md)
    8. [Operator](Standard_Library/operator.md)
-   9. [Decorator](Standard_Library/decorator.md)
-   10. [Math and Numbers](Standard_Library/math.md)
-   11. [Strings](Standard_Library/string.md)
-   12. [Paths and Files](Standard_Library/files.md)
-   13. [typing](Standard_Library/typing.md)
-14.  [regex](Standard_Library/regex.md)
-15. [dataclasses](Standard_Library/dataclasses.md)  
+   9. [Math and Numbers](Standard_Library/math.md)
+   10. [Strings](Standard_Library/string.md)
+   11. [Paths and Files](Standard_Library/files.md)
 
+## Standard library - advanced
+1. [Decorator](Standard_Library/decorator.md)
+2. [typing](Standard_Library/typing.md)
+3. [regex](Standard_Library/regex.md)
+4. [dataclasses](Standard_Library/dataclasses.md)
+5. [Abstract Base Classes](Standard_Library/abc.md)
+6. [Metaclasses](Standard_Library/metaclasses.md)
 ---
 
 ## Pytest  
@@ -68,14 +72,13 @@ Documentation:
 [The Python Standard Library](https://docs.python.org/3/library/)
 
 Links:   
-[Real Python](https://realpython.com/)  
-[Geeks for Geeks](https://www.geeksforgeeks.org/python-programming-language/?ref=shm)  
+<!--[Real Python](https://realpython.com/)
+[Geeks for Geeks](https://www.geeksforgeeks.org/python-programming-language/?ref=shm) 
 [w3schools](https://www.w3schools.com/python/default.asp)  
 [Programiz](https://www.programiz.com/python-programming)
   
 [medium.com](https://medium.com/)  
-[towardsdatascience.com](https://towardsdatascience.com/)
-
+[towardsdatascience.com](https://towardsdatascience.com/)-->
 [Secrets of the Framework Creators](http://farmdev.com/src/secrets/index.html)  
 
 

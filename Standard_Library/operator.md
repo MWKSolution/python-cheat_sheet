@@ -1,11 +1,10 @@
 # Operator
-1. Brief
-2. Operators as functions
-3. Item lookups
-   1. attrgetter()
-   2. itemgetter()
-   3. methodcaller()
-
+1. [Brief](#brief)
+2. [Operators as functions](#operators-as-functions)
+3. [Item lookups](#item-lookups)
+   1. [attrgetter()](#attrgetter)
+   2. [itemgetter()](#itemgetter)
+   3. [methodcaller()](#methodcaller)
 
 ---
 

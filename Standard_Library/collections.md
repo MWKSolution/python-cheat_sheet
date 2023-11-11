@@ -4,7 +4,7 @@ I. In detail
 2. [namedtuple](collections/namedtuple.md)  
 3. [defaultdict](collections/defaultdict.md)  
 4. [ChainMap](collections/ChainMap.md)  
-5. [abc](collections/abc.md)
+5. [Abstarct Base Classes](collections/abc.md)
   
 II. In general
 

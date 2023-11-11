@@ -1,23 +1,23 @@
 # Functools
 
 
-1. Functional programming  
+1. [Functional programming](#functional-programming)  
 
 Tools:  
 
-2. partial()
-3. partialmethod()
-4. @lru_cache(), @cache
-5. @cached_property
-6. @wraps, update_wrapper()
-7. @total_ordering
-8. @singledispatch
-9. @singledispatchmethod  
+2. [partial()](#partial)
+3. [partialmethod()](#partialmethod)
+4. [@lru_cache(), @cache](#lrucache-cache)
+5. [@cached_property](#cachedproperty)
+6. [@wraps, update_wrapper()](#wraps-updatewrapper)
+7. [@total_ordering](#totalordering)
+8. [@singledispatch](#singledispatch)
+9. [@singledispatchmethod](#singledispatchmethod)  
 
 Deprecated or non-pythonic:  
 
-10. reduce()
-11. cmp_to_key()  
+10. [reduce()](#reduce)
+11. [cmp_to_key()](#cmptokey)  
 
 ---
 ## Functional programming

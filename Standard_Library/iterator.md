@@ -1,17 +1,17 @@
 # Iterator
 
-1. [Brief]()
-2. [Iterable](#iterable)
+1. [Brief](#brief)
+2. [Iterable](#iterable-)
    1. Definition
    2. Custom iterable (\_\_iter__)
-3. [Iterator](#iterator)  
+3. [Iterator](#iterator-)  
    1. iter(), next()
    2. iter() with sentinel
    3. Custom iterator (\_\_iter\_\_, \_\_next\_\_)
 4. [Generator](#generator)  
    1. yield
    2. Generator expression  
-5. [Iterators are lazy]()  
+5. [Iterators are lazy](#iterators-are-lazy-)  
 
 ---
 

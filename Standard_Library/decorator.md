@@ -1,15 +1,15 @@
 # Decorator
-1. Inner function and enclosing scope
-2. Closure
-3. Decorator
-4. Parameters and return
-5. Introspection
-6. Chaining decorators
-7. Decorator without wrapper
-8. Decorators with arguments
-9. Decorating classes
-10. Classes as decorators
-11. Decorators with state
+1. [Inner function and enclosing scope](#inner-function-and-enclosing-scope)
+2. [Closure](#closure)
+3. [Decorator](#decorator)
+4. [Parameters and return](#parameters-and-return)
+5. [Introspection](#introspection)
+6. [Chaining decorators](#chaining-decorators)
+7. [Decorator without wrapper](#decorator-without-wrapper)
+8. [Decorators with arguments](#decorators-with-arguments)
+9. [Decorating classes](#decorating-classes)
+10. [Classes as decorators](#classes-as-decorators)
+11. [Decorators with state](#decorators-with-state)
 
 ---
 
