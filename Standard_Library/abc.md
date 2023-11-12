@@ -61,7 +61,7 @@ from abc import ABC
 class MyABC(ABC):
     pass
 ```
-is equivalent to:
+it is generally equivalent to:
 ```python
 from abc import ABCMeta
 class MyABC(metaclass=ABCMeta):
