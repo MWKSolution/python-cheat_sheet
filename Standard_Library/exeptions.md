@@ -143,5 +143,6 @@ BaseException
            └── UserWarning
 ```
 ## Links
+[Example](../.examples/traceback/test_tb.py)
 
 [Creating Beautiful Tracebacks with Python's Exception Hooks](https://martinheinz.dev/blog/66)
