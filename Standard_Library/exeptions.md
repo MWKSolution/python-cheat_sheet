@@ -3,7 +3,12 @@
 * [Exceptions](#exceptions)
   * [Raising exceptions](#raising-exceptions)
   * [Catching exceptions](#catching-exceptions)
+  * [Traceback](#traceback)
+    * [frame, linecache](#frame-linecache)
+    * [excepthook](#excepthook)
+  * [Warnings](#warnings)
   * [Base Exception Classes](#base-exception-classes)
+  * [Links](#links)
 <!-- TOC -->
 
 ## Raising exceptions
@@ -70,6 +75,37 @@ import sys
  def exception_hook(exc_type: type, exc_value: BaseException, trace_back: TracebackType) -> None:
     pass
 sys.excepthook = exception_hook
+```
+
+## Warnings
+Issue warning:
+```python
+import warnings
+
+warnings.warn('message',DeprecationWarning)
+```
+Formatting warnings:
+```python
+import warnings
+import pathlib as ptb
+
+def warning_format(message, category, filename, lineno, line=None):
+    return f'{ptb.Path(filename).stem}:{lineno} >> {category.__name__}: {message}\n'
+
+warnings.formatwarning = warning_format
+```
+Custom warning:
+```python
+class CustomWarning(Warning):
+    pass
+```
+Filtering warnings:
+
+```python
+import warnings
+
+warnings.simplefilter("ignore", DeprecationWarning)
+# "default", "error", "ignore", "always", "module", "once"
 ```
 
 ## Base Exception Classes
