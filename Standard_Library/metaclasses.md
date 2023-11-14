@@ -94,6 +94,23 @@ print(obj.get_age()) # Output: 30
 Could be defined only in metaclass.  
 Customisation of **isistance()** and **isdubclass()** built-in methods.
 
+## **\_\_prepare__()**
+The namespace returned by **\_\_prepare__** is passed in to **\_\_new__**, but when the final class object is created the namespace is copied into a new dict.  
+If the metaclass has no **\_\_prepare__** attribute, then the class namespace is initialised as an empty ordered mapping.  
+```python
+from collections import OrderedDict
+class Meta(type):  
+    @classmethod
+    def __prepare__(cls, name, bases, **kwargs):
+        ...
+        return OrderedDict()
+    def __new__(cls, name, bases, attrs, **kwargs):
+        ...
+        return super().__new__(cls, name, bases, attrs)                                                     
+    def __init__(self, name, bases, attrs, **kwargs):
+        ...
+        super().__init__(name, bases, attrs)
+```
 ## Links
 [What are metaclasses in Python?](https://stackoverflow.com/questions/100003/what-are-metaclasses-in-python)  
 [real python](https://realpython.com/python-metaclasses/)  

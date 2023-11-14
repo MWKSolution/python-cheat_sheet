@@ -41,7 +41,8 @@
    11. [Paths and Files](Standard_Library/files.md)
 
 ## Standard library - advanced
-1. [Decorator](Standard_Library/decorator.md)
+1. [Exceptions](Standard_Library/exeptions.md)
+2. [Decorator](Standard_Library/decorator.md)
 2. [typing](Standard_Library/typing.md)
 3. [regex](Standard_Library/regex.md)
 4. [dataclasses](Standard_Library/dataclasses.md)
