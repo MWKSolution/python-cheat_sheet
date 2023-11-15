@@ -1,9 +1,10 @@
 import sys
 from pathlib import Path
 from linecache import getline
-from typing import Generator, TextIO, Type
+from typing import Generator, TextIO, Type, NewType
 from types import TracebackType
 
+ExceptionType = NewType('ExceptionType', type)
 
 class CustomTraceback:
     """
@@ -17,7 +18,8 @@ class CustomTraceback:
     """
     STDERR = sys.stderr  # get the standard error object
 
-    def __new__(cls, exc: BaseException) -> str:
+    def __new__(cls,
+                exc: BaseException) -> str:
         """
         Doesn't create instances. Returns formatted exception string.
         :param exc: exception
@@ -26,7 +28,8 @@ class CustomTraceback:
         return cls.format_exception(exc)
 
     @classmethod
-    def get_exception_chain(cls, exc: BaseException) -> Generator[BaseException, None, None]:
+    def get_exception_chain(cls,
+                            exc: BaseException) -> Generator[BaseException, None, None]:
         """
         Get exception chain starting from given exception (exc) -  as generator
         Neet to be reversed to got most last exception at the end.
@@ -40,7 +43,9 @@ class CustomTraceback:
                 break
 
     @staticmethod
-    def format_traceback(tb: TracebackType, code: bool = True) -> str:
+    def format_traceback(
+            tb: TracebackType,
+            code: bool = True) -> str:
         """
         Format traceback string
         :param tb: traceback
@@ -61,7 +66,9 @@ class CustomTraceback:
         return tb_str
 
     @classmethod
-    def format_exception(cls, exc: BaseException, reverse: bool = False) -> str:
+    def format_exception(cls,
+                         exc: BaseException,
+                         reverse: bool = False) -> str:
         """
         Format exception string
         :param exc: exception
@@ -75,7 +82,9 @@ class CustomTraceback:
         return exc_str
 
     @classmethod
-    def print_exception(cls, exc: BaseException, file: TextIO = STDERR) -> None:
+    def print_exception(cls,
+                        exc: BaseException,
+                        file: TextIO = STDERR) -> None:
         """
         Just print formatted exception to the given io object (stdout, stderr, ...)
         :param exc: exception
@@ -85,7 +94,10 @@ class CustomTraceback:
         print(cls.format_exception(exc), file=file)
 
     @classmethod
-    def exception_hook(cls, exc_type: Type, exc_value: BaseException, trace_back: TracebackType) -> None:
+    def exception_hook(cls,
+                       exc_type: ExceptionType,
+                       exc_value: BaseException,
+                       trace_back: TracebackType) -> None:
         """
         Method to be used as system exception hook:
         sys.excepthook = CustomTraceback.exception_hook
