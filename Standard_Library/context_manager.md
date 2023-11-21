@@ -113,6 +113,7 @@ class RedirectedStdout:
 ---
 
 ## Context manager with generator (@contextmanager)
+This function is a decorator that can be used to define a factory function for with statement context managers, without needing to create a class or separate __enter__() and __exit__() methods.  
 ```python
 from contextlib import contextmanager
 
