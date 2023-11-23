@@ -197,6 +197,16 @@ if __name__ == '__main__':
     print(blocking_io_con(thread_pool))
 
 ```
+results:
+```text
+sequential cpu: 31.609946300042793
+concurrent cpu: 12.516020499984734     2.5 times faster
+
+sequential io: 34.00811359996442
+concurrent io: 6.804041599971242      5 times faster
+
+```
+
 
 ## asynchronous iterator, asynchronous generator
 ...
