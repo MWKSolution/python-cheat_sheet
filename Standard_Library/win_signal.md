@@ -1,9 +1,13 @@
-## Sending CTRL_C_EVENT and CTRL_BREAK_EVENT signals in Windows 10
+## CTRL_C_EVENT and CTRL_BREAK_EVENT in Windows
+Sending CTRL_C_EVENT and CTRL_BREAK_EVENT signals in Windows 10  
+Pyton version: 3.11 
 
 ---
 
 # Subprocess code
-Dummy server code bundled with PyInstaller to **server.exe**
+Dummy server code bundled with PyInstaller to **server.exe**  
+server.exe has console !!!  
+Target: server.exe closed cleanly and PyInstaller _MEI tmp files are cleaned !
 ```python
 import time
 import os
@@ -18,13 +22,8 @@ def handler_break(sig, frame):
     print('Terminated by SIGBREAK', file=sys.stderr)
     sys.exit(102)
 
-def handler_term(sig, frame):
-    print('Terminated by SIGTERM', file=sys.stderr)
-    sys.exit(103)
-
 signal.signal(signal.SIGINT, handler_int)
 signal.signal(signal.SIGBREAK, handler_break)
-signal.signal(signal.SIGTERM, handler_term)
 
 def server():
     while True:
@@ -36,10 +35,7 @@ def server():
 if __name__ == '__main__':
     server()
 ```
----
-# 1. Console app and server
 
-_MEI tmp files cleaned!
 
 ---
 # CTRL_BREAK_EVENT
@@ -79,7 +75,7 @@ os.kill(0,signal.CTRL_BREAK_EVENT))
 ...is used it interrupts **parent process as well** !!!
 
 # CTRL_C_EVENT
-Use 0 (current process group) in os.kill
+Use 0 (current process group) in os.kill and don't create process group.
 ```python
 import subprocess as sp
 import sys
