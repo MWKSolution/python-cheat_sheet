@@ -50,6 +50,9 @@
 6. [Metaclasses](Standard_Library/metaclasses.md)
 7. [Concurrency](Standard_Library/Concurrency/concurrency.md)
 8. [Descriptors](Standard_Library/descriptor.md)
+
+## Standard library - OS tricks
+1. [Signals in Windows 10](Standard_Library/win_signal.md)
 ---
 
 ## Pytest  
